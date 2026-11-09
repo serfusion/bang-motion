@@ -1,0 +1,732 @@
+{
+ "voice": {
+  "provider": "elevenlabs",
+  "model": "eleven_v3",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "voice_name": "Liam",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  },
+  "language_code": "id"
+ },
+ "lines": [
+  {
+   "key": "s1",
+   "text": "[curious] Jeruk... atau daun ini? [curious] Mana yang vitamin C-nya lebih banyak?",
+   "file": "assets/vo/s1.mp3",
+   "dur": 5.068,
+   "words": [
+    {
+     "w": "Jeruk...",
+     "t": 0.195,
+     "e": 0.88
+    },
+    {
+     "w": "atau",
+     "t": 0.976,
+     "e": 1.36
+    },
+    {
+     "w": "daun",
+     "t": 1.44,
+     "e": 1.68
+    },
+    {
+     "w": "ini?",
+     "t": 1.74,
+     "e": 2.08
+    },
+    {
+     "w": "Mana",
+     "t": 3.392,
+     "e": 3.44
+    },
+    {
+     "w": "yang",
+     "t": 3.472,
+     "e": 3.6
+    },
+    {
+     "w": "vitamin",
+     "t": 3.65,
+     "e": 4.0
+    },
+    {
+     "w": "C-nya",
+     "t": 4.08,
+     "e": 4.32
+    },
+    {
+     "w": "lebih",
+     "t": 4.347,
+     "e": 4.48
+    },
+    {
+     "w": "banyak?",
+     "t": 4.537,
+     "e": 5.04
+    }
+   ]
+  },
+  {
+   "key": "s2",
+   "text": "[excited] Jawabannya... DAUN INI! [excited] Vitamin C-nya tiga kali lipat jeruk!",
+   "file": "assets/vo/s2.mp3",
+   "dur": 6.269,
+   "words": [
+    {
+     "w": "Jawabannya...",
+     "t": 0.21,
+     "e": 1.76
+    },
+    {
+     "w": "DAUN",
+     "t": 1.84,
+     "e": 2.16
+    },
+    {
+     "w": "INI!",
+     "t": 2.24,
+     "e": 3.04
+    },
+    {
+     "w": "Vitamin",
+     "t": 3.752,
+     "e": 3.84
+    },
+    {
+     "w": "C-nya",
+     "t": 3.96,
+     "e": 4.24
+    },
+    {
+     "w": "tiga",
+     "t": 4.32,
+     "e": 4.48
+    },
+    {
+     "w": "kali",
+     "t": 4.528,
+     "e": 4.72
+    },
+    {
+     "w": "lipat",
+     "t": 4.8,
+     "e": 5.12
+    },
+    {
+     "w": "jeruk!",
+     "t": 5.16,
+     "e": 6.24
+    }
+   ]
+  },
+  {
+   "key": "s3",
+   "text": "[warm] Kenalin, daun katuk. Sering dicuekin... [excited] padahal gizinya padat banget! [whispers] Tapi ada satu hal yang wajib kamu tahu... nanti di akhir.",
+   "file": "assets/vo/s3.mp3",
+   "dur": 10.449,
+   "words": [
+    {
+     "w": "Kenalin,",
+     "t": 0.13,
+     "e": 0.56
+    },
+    {
+     "w": "daun",
+     "t": 0.667,
+     "e": 0.96
+    },
+    {
+     "w": "katuk.",
+     "t": 1.04,
+     "e": 1.52
+    },
+    {
+     "w": "Sering",
+     "t": 1.96,
+     "e": 2.56
+    },
+    {
+     "w": "dicuekin...",
+     "t": 2.62,
+     "e": 3.92
+    },
+    {
+     "w": "padahal",
+     "t": 4.056,
+     "e": 4.32
+    },
+    {
+     "w": "gizinya",
+     "t": 4.38,
+     "e": 4.72
+    },
+    {
+     "w": "padat",
+     "t": 4.76,
+     "e": 4.96
+    },
+    {
+     "w": "banget!",
+     "t": 5.06,
+     "e": 5.68
+    },
+    {
+     "w": "Tapi",
+     "t": 6.752,
+     "e": 6.8
+    },
+    {
+     "w": "ada",
+     "t": 6.86,
+     "e": 7.04
+    },
+    {
+     "w": "satu",
+     "t": 7.088,
+     "e": 7.28
+    },
+    {
+     "w": "hal",
+     "t": 7.36,
+     "e": 7.6
+    },
+    {
+     "w": "yang",
+     "t": 7.632,
+     "e": 7.76
+    },
+    {
+     "w": "wajib",
+     "t": 7.8,
+     "e": 8.24
+    },
+    {
+     "w": "kamu",
+     "t": 8.288,
+     "e": 8.48
+    },
+    {
+     "w": "tahu...",
+     "t": 8.52,
+     "e": 9.52
+    },
+    {
+     "w": "nanti",
+     "t": 9.56,
+     "e": 9.84
+    },
+    {
+     "w": "di",
+     "t": 9.893,
+     "e": 10.0
+    },
+    {
+     "w": "akhir.",
+     "t": 10.053,
+     "e": 10.4
+    }
+   ]
+  },
+  {
+   "key": "s4",
+   "text": "Pertama: sahabat ibu menyusui! Dari zaman nenek, katuk dipercaya bikin ASI lancar... [excited] dan beberapa penelitian bilang, hasilnya menjanjikan!",
+   "file": "assets/vo/s4.mp3",
+   "dur": 10.919,
+   "words": [
+    {
+     "w": "Pertama:",
+     "t": 0.0,
+     "e": 0.92
+    },
+    {
+     "w": "sahabat",
+     "t": 1.067,
+     "e": 1.68
+    },
+    {
+     "w": "ibu",
+     "t": 1.76,
+     "e": 2.0
+    },
+    {
+     "w": "menyusui!",
+     "t": 2.032,
+     "e": 2.64
+    },
+    {
+     "w": "Dari",
+     "t": 3.2,
+     "e": 3.92
+    },
+    {
+     "w": "zaman",
+     "t": 3.973,
+     "e": 4.24
+    },
+    {
+     "w": "nenek,",
+     "t": 4.3,
+     "e": 4.8
+    },
+    {
+     "w": "katuk",
+     "t": 4.86,
+     "e": 5.12
+    },
+    {
+     "w": "dipercaya",
+     "t": 5.18,
+     "e": 5.76
+    },
+    {
+     "w": "bikin",
+     "t": 5.8,
+     "e": 6.0
+    },
+    {
+     "w": "ASI",
+     "t": 6.08,
+     "e": 6.44
+    },
+    {
+     "w": "lancar...",
+     "t": 6.48,
+     "e": 7.36
+    },
+    {
+     "w": "dan",
+     "t": 7.57,
+     "e": 7.6
+    },
+    {
+     "w": "beberapa",
+     "t": 7.653,
+     "e": 8.08
+    },
+    {
+     "w": "penelitian",
+     "t": 8.12,
+     "e": 8.56
+    },
+    {
+     "w": "bilang,",
+     "t": 8.62,
+     "e": 9.36
+    },
+    {
+     "w": "hasilnya",
+     "t": 9.413,
+     "e": 9.84
+    },
+    {
+     "w": "menjanjikan!",
+     "t": 9.9,
+     "e": 10.88
+    }
+   ]
+  },
+  {
+   "key": "s5",
+   "text": "Kedua: kalsiumnya lebih tinggi dari... [surprised] susu sapi! [laughs] Iya, susu!",
+   "file": "assets/vo/s5.mp3",
+   "dur": 7.549,
+   "words": [
+    {
+     "w": "Kedua:",
+     "t": 0.0,
+     "e": 0.48
+    },
+    {
+     "w": "kalsiumnya",
+     "t": 0.84,
+     "e": 1.84
+    },
+    {
+     "w": "lebih",
+     "t": 1.88,
+     "e": 2.08
+    },
+    {
+     "w": "tinggi",
+     "t": 2.16,
+     "e": 2.64
+    },
+    {
+     "w": "dari...",
+     "t": 2.736,
+     "e": 3.76
+    },
+    {
+     "w": "susu",
+     "t": 4.035,
+     "e": 4.16
+    },
+    {
+     "w": "sapi!",
+     "t": 4.288,
+     "e": 4.88
+    },
+    {
+     "w": "Iya,",
+     "t": 5.64,
+     "e": 6.32
+    },
+    {
+     "w": "susu!",
+     "t": 6.42,
+     "e": 7.04
+    }
+   ]
+  },
+  {
+   "key": "s6",
+   "text": "Ketiga: karotenoidnya hampir nyamain wortel. Bagus buat mata!",
+   "file": "assets/vo/s6.mp3",
+   "dur": 6.609,
+   "words": [
+    {
+     "w": "Ketiga:",
+     "t": 0.0,
+     "e": 0.96
+    },
+    {
+     "w": "karotenoidnya",
+     "t": 1.06,
+     "e": 2.0
+    },
+    {
+     "w": "hampir",
+     "t": 2.08,
+     "e": 2.48
+    },
+    {
+     "w": "nyamain",
+     "t": 2.507,
+     "e": 2.88
+    },
+    {
+     "w": "wortel.",
+     "t": 2.92,
+     "e": 3.64
+    },
+    {
+     "w": "Bagus",
+     "t": 3.73,
+     "e": 4.08
+    },
+    {
+     "w": "buat",
+     "t": 4.133,
+     "e": 4.32
+    },
+    {
+     "w": "mata!",
+     "t": 4.4,
+     "e": 6.56
+    }
+   ]
+  },
+  {
+   "key": "s7",
+   "text": "Keempat: zat besinya setara bayam. [mischievously] Jadi kalau bosan bayam... nih, cadangannya!",
+   "file": "assets/vo/s7.mp3",
+   "dur": 6.922,
+   "words": [
+    {
+     "w": "Keempat:",
+     "t": 0.0,
+     "e": 0.84
+    },
+    {
+     "w": "zat",
+     "t": 0.93,
+     "e": 1.2
+    },
+    {
+     "w": "besinya",
+     "t": 1.26,
+     "e": 1.84
+    },
+    {
+     "w": "setara",
+     "t": 1.92,
+     "e": 2.48
+    },
+    {
+     "w": "bayam.",
+     "t": 2.56,
+     "e": 3.04
+    },
+    {
+     "w": "Jadi",
+     "t": 3.753,
+     "e": 4.081
+    },
+    {
+     "w": "kalau",
+     "t": 4.141,
+     "e": 4.401
+    },
+    {
+     "w": "bosan",
+     "t": 4.461,
+     "e": 4.721
+    },
+    {
+     "w": "bayam...",
+     "t": 4.801,
+     "e": 5.761
+    },
+    {
+     "w": "nih,",
+     "t": 5.801,
+     "e": 6.201
+    },
+    {
+     "w": "cadangannya!",
+     "t": 6.251,
+     "e": 6.881
+    }
+   ]
+  },
+  {
+   "key": "s8",
+   "text": "[serious] Nah, ini yang wajib kamu tahu. Tahun sembilan puluhan di Taiwan, sempat tren diet jus daun katuk mentah. [curious] Hasilnya? [dramatically] Banyak yang kena gangguan paru-paru serius! [serious] Jadi: masak dulu, jangan berlebihan.",
+   "file": "assets/vo/s8.mp3",
+   "dur": 16.353,
+   "words": [
+    {
+     "w": "Nah,",
+     "t": 0.18,
+     "e": 0.56
+    },
+    {
+     "w": "ini",
+     "t": 0.7,
+     "e": 1.12
+    },
+    {
+     "w": "yang",
+     "t": 1.152,
+     "e": 1.28
+    },
+    {
+     "w": "wajib",
+     "t": 1.32,
+     "e": 1.6
+    },
+    {
+     "w": "kamu",
+     "t": 1.648,
+     "e": 1.84
+    },
+    {
+     "w": "tahu.",
+     "t": 1.88,
+     "e": 2.24
+    },
+    {
+     "w": "Tahun",
+     "t": 2.68,
+     "e": 3.36
+    },
+    {
+     "w": "sembilan",
+     "t": 3.4,
+     "e": 3.68
+    },
+    {
+     "w": "puluhan",
+     "t": 3.72,
+     "e": 4.0
+    },
+    {
+     "w": "di",
+     "t": 4.053,
+     "e": 4.16
+    },
+    {
+     "w": "Taiwan,",
+     "t": 4.229,
+     "e": 4.76
+    },
+    {
+     "w": "sempat",
+     "t": 4.784,
+     "e": 4.96
+    },
+    {
+     "w": "tren",
+     "t": 5.024,
+     "e": 5.28
+    },
+    {
+     "w": "diet",
+     "t": 5.36,
+     "e": 5.68
+    },
+    {
+     "w": "jus",
+     "t": 5.74,
+     "e": 5.92
+    },
+    {
+     "w": "daun",
+     "t": 5.973,
+     "e": 6.24
+    },
+    {
+     "w": "katuk",
+     "t": 6.28,
+     "e": 6.48
+    },
+    {
+     "w": "mentah.",
+     "t": 6.544,
+     "e": 7.04
+    },
+    {
+     "w": "Hasilnya?",
+     "t": 8.105,
+     "e": 8.645
+    },
+    {
+     "w": "Banyak",
+     "t": 9.757,
+     "e": 10.165
+    },
+    {
+     "w": "yang",
+     "t": 10.197,
+     "e": 10.325
+    },
+    {
+     "w": "kena",
+     "t": 10.365,
+     "e": 10.645
+    },
+    {
+     "w": "gangguan",
+     "t": 10.693,
+     "e": 11.125
+    },
+    {
+     "w": "paru-paru",
+     "t": 11.165,
+     "e": 11.725
+    },
+    {
+     "w": "serius!",
+     "t": 11.755,
+     "e": 12.805
+    },
+    {
+     "w": "Jadi:",
+     "t": 13.432,
+     "e": 14.045
+    },
+    {
+     "w": "masak",
+     "t": 14.115,
+     "e": 14.405
+    },
+    {
+     "w": "dulu,",
+     "t": 14.485,
+     "e": 14.885
+    },
+    {
+     "w": "jangan",
+     "t": 15.165,
+     "e": 15.605
+    },
+    {
+     "w": "berlebihan.",
+     "t": 15.665,
+     "e": 16.325
+    }
+   ]
+  },
+  {
+   "key": "s9",
+   "text": "[excited] Murah, gampang ditanam, kaya manfaat! [playful] Kirim video ini ke temanmu yang masih pilih jeruk!",
+   "file": "assets/vo/s9.mp3",
+   "dur": 6.426,
+   "words": [
+    {
+     "w": "Murah,",
+     "t": 0.275,
+     "e": 0.64
+    },
+    {
+     "w": "gampang",
+     "t": 0.68,
+     "e": 1.04
+    },
+    {
+     "w": "ditanam,",
+     "t": 1.08,
+     "e": 1.68
+    },
+    {
+     "w": "kaya",
+     "t": 1.72,
+     "e": 2.08
+    },
+    {
+     "w": "manfaat!",
+     "t": 2.14,
+     "e": 2.8
+    },
+    {
+     "w": "Kirim",
+     "t": 3.33,
+     "e": 3.44
+    },
+    {
+     "w": "video",
+     "t": 3.493,
+     "e": 3.76
+    },
+    {
+     "w": "ini",
+     "t": 3.82,
+     "e": 4.0
+    },
+    {
+     "w": "ke",
+     "t": 4.027,
+     "e": 4.08
+    },
+    {
+     "w": "temanmu",
+     "t": 4.12,
+     "e": 4.56
+    },
+    {
+     "w": "yang",
+     "t": 4.608,
+     "e": 4.8
+    },
+    {
+     "w": "masih",
+     "t": 4.867,
+     "e": 5.2
+    },
+    {
+     "w": "pilih",
+     "t": 5.24,
+     "e": 5.52
+    },
+    {
+     "w": "jeruk!",
+     "t": 5.58,
+     "e": 6.4
+    }
+   ]
+  }
+ ]
+}

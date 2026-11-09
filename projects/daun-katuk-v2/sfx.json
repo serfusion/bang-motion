@@ -1,0 +1,762 @@
+[
+ {
+  "t": 0,
+  "src": "transition/swoosh-quick",
+  "vol": 0.3,
+  "max": null,
+  "al": "on",
+  "note": "kartu A masuk"
+ },
+ {
+  "t": 0.06,
+  "src": "transition/swoosh-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "note": "kartu B masuk"
+ },
+ {
+  "t": 0.12,
+  "src": "paper/paper-slide",
+  "vol": 0.3,
+  "max": 0.5,
+  "al": "on",
+  "note": "stiker KUIS"
+ },
+ {
+  "t": 0.35,
+  "src": "transition/wind-swoosh-short",
+  "vol": 0.18,
+  "max": null,
+  "al": "on",
+  "note": "maskot muncul"
+ },
+ {
+  "t": 3.304,
+  "src": "counter/clock-tick-single",
+  "vol": 0.6,
+  "max": null,
+  "al": "pk",
+  "note": "hitung mundur 3"
+ },
+ {
+  "t": 3.72,
+  "src": "counter/clock-tick-single",
+  "vol": 0.6599999999999999,
+  "max": null,
+  "al": "pk",
+  "note": "hitung mundur 2"
+ },
+ {
+  "t": 4.135,
+  "src": "counter/clock-tick-single",
+  "vol": 0.72,
+  "max": null,
+  "al": "pk",
+  "note": "hitung mundur 1"
+ },
+ {
+  "t": 4.631,
+  "src": "ui/switch-click-quick",
+  "vol": 0.32,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet A (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 4.693,
+  "src": "ui/switch-tap",
+  "vol": 0.342,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet B (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 4.767,
+  "src": "ui/switch-click-quick",
+  "vol": 0.364,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet A (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 4.856,
+  "src": "ui/switch-tap",
+  "vol": 0.386,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet B (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 4.963,
+  "src": "ui/switch-click-quick",
+  "vol": 0.40800000000000003,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet A (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 5.091,
+  "src": "ui/switch-tap",
+  "vol": 0.43000000000000005,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet B (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 5.155,
+  "src": "light/light-sweep-magic",
+  "vol": 0.3,
+  "max": 1.1,
+  "al": "tail",
+  "note": "naik menuju jawaban"
+ },
+ {
+  "t": 5.245,
+  "src": "ui/switch-click-quick",
+  "vol": 0.452,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet A (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 5.429,
+  "src": "ui/switch-tap",
+  "vol": 0.474,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet B (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 5.65,
+  "src": "ui/switch-click-quick",
+  "vol": 0.496,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet A (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 5.916,
+  "src": "ui/switch-tap",
+  "vol": 0.518,
+  "max": 0.25,
+  "al": "on",
+  "note": "rolet B (dua sampel bergantian, makin keras saat melambat)"
+ },
+ {
+  "t": 6.255,
+  "src": "impact/hit-fast-exciting",
+  "vol": 0.5,
+  "max": null,
+  "al": "on",
+  "note": "DAUN INI!"
+ },
+ {
+  "t": 6.275,
+  "src": "light/sparkle-poof-hit",
+  "vol": 0.28,
+  "max": 1.4,
+  "al": "on",
+  "note": "konfeti daun"
+ },
+ {
+  "t": 6.305,
+  "src": "crowd/applause-rhythmic-loop",
+  "vol": 0.22,
+  "max": 1.6,
+  "al": "on",
+  "note": "tepuk tangan"
+ },
+ {
+  "t": 6.655,
+  "src": "impact/hit-weak",
+  "vol": 0.45,
+  "max": null,
+  "al": "on",
+  "note": "stempel MENANG"
+ },
+ {
+  "t": 7.435,
+  "src": "text/typewriter-hit-soft",
+  "vol": 0.32,
+  "max": null,
+  "al": "on",
+  "note": "49 mg"
+ },
+ {
+  "t": 7.565,
+  "src": "text/typewriter-hit-soft",
+  "vol": 0.28,
+  "max": null,
+  "al": "on",
+  "note": "164 mg"
+ },
+ {
+  "t": 7.971,
+  "src": "transition/whoosh-fast",
+  "vol": 0.32,
+  "max": null,
+  "al": "pk",
+  "note": "3x meluncur"
+ },
+ {
+  "t": 7.971,
+  "src": "impact/hit-blow",
+  "vol": 0.55,
+  "max": null,
+  "al": "pk",
+  "note": "3x menghantam (riso)"
+ },
+ {
+  "t": 8.704,
+  "src": "paper/paper-staple",
+  "vol": 0.36,
+  "max": null,
+  "al": "pk",
+  "note": "pelat terkunci"
+ },
+ {
+  "t": 9.78,
+  "src": "transition/air-zoom-vacuum",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "note": "menembus kartu B"
+ },
+ {
+  "t": 10.03,
+  "src": "paper/paper-move-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "note": "foto melayang"
+ },
+ {
+  "t": 10.369,
+  "src": "transition/swoosh-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "note": "judul ditekan"
+ },
+ {
+  "t": 11.303,
+  "src": "light/sparkle-touch",
+  "vol": 0.22,
+  "max": 1,
+  "al": "on",
+  "note": "si populer"
+ },
+ {
+  "t": 11.497,
+  "src": "paper/paper-slice-quick",
+  "vol": 0.5,
+  "max": null,
+  "al": "pk",
+  "note": "selotip 1"
+ },
+ {
+  "t": 12.23,
+  "src": "paper/paper-staple",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "note": "selotip 2"
+ },
+ {
+  "t": 13.322,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.32,
+  "max": 0.4,
+  "al": "on",
+  "note": "chip Vitamin C"
+ },
+ {
+  "t": 13.452,
+  "src": "fluid/water-bubble",
+  "vol": 0.29000000000000004,
+  "max": 0.4,
+  "al": "on",
+  "note": "chip Kalsium"
+ },
+ {
+  "t": 13.582,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.26,
+  "max": 0.4,
+  "al": "on",
+  "note": "chip Zat besi"
+ },
+ {
+  "t": 13.712,
+  "src": "fluid/water-bubble",
+  "vol": 0.23,
+  "max": 0.4,
+  "al": "on",
+  "note": "chip Karotenoid"
+ },
+ {
+  "t": 13.842,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.2,
+  "max": 0.4,
+  "al": "on",
+  "note": "chip Protein"
+ },
+ {
+  "t": 14.638,
+  "src": "transition/air-woosh-deep",
+  "vol": 0.24,
+  "max": 1.2,
+  "al": "on",
+  "note": "layar meredup (rahasia)"
+ },
+ {
+  "t": 14.738,
+  "src": "paper/paper-slide",
+  "vol": 0.3,
+  "max": 0.6,
+  "al": "on",
+  "note": "kartu misteri"
+ },
+ {
+  "t": 16.696,
+  "src": "transition/wing-flutter",
+  "vol": 0.45,
+  "max": 0.95,
+  "al": "on",
+  "note": "daun #1 lepas"
+ },
+ {
+  "t": 17.056,
+  "src": "transition/whoosh-fast",
+  "vol": 0.3,
+  "max": null,
+  "al": "pk",
+  "note": "whip kanan"
+ },
+ {
+  "t": 18.008,
+  "src": "paper/paper-slide",
+  "vol": 0.24,
+  "max": 0.6,
+  "al": "on",
+  "note": "ibu & bayi"
+ },
+ {
+  "t": 20.448,
+  "src": "paper/paper-move-quick",
+  "vol": 0.28,
+  "max": null,
+  "al": "on",
+  "note": "resep nenek"
+ },
+ {
+  "t": 22.277,
+  "src": "text/marker-pen-line",
+  "vol": 0.34,
+  "max": 0.45,
+  "al": "on",
+  "note": "spidol ASI"
+ },
+ {
+  "t": 23.663,
+  "src": "paper/paper-page-turn",
+  "vol": 0.32,
+  "max": null,
+  "al": "on",
+  "note": "jurnal"
+ },
+ {
+  "t": 24.24,
+  "src": "text/pen-write-paper",
+  "vol": 0.26,
+  "max": 0.7,
+  "al": "on",
+  "note": "grafik naik"
+ },
+ {
+  "t": 25.384,
+  "src": "crowd/clap-single",
+  "vol": 0.42,
+  "max": null,
+  "al": "on",
+  "note": "centang + jempol"
+ },
+ {
+  "t": 25.397,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.28,
+  "max": 0.6,
+  "al": "on",
+  "note": "tetes muncul"
+ },
+ {
+  "t": 26.447,
+  "src": "transition/wing-flutter",
+  "vol": 0.4,
+  "max": 0.85,
+  "al": "on",
+  "note": "lencana 2"
+ },
+ {
+  "t": 26.547,
+  "src": "transition/air-zoom-vacuum",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "note": "menyelam"
+ },
+ {
+  "t": 26.547,
+  "src": "fluid/water-splash",
+  "vol": 0.2,
+  "max": 1,
+  "al": "pk",
+  "note": "masuk halaman kalsium"
+ },
+ {
+  "t": 27.142,
+  "src": "transition/swoosh-quick",
+  "vol": 0.22,
+  "max": null,
+  "al": "on",
+  "note": "gigi & tulang"
+ },
+ {
+  "t": 28.081,
+  "src": "text/chalk-line",
+  "vol": 0.26,
+  "max": 0.9,
+  "al": "on",
+  "note": "batang arsir"
+ },
+ {
+  "t": 28.301,
+  "src": "text/chalk-line",
+  "vol": 0.2,
+  "max": 0.9,
+  "al": "on",
+  "note": "batang ???"
+ },
+ {
+  "t": 29.081,
+  "src": "fluid/sand-swish",
+  "vol": 0.32,
+  "max": 1,
+  "al": "on",
+  "note": "katuk jadi warna padat"
+ },
+ {
+  "t": 29.987,
+  "src": "impact/impact-zoom-quick",
+  "vol": 0.42,
+  "max": null,
+  "al": "pk",
+  "note": "SUSU SAPI! (reveal)"
+ },
+ {
+  "t": 30.097,
+  "src": "glass/glass-plate-slide",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "note": "gelas susu"
+ },
+ {
+  "t": 32.465,
+  "src": "transition/whoosh-fast",
+  "vol": 0.38,
+  "max": null,
+  "al": "pk",
+  "note": "whip turun"
+ },
+ {
+  "t": 32.585,
+  "src": "camera/click-camera",
+  "vol": 0.35,
+  "max": null,
+  "al": "pk",
+  "note": "kacamata maskot"
+ },
+ {
+  "t": 32.735,
+  "src": "text/pen-write-paper",
+  "vol": 0.32,
+  "max": 1.33,
+  "al": "on",
+  "note": "pena menggambar mata"
+ },
+ {
+  "t": 33.475,
+  "src": "transition/swoosh-quick",
+  "vol": 0.2,
+  "max": null,
+  "al": "on",
+  "note": "daun"
+ },
+ {
+  "t": 34.068,
+  "src": "text/pen-click-twice",
+  "vol": 0.28,
+  "max": 0.4,
+  "al": "pk",
+  "note": "garis menutup"
+ },
+ {
+  "t": 35.096,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.2,
+  "max": 0.8,
+  "al": "on",
+  "note": "wortel"
+ },
+ {
+  "t": 36.027,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.3,
+  "max": null,
+  "al": "on",
+  "note": "geser ke zat besi"
+ },
+ {
+  "t": 36.377,
+  "src": "transition/wing-flutter",
+  "vol": 0.4,
+  "max": 0.85,
+  "al": "on",
+  "note": "lencana 4"
+ },
+ {
+  "t": 37.322,
+  "src": "impact/metal-spring-hit",
+  "vol": 0.2,
+  "max": 1.4,
+  "al": "on",
+  "note": "tile Fe"
+ },
+ {
+  "t": 37.948,
+  "src": "transition/swoosh-quick",
+  "vol": 0.2,
+  "max": null,
+  "al": "on",
+  "note": "bayam"
+ },
+ {
+  "t": 38.665,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.18,
+  "max": 0.8,
+  "al": "on",
+  "note": "katuk"
+ },
+ {
+  "t": 41.161,
+  "src": "paper/paper-staple",
+  "vol": 0.34,
+  "max": null,
+  "al": "pk",
+  "note": "stiker cadangan"
+ },
+ {
+  "t": 41.876,
+  "src": "film/vinyl-scratch-small",
+  "vol": 0.62,
+  "max": null,
+  "al": "on",
+  "note": "piringan berhenti: TWIST"
+ },
+ {
+  "t": 42.196,
+  "src": "fluid/water-drop-cave",
+  "vol": 0.5,
+  "max": null,
+  "al": "pk",
+  "note": "tetes tinta"
+ },
+ {
+  "t": 42.296,
+  "src": "transition/air-woosh-deep",
+  "vol": 0.26,
+  "max": 2,
+  "al": "on",
+  "note": "tinta merembes"
+ },
+ {
+  "t": 43.716,
+  "src": "paper/paper-page-turn-big",
+  "vol": 0.4,
+  "max": null,
+  "al": "on",
+  "note": "kliping koran"
+ },
+ {
+  "t": 48.23,
+  "src": "crowd/heartbeat-single",
+  "vol": 0.5,
+  "max": null,
+  "al": "on",
+  "note": "deg..."
+ },
+ {
+  "t": 48.57,
+  "src": "paper/paper-slide",
+  "vol": 0.26,
+  "max": 0.6,
+  "al": "on",
+  "note": "paru-paru"
+ },
+ {
+  "t": 48.59,
+  "src": "crowd/heartbeat-single",
+  "vol": 0.42,
+  "max": null,
+  "al": "on",
+  "note": "...deg"
+ },
+ {
+  "t": 50.507,
+  "src": "impact/hit-blow",
+  "vol": 0.5,
+  "max": null,
+  "al": "pk",
+  "note": "stempel BAHAYA"
+ },
+ {
+  "t": 51.18,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.24,
+  "max": null,
+  "al": "on",
+  "note": "kamera turun"
+ },
+ {
+  "t": 51.864,
+  "src": "paper/paper-slide",
+  "vol": 0.24,
+  "max": 0.6,
+  "al": "on",
+  "note": "panci"
+ },
+ {
+  "t": 52.33,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.2,
+  "max": null,
+  "al": "on",
+  "note": "mendidih"
+ },
+ {
+  "t": 52.727,
+  "src": "glass/glass-plate-slide",
+  "vol": 0.3,
+  "max": null,
+  "al": "on",
+  "note": "gelas jus"
+ },
+ {
+  "t": 53.254,
+  "src": "text/marker-pen-line",
+  "vol": 0.42,
+  "max": 0.35,
+  "al": "on",
+  "note": "coret X 1"
+ },
+ {
+  "t": 53.454,
+  "src": "text/chalk-line",
+  "vol": 0.38,
+  "max": 0.35,
+  "al": "on",
+  "note": "coret X 2"
+ },
+ {
+  "t": 54.142,
+  "src": "transition/air-whoosh-powerful",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "note": "daun melintasi lensa"
+ },
+ {
+  "t": 54.142,
+  "src": "impact/impact-cine-big",
+  "vol": 0.42,
+  "max": null,
+  "al": "pk",
+  "note": "CTA: puncak"
+ },
+ {
+  "t": 54.372,
+  "src": "transition/wing-flutter",
+  "vol": 0.34,
+  "max": 0.8,
+  "al": "on",
+  "note": "daun 1 kembali"
+ },
+ {
+  "t": 54.592,
+  "src": "transition/swoosh-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "note": "judul"
+ },
+ {
+  "t": 54.612,
+  "src": "light/stardust-swish",
+  "vol": 0.30000000000000004,
+  "max": 0.8,
+  "al": "on",
+  "note": "daun 2 kembali"
+ },
+ {
+  "t": 54.852,
+  "src": "transition/wing-flutter",
+  "vol": 0.26,
+  "max": 0.8,
+  "al": "on",
+  "note": "daun 3 kembali"
+ },
+ {
+  "t": 55.092,
+  "src": "light/stardust-swish",
+  "vol": 0.22000000000000003,
+  "max": 0.8,
+  "al": "on",
+  "note": "daun 4 kembali"
+ },
+ {
+  "t": 55.809,
+  "src": "text/marker-pen-line",
+  "vol": 0.34,
+  "max": 0.45,
+  "al": "on",
+  "note": "spidol katuk"
+ },
+ {
+  "t": 56.485,
+  "src": "transition/swoosh-quick",
+  "vol": 0.28,
+  "max": null,
+  "al": "on",
+  "note": "ikon kirim"
+ },
+ {
+  "t": 58.378,
+  "src": "impact/metal-spring-hit",
+  "vol": 0.24,
+  "max": 1,
+  "al": "on",
+  "note": "jeruk membesar (callback kuis)"
+ },
+ {
+  "t": 59.259,
+  "src": "light/sparkle-wand",
+  "vol": 0.28,
+  "max": 2.2,
+  "al": "on",
+  "note": "sparkle penutup"
+ }
+]

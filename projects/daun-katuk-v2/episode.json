@@ -1,0 +1,109 @@
+{
+ "id": "daun-katuk",
+ "title": "Manfaat Daun Katuk",
+ "lang": "id",
+ "format": {
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 60
+ },
+ "voice": {
+  "provider": "elevenlabs",
+  "model": "eleven_v3",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "voice_name": "Liam",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  },
+  "language_code": "id"
+ },
+ "notes": "Teks VO memakai tag emosi eleven_v3 ([curious], [excited], ...). '|' = batas halaman subtitle (dibuang sebelum TTS). Subtitle EN punya jumlah halaman yang sama dengan ID per adegan.",
+ "facts_source": "Data Komposisi Pangan Indonesia (Kemenkes RI), per 100 g",
+ "scenes": [
+  {
+   "key": "s1",
+   "block": "quiz",
+   "vo": "[curious] Jeruk... | atau daun ini? | [curious] Mana yang vitamin C-nya | lebih banyak?",
+   "en": "Orange... | or this leaf? | Which one has | more vitamin C?"
+  },
+  {
+   "key": "s2",
+   "block": "reveal",
+   "pause_before": 1.0,
+   "vo": "[excited] Jawabannya... | DAUN INI! | [excited] Vitamin C-nya | tiga kali lipat jeruk!",
+   "en": "The answer... | THIS LEAF! | Its vitamin C is | 3x an orange's!",
+   "facts": {
+    "katuk_vitC_mg": 164,
+    "jeruk_manis_vitC_mg": 49
+   }
+  },
+  {
+   "key": "s3",
+   "block": "intro",
+   "vo": "[warm] Kenalin, daun katuk. | Sering dicuekin... | [excited] padahal gizinya | padat banget! | [whispers] Tapi ada satu hal | yang wajib kamu tahu... | nanti di akhir.",
+   "en": "Meet katuk leaves. | Often ignored... | yet they're | packed with nutrients! | But there's one thing | you must know... | at the end."
+  },
+  {
+   "key": "s4",
+   "block": "benefit",
+   "n": 1,
+   "vo": "Pertama: | sahabat ibu menyusui! | Dari zaman nenek, | katuk dipercaya | bikin ASI lancar... | [excited] dan beberapa penelitian bilang, | hasilnya menjanjikan!",
+   "en": "First: | a nursing mom's best friend! | Since grandma's time, | katuk has been believed | to boost breast milk... | and some studies say | the results are promising!"
+  },
+  {
+   "key": "s5",
+   "block": "benefit",
+   "n": 2,
+   "vo": "Kedua: | kalsiumnya lebih tinggi dari... | [surprised] susu sapi! | [laughs] Iya, susu!",
+   "en": "Second: | its calcium beats... | cow's milk! | Yes, milk!",
+   "facts": {
+    "katuk_calcium_mg": 233,
+    "susu_sapi_calcium_mg": 143
+   }
+  },
+  {
+   "key": "s6",
+   "block": "benefit",
+   "n": 3,
+   "vo": "Ketiga: | karotenoidnya | hampir nyamain wortel. | Bagus buat mata!",
+   "en": "Third: | its carotenoids | almost match carrots. | Good for your eyes!",
+   "facts": {
+    "katuk_carotenoid_ug": 10020,
+    "wortel_carotenoid_ug": 11046
+   }
+  },
+  {
+   "key": "s7",
+   "block": "benefit",
+   "n": 4,
+   "vo": "Keempat: | zat besinya setara bayam. | [mischievously] Jadi kalau bosan bayam... | nih, cadangannya!",
+   "en": "Fourth: | its iron equals spinach. | So if you're bored of spinach... | here's your backup!",
+   "facts": {
+    "katuk_iron_mg": 3.0,
+    "bayam_iron_mg": 3.0
+   }
+  },
+  {
+   "key": "s8",
+   "block": "twist",
+   "vo": "[serious] Nah, | ini yang wajib kamu tahu. | Tahun sembilan puluhan di Taiwan, | sempat tren diet | jus daun katuk mentah. | [curious] Hasilnya? | [dramatically] Banyak yang kena | gangguan paru-paru serius! | [serious] Jadi: masak dulu, | jangan berlebihan.",
+   "en": "Now, | here's what you must know. | In 1990s Taiwan, | a diet trend spread: | raw katuk leaf juice. | The result? | Many people got | serious lung problems! | So: cook it first, | and don't overdo it.",
+   "facts": {
+    "katuk_rebus_vitC_mg": 66
+   },
+   "pause_before": 0.3
+  },
+  {
+   "key": "s9",
+   "block": "cta",
+   "vo": "[excited] Murah, gampang ditanam, | kaya manfaat! | [playful] Kirim video ini ke temanmu | yang masih pilih jeruk!",
+   "en": "Cheap, easy to grow, | full of benefits! | Send this to a friend | who still picks oranges!"
+  }
+ ],
+ "display_replace": {
+  "sembilan puluhan": "90-an",
+  "tiga kali lipat": "3x lipat"
+ }
+}

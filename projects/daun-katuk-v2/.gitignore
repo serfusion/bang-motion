@@ -1,0 +1,5 @@
+build/
+build-en/
+tools/node_modules
+__pycache__/
+out/*.mp4
