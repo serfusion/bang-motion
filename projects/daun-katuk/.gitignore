@@ -1,3 +1,5 @@
 build/
 tools/node_modules
 __pycache__/
+# render outputs are rebuilt by tools/finalize.sh; the final MP4s are added explicitly (git add -f)
+out/*.mp4
