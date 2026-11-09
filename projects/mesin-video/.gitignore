@@ -1,0 +1,7 @@
+node_modules
+__pycache__/
+db/konten.db
+episodes/*/build/
+episodes/*/build-en/
+episodes/*/out/*.mp4
+episodes/*/vo/*.edit.wav

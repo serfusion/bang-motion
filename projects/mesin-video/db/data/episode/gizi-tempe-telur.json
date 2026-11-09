@@ -20,7 +20,7 @@
    "vo": "[curious] Rahasianya? | {l0}Kedelai, | kacang yang kaya protein. | {l1}Lalu difermentasi | jamur Rhizopus... | [excited] {l2}jadi lebih gampang dicerna!",
    "vo_en": "The secret? | Soybeans, | a protein-rich bean. | Then fermented | by Rhizopus mould... | so it's easier to digest!",
    "param": {"judul": "Rahasia tempe", "gaya": "rantai",
-             "item": [{"ikon": "beans", "teks": "kedelai", "sub": "kaya protein"}, {"ikon": "microbe", "teks": "jamur Rhizopus", "sub": "fermentasi"}, {"ikon": "flexed-biceps", "teks": "mudah dicerna", "sub": "protein siap pakai"}]}},
+             "item": [{"ikon": "kedelai", "teks": "kedelai", "sub": "kaya protein"}, {"ikon": "microbe", "teks": "jamur Rhizopus", "sub": "fermentasi"}, {"ikon": "flexed-biceps", "teks": "mudah dicerna", "sub": "protein siap pakai"}]}},
   {"jenis": "banding",
    "vo": "[mischievously] Nah, ini jebakannya: | angka tadi per seratus gram. | {b0}Sebutir telur: tujuh setengah gram. | {b1}Sepotong tempe tipis: | cuma lima gram! | [laughs] Jadi... | {b2}makan tempenya dua potong!",
    "vo_en": "Now, here's the trap: | those numbers were per hundred grams. | One egg: seven and a half grams. | One thin slice of tempeh: | only five grams! | So... | eat two slices of tempeh!",

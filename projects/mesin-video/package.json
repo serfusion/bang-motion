@@ -1,0 +1,11 @@
+{
+  "name": "mesin-video",
+  "private": true,
+  "description": "Data-driven short educational videos: SQLite content -> HTML/GSAP scene templates -> MP4",
+  "type": "module",
+  "dependencies": {
+    "@iconify-json/fluent-emoji-flat": "1.2.6",
+    "gsap": "3.12.5",
+    "puppeteer": "22.15.0"
+  }
+}

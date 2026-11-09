@@ -1,0 +1,142 @@
+"""Voice-over for one episode.
+
+1. ElevenLabs TTS per scene with character timestamps (cached: a scene is only re-generated when its text,
+   voice or settings change). The API key is never read here: in this environment a network proxy adds it to
+   requests to api.elevenlabs.io; elsewhere set XI_API_KEY and it is sent as the xi-api-key header.
+2. Tighten pauses (max 0.24 s; deliberate suspense pauses after "..." and "?" inside a scene), cut only at the
+   quietest point of a gap, then speed up with rubberband (pitch kept). Word times follow every edit.
+
+  python3 tools/voice.py ID      -> episodes/ID/vo/sK.mp3, sK.align.json, sK.edit.wav, words.edit.json
+"""
+import base64, hashlib, json, os, re, subprocess, sys, urllib.error, urllib.request
+import numpy as np
+from common import ep_dir, load_json, save_json, parse_vo
+
+SR = 48000
+CAP, SUSPENSE, QUESTION = 0.24, 0.42, 0.34
+TAGRE = re.compile(r"\[[^\]]*\]")
+
+
+def tts_request(V, text, seed):
+    st = V.get("pengaturan", {})
+    body = json.dumps({"text": text, "model_id": V["model"], "language_code": st.get("language_code", "id"), "seed": seed,
+                       "voice_settings": {k: st[k] for k in ("stability", "similarity_boost", "style") if k in st}}).encode()
+    req = urllib.request.Request(
+        f"https://api.elevenlabs.io/v1/text-to-speech/{V['voice_id']}/with-timestamps?output_format=mp3_44100_128",
+        data=body, method="POST", headers={"Content-Type": "application/json"})
+    if os.environ.get("XI_API_KEY"):
+        req.add_header("xi-api-key", os.environ["XI_API_KEY"])
+    try:
+        with urllib.request.urlopen(req, timeout=300) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        sys.exit(f"ElevenLabs error {e.code}: {e.read()[:400].decode(errors='replace')}")
+
+
+def words_from_alignment(text, al):
+    chars, st, en = al["characters"], al["character_start_times_seconds"], al["character_end_times_seconds"]
+    s = "".join(chars)
+    assert s == text, "alignment text differs from request"
+    spoken = [True] * len(s)
+    for m in TAGRE.finditer(s):
+        for i in range(m.start(), m.end()):
+            spoken[i] = False
+    out, i = [], 0
+    while i < len(s):
+        if not spoken[i] or s[i].isspace():
+            i += 1
+            continue
+        j = i
+        while j < len(s) and spoken[j] and not s[j].isspace():
+            j += 1
+        out.append({"w": s[i:j], "t": round(st[i], 3), "e": round(en[j - 1], 3)})
+        i = j
+    return out
+
+
+def load(path):
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.float32).copy()
+
+
+def save(path, x):
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", path],
+                   input=x.astype(np.float32).tobytes(), check=True)
+
+
+def tts(ep):
+    V, out, lines = ep["suara"], ep_dir(ep["id"], "vo"), []
+    os.makedirs(out, exist_ok=True)
+    for k, sc in enumerate(ep["adegan"]):
+        key, seed = f"s{k + 1}", 4200 + k
+        text, words = parse_vo(sc["vo"])
+        h = hashlib.sha1(json.dumps([text, V["voice_id"], V["model"], V.get("pengaturan"), seed]).encode()).hexdigest()[:16]
+        ap = os.path.join(out, key + ".align.json")
+        d = load_json(ap) if os.path.exists(ap) else None
+        if not d or d.get("hash") != h:
+            d = tts_request(V, text, seed)
+            with open(os.path.join(out, key + ".mp3"), "wb") as f:
+                f.write(base64.b64decode(d.pop("audio_base64")))
+            d["hash"] = h
+            save_json(ap, d)
+            print(f"{key}: TTS {len(text)} karakter")
+        aw = words_from_alignment(text, d["alignment"])
+        assert len(aw) == len(words), (key, [w["w"] for w in aw], [w["w"] for w in words])
+        lines.append({"key": key, "file": f"vo/{key}.mp3", "words": aw})
+    return lines
+
+
+def edit(ep, lines):
+    tempo, out_lines = float(ep["suara"].get("tempo") or 1.12), []
+    for L in lines:
+        key, ws = L["key"], L["words"]
+        x = load(ep_dir(ep["id"], L["file"]))
+        hop = int(0.01 * SR)
+        env = np.sqrt(np.convolve(x ** 2, np.ones(hop) / hop, "same"))[::hop]
+        quiet = lambda t0, t1: (t0 + 0.01 * int(np.argmin(env[int(t0 * 100):max(int(t0 * 100) + 1, int(t1 * 100))]))) if t1 > t0 else t0
+        seg_start, pieces, new_words, cur = max(0.0, ws[0]["t"] - 0.20), [], [], 0.0
+        for i, w in enumerate(ws):
+            nxt = ws[i + 1] if i + 1 < len(ws) else None
+            new_words.append({"w": w["w"], "t": cur + (w["t"] - seg_start), "e": cur + (w["e"] - seg_start)})
+            if nxt is None:
+                end = min(len(x) / SR, w["e"] + 0.25)
+                pieces.append((seg_start, end)); cur += end - seg_start
+                break
+            gap = nxt["t"] - w["e"]
+            want = SUSPENSE if re.search(r"(\.\.\.|…)$", w["w"]) else QUESTION if w["w"].endswith("?") else min(gap, CAP)
+            if abs(gap - want) < 0.03:
+                continue
+            keep = min(gap, want)
+            q = quiet(w["e"], nxt["t"])
+            c0 = min(max(q - (gap - keep) / 2, w["e"] + 0.03), nxt["t"] - 0.03 - (gap - keep))
+            pieces.append((seg_start, c0)); cur += c0 - seg_start
+            if want - keep > 0:
+                pieces.append(("sil", want - keep)); cur += want - keep
+            seg_start = c0 + (gap - keep)
+        y, xf = [], 0.012
+        for p in pieces:
+            if p[0] == "sil":
+                y.append(np.zeros(int(p[1] * SR), np.float32)); continue
+            s = x[int(p[0] * SR):int(p[1] * SR)].copy()
+            n = min(int(xf * SR), len(s) // 4)
+            if n > 0:
+                s[:n] *= np.linspace(0, 1, n); s[-n:] *= np.linspace(1, 0, n)
+            y.append(s)
+        raw, outp = ep_dir(ep["id"], "vo", key + ".tight.wav"), ep_dir(ep["id"], "vo", key + ".edit.wav")
+        save(raw, np.concatenate(y))
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", f"rubberband=tempo={tempo}:transients=mixed:window=standard",
+                        "-ar", str(SR), outp], check=True)
+        os.remove(raw)
+        dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", outp],
+                                   capture_output=True, text=True).stdout)
+        nw = [{"w": w["w"], "t": round(w["t"] / tempo, 3), "e": round(w["e"] / tempo, 3)} for w in new_words]
+        out_lines.append({"key": key, "file": f"vo/{key}.edit.wav", "dur": round(dur, 3), "words": nw})
+        print(f"{key}: {ws[-1]['e'] - ws[0]['t']:5.2f}s -> {nw[-1]['e'] - nw[0]['t']:5.2f}s")
+    save_json(ep_dir(ep["id"], "vo", "words.edit.json"), {"tempo": tempo, "lines": out_lines})
+    print("total ucapan", round(sum(l["words"][-1]["e"] - l["words"][0]["t"] for l in out_lines), 2), "s")
+
+
+if __name__ == "__main__":
+    ep = load_json(ep_dir(sys.argv[1], "episode.json"))
+    edit(ep, tts(ep))

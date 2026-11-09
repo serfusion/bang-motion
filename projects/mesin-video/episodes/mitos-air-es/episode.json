@@ -1,0 +1,241 @@
+{
+ "id": "mitos-air-es",
+ "kategori_id": "mitos-fakta",
+ "judul": "Minum air es bikin gendut?",
+ "judul_en": "Does iced water make you fat?",
+ "suara_id": "liam-v3",
+ "musik_id": "comical",
+ "status": "siap",
+ "catatan": null,
+ "dibuat": "2026-11-09 23:15:12",
+ "adegan": [
+  {
+   "jenis": "kuis",
+   "vo": "[curious] Minum air es... | bikin gendut? | {p0}Mitos... | atau {p1}fakta?",
+   "vo_en": "Drinking iced water... | makes you fat? | Myth... | or fact?",
+   "param": {
+    "judul": "Air es bikin gendut?",
+    "ikon": "ice",
+    "pilihan": [
+     {
+      "label": "MITOS",
+      "ikon": "cross-mark"
+     },
+     {
+      "label": "FAKTA",
+      "ikon": "check-mark-button"
+     }
+    ],
+    "jawaban": 0
+   }
+  },
+  {
+   "jenis": "jawaban",
+   "vo": "[excited] Jawabannya... | {jawab}MITOS! | [excited] Air es itu | {besar}nol kalori! | [whispers] Tapi ada pelaku sebenarnya... | {teaser}di akhir video.",
+   "vo_en": "The answer... | MYTH! | Iced water has | zero calories! | But there's a real culprit... | at the end of the video.",
+   "param": {
+    "stempel": "MITOS!",
+    "besar": "0 kkal",
+    "catatan": "air putih tawar · per gelas",
+    "teaser": "di akhir video!"
+   }
+  },
+  {
+   "jenis": "langkah",
+   "vo": "[curious] Malah sebaliknya: | {l0}air es suhunya sekitar empat derajat. | {l1}Tubuh harus menghangatkannya | sampai tiga puluh tujuh derajat. | [surprised] {l2}Itu butuh energi: | kira-kira enam belas kalori | per setengah liter!",
+   "vo_en": "In fact, it's the opposite: | iced water is about four degrees. | Your body has to warm it | up to thirty-seven degrees. | That takes energy: | about sixteen calories | per half liter!",
+   "param": {
+    "judul": "Malah bakar kalori?",
+    "gaya": "rantai",
+    "item": [
+     {
+      "ikon": "ice",
+      "teks": "4 °C",
+      "sub": "air es"
+     },
+     {
+      "ikon": "thermometer",
+      "teks": "37 °C",
+      "sub": "suhu tubuh"
+     },
+     {
+      "ikon": "fire",
+      "teks": "±16 kkal",
+      "sub": "per 500 ml"
+     }
+    ]
+   }
+  },
+  {
+   "jenis": "twist",
+   "vo": "[serious] Jadi, siapa pelakunya? | {k}GULA! | [dramatically] {i0}Air es tawar: nol kalori. | {i1}Es teh manis dua sendok gula: | sekitar seratus kalori! | Padahal batas gula sehari | {angka}cuma empat sendok makan.",
+   "vo_en": "So, who's the culprit? | SUGAR! | Plain iced water: zero calories. | Sweet iced tea with two spoons of sugar: | about a hundred calories! | And the daily sugar limit | is just four tablespoons.",
+   "param": {
+    "nada": "peringatan",
+    "judul": "Pelakunya!",
+    "kicker": "BATAS GULA · KEMENKES",
+    "headline": "Bukan esnya, tapi GULANYA",
+    "baris": [
+     {
+      "ikon": "ice",
+      "teks": "air es tawar",
+      "nilai": "0 kkal",
+      "ok": true
+     },
+     {
+      "ikon": "cup-with-straw",
+      "teks": "es teh manis (2 sdm gula)",
+      "nilai": "±100 kkal",
+      "ok": false
+     }
+    ],
+    "angka": {
+     "teks": "4 sdm",
+     "sub": "batas gula sehari (50 g)"
+    }
+   }
+  },
+  {
+   "jenis": "cta",
+   "vo": "[playful] Jadi, minum air es? | Aman, asal tawar! | Kirim ke temanmu | yang masih takut minum es!",
+   "vo_en": "So, iced water? | Safe, as long as it's plain! | Send this to a friend | who's still scared of ice!",
+   "param": {
+    "judul": "Air es? Aman!",
+    "ikon": "ice",
+    "tagline": [
+     "0 kkal",
+     "asal tawar"
+    ],
+    "ajakan": "kirim ke temanmu",
+    "ikon_ajakan": "cup-with-straw"
+   }
+  }
+ ],
+ "fakta": [
+  {
+   "id": "air-0-kkal",
+   "kategori_id": "mitos-fakta",
+   "klaim": "Air putih tawar (termasuk air es) tidak mengandung kalori.",
+   "klaim_en": "Plain water, iced or not, has no calories.",
+   "nilai": 0.0,
+   "satuan": "kkal",
+   "basis": "per gelas",
+   "status": "fakta",
+   "sumber_id": "usda-fdc",
+   "catatan": null
+  },
+  {
+   "id": "batas-gula",
+   "kategori_id": "mitos-fakta",
+   "klaim": "Batas konsumsi gula 50 g (4 sendok makan) per orang per hari.",
+   "klaim_en": "Sugar limit: 50 g (4 tablespoons) per person per day.",
+   "nilai": 50.0,
+   "satuan": "g",
+   "basis": "per hari",
+   "status": "fakta",
+   "sumber_id": "permenkes-ggl",
+   "catatan": null
+  },
+  {
+   "id": "es-teh-2sdm",
+   "kategori_id": "mitos-fakta",
+   "klaim": "Es teh dengan 2 sendok makan gula (±25 g) berisi ±100 kkal dari gula.",
+   "klaim_en": "Iced tea with 2 tablespoons of sugar (~25 g) carries ~100 kcal from sugar.",
+   "nilai": 97.0,
+   "satuan": "kkal",
+   "basis": "per gelas",
+   "status": "perkiraan",
+   "sumber_id": "usda-fdc",
+   "catatan": "1 sdm = 12,5 g (50 g = 4 sdm, Permenkes 30/2013); 25 g x 3,87 kkal/g = 97 kkal."
+  },
+  {
+   "id": "hangatkan-air-es",
+   "kategori_id": "mitos-fakta",
+   "klaim": "Menghangatkan 500 ml air dari 4 °C ke 37 °C butuh ±16 kkal.",
+   "klaim_en": "Warming 500 ml of water from 4 °C to 37 °C takes about 16 kcal.",
+   "nilai": 16.5,
+   "satuan": "kkal",
+   "basis": "per 500 ml",
+   "status": "fakta",
+   "sumber_id": "kalori-definisi",
+   "catatan": "0,5 kg x 33 °C x 1 kkal/(kg·°C) = 16,5 kkal; energi riil yang dikeluarkan tubuh bisa berbeda."
+  }
+ ],
+ "sumber": [
+  {
+   "id": "kalori-definisi",
+   "judul": "Calorie (definition: energy to raise 1 kg of water by 1 °C)",
+   "singkat": "Britannica (definisi kalori)",
+   "penerbit": "Encyclopaedia Britannica",
+   "url": "https://www.britannica.com/science/calorie",
+   "diakses": "2026-11-09",
+   "catatan": null
+  },
+  {
+   "id": "permenkes-ggl",
+   "judul": "Permenkes RI No. 30 Tahun 2013 — batas konsumsi gula 50 g (4 sendok makan) per orang per hari",
+   "singkat": "Permenkes 30/2013",
+   "penerbit": "Kementerian Kesehatan RI (dikutip detikHealth)",
+   "url": "https://health.detik.com/berita-detikhealth/d-6314264/heboh-es-teh-indonesia-somasi-pelanggan-menkes-ingatkan-aturan-soal-gula",
+   "diakses": "2026-11-09",
+   "catatan": null
+  },
+  {
+   "id": "usda-fdc",
+   "judul": "FoodData Central (SR Legacy): Tempeh; Egg, whole, raw, fresh; Water, tap; Sugars, granulated",
+   "singkat": "USDA FoodData Central",
+   "penerbit": "U.S. Department of Agriculture",
+   "url": "https://fdc.nal.usda.gov/",
+   "diakses": "2026-11-09",
+   "catatan": "tempe 20,3 g protein/100 g; telur 12,6 g protein/100 g; air 0 kkal; gula pasir 387 kkal/100 g"
+  }
+ ],
+ "suara": {
+  "id": "liam-v3",
+  "penyedia": "elevenlabs",
+  "model": "eleven_v3",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "nama": "Liam",
+  "pengaturan": {
+   "stability": 0.5,
+   "similarity_boost": 0.75,
+   "language_code": "id"
+  },
+  "tempo": 1.12,
+  "catatan_lisensi": "Akun gratis ElevenLabs: non-komersial, wajib atribusi 'Suara: ElevenLabs'. Paket berbayar untuk monetisasi."
+ },
+ "musik": {
+  "id": "comical",
+  "berkas": "comical.mp3",
+  "judul": "Comical",
+  "artis": "Ahjay Stelino",
+  "lisensi": "Mixkit Stock Music Free License",
+  "url": "https://assets.mixkit.co/music/2/2.mp3",
+  "bpm": 143.55,
+  "mulai": 0.789,
+  "catatan": null
+ },
+ "aset": {
+  "tempe": {
+   "id": "tempe",
+   "jenis": "svg",
+   "berkas": "tempe.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  },
+  "tempe-potong": {
+   "id": "tempe-potong",
+   "jenis": "svg",
+   "berkas": "tempe-potong.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  },
+  "kedelai": {
+   "id": "kedelai",
+   "jenis": "svg",
+   "berkas": "kedelai.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  }
+ }
+}

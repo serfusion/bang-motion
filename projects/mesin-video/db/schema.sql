@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS kategori (
 CREATE TABLE IF NOT EXISTS sumber (
   id       TEXT PRIMARY KEY,
   judul    TEXT NOT NULL,                -- judul dokumen / tabel / artikel
+  singkat  TEXT,                         -- nama pendek untuk kredit di layar
   penerbit TEXT,
   url      TEXT,
   diakses  TEXT,                         -- tanggal cek (YYYY-MM-DD)

@@ -1,0 +1,246 @@
+{
+ "id": "sains-bawang",
+ "kategori_id": "sains",
+ "judul": "Kenapa motong bawang bikin nangis?",
+ "judul_en": "Why does cutting onions make you cry?",
+ "suara_id": "liam-v3",
+ "musik_id": "gummies",
+ "status": "siap",
+ "catatan": null,
+ "dibuat": "2026-11-09 23:15:12",
+ "adegan": [
+  {
+   "jenis": "kuis",
+   "vo": "[curious] Kenapa motong bawang | bikin nangis? | {p0}A, pedas? | {p1}B, ada gas? | {p2}C, cuma sugesti?",
+   "vo_en": "Why does cutting onions | make you cry? | A, it's spicy? | B, there's a gas? | C, it's all in your head?",
+   "param": {
+    "judul": "Kenapa bawang bikin nangis?",
+    "pilihan": [
+     {
+      "label": "Pedas",
+      "ikon": "hot-pepper"
+     },
+     {
+      "label": "Gas",
+      "ikon": "wind-face"
+     },
+     {
+      "label": "Sugesti",
+      "ikon": "brain"
+     }
+    ],
+    "jawaban": 1
+   }
+  },
+  {
+   "jenis": "jawaban",
+   "vo": "[excited] Jawabannya... | {jawab}B, GAS! | [excited] Bawang punya | {besar}senjata kimia! | [whispers] Dan ada bawang yang nggak bikin nangis... | {teaser}di akhir video.",
+   "vo_en": "The answer... | B, GAS! | Onions have | a chemical weapon! | And there's an onion that won't make you cry... | at the end of the video.",
+   "param": {
+    "stempel": "BENAR!",
+    "besar": "senjata kimia!",
+    "teaser": "di akhir video!"
+   }
+  },
+  {
+   "jenis": "langkah",
+   "vo": "[curious] Begini prosesnya: | {l0}saat dipotong, sel bawang pecah. | {l1}Enzimnya mengubah zat belerang... | {l2}jadi gas pemicu air mata. | {l3}Gas itu sampai ke mata, | [surprised] dan air mata keluar | untuk membilasnya!",
+   "vo_en": "Here's how it works: | when cut, onion cells burst. | Enzymes turn sulfur compounds... | into a tear-triggering gas. | The gas reaches your eyes, | and tears come out | to wash it away!",
+   "param": {
+    "judul": "Senjata kimia bawang",
+    "gaya": "rantai",
+    "item": [
+     {
+      "ikon": "kitchen-knife",
+      "teks": "sel pecah"
+     },
+     {
+      "ikon": "test-tube",
+      "teks": "enzim bekerja"
+     },
+     {
+      "ikon": "wind-face",
+      "teks": "gas pemicu"
+     },
+     {
+      "ikon": "loudly-crying-face",
+      "teks": "air mata!"
+     }
+    ]
+   }
+  },
+  {
+   "jenis": "langkah",
+   "vo": "[playful] Mau nggak nangis? | {l0}Dinginkan dulu di kulkas, | {l1}pakai pisau yang tajam, | {l2}dan potong akarnya paling akhir.",
+   "vo_en": "Want to stop crying? | Chill it in the fridge first, | use a sharp knife, | and cut the root end last.",
+   "param": {
+    "judul": "Tips anti nangis",
+    "gaya": "daftar",
+    "item": [
+     {
+      "ikon": "snowflake",
+      "teks": "dinginkan ±30 menit"
+     },
+     {
+      "ikon": "kitchen-knife",
+      "teks": "pisau tajam"
+     },
+     {
+      "ikon": "onion",
+      "teks": "akar dipotong terakhir"
+     }
+    ]
+   }
+  },
+  {
+   "jenis": "twist",
+   "vo": "[mischievously] Dan kejutannya: | {k}enzim pelakunya ditemukan | ilmuwan Jepang tahun dua ribu dua. | [excited] {i0}Sekarang sudah ada bawang | yang nggak bikin nangis, | dijual di Amerika dan Inggris!",
+   "vo_en": "And the surprise: | the culprit enzyme was found | by Japanese scientists in 2002. | Now there's an onion | that doesn't make you cry, | sold in the US and the UK!",
+   "param": {
+    "nada": "kejutan",
+    "judul": "Kejutan!",
+    "kicker": "NATURE · 2002",
+    "headline": "Enzim pembuat air mata ditemukan",
+    "baris": [
+     {
+      "ikon": "onion",
+      "teks": "bawang 'tanpa air mata'",
+      "nilai": "sudah dijual",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "jenis": "cta",
+   "vo": "[playful] Bawang memang kecil, | tapi senjatanya kimia! | Kirim ke temanmu | yang selalu nangis di dapur!",
+   "vo_en": "Onions may be small, | but they pack chemical weapons! | Send this to a friend | who always cries in the kitchen!",
+   "param": {
+    "judul": "Bawang si ahli kimia",
+    "ikon": "onion",
+    "tagline": [
+     "sel pecah",
+     "gas",
+     "air mata"
+    ],
+    "ajakan": "kirim ke temanmu",
+    "ikon_ajakan": "loudly-crying-face"
+   }
+  }
+ ],
+ "fakta": [
+  {
+   "id": "bawang-lfs",
+   "kategori_id": "sains",
+   "klaim": "Saat bawang dipotong, enzim mengubah senyawa belerang menjadi gas pemicu air mata (syn-propanethial-S-oxide); enzim LFS-nya ditemukan 2002.",
+   "klaim_en": "Cutting an onion lets enzymes turn sulfur compounds into a tear-triggering gas; the LFS enzyme was identified in 2002.",
+   "nilai": 2002.0,
+   "satuan": null,
+   "basis": null,
+   "status": "fakta",
+   "sumber_id": "imai-2002",
+   "catatan": null
+  },
+  {
+   "id": "bawang-tanpa-tangis",
+   "kategori_id": "sains",
+   "klaim": "Bawang 'tanpa air mata' hasil pemuliaan sudah dijual di Amerika Serikat dan Inggris.",
+   "klaim_en": "Tearless onions from breeding are sold in the US and the UK.",
+   "nilai": null,
+   "satuan": null,
+   "basis": null,
+   "status": "fakta",
+   "sumber_id": "sunions",
+   "catatan": null
+  },
+  {
+   "id": "tips-bawang",
+   "kategori_id": "sains",
+   "klaim": "Mengurangi air mata: dinginkan bawang ±30 menit, pakai pisau tajam, potong akar paling akhir.",
+   "klaim_en": "Fewer tears: chill the onion ~30 min, use a sharp knife, cut the root end last.",
+   "nilai": null,
+   "satuan": null,
+   "basis": null,
+   "status": "fakta",
+   "sumber_id": "tips-bawang",
+   "catatan": null
+  }
+ ],
+ "sumber": [
+  {
+   "id": "imai-2002",
+   "judul": "Imai S. et al., An onion enzyme that makes the eyes water, Nature 419:685 (2002)",
+   "singkat": "Imai dkk., Nature 2002",
+   "penerbit": "Nature",
+   "url": "https://www.nature.com/articles/419685a",
+   "diakses": "2026-11-09",
+   "catatan": null
+  },
+  {
+   "id": "sunions",
+   "judul": "Sunions: tearless onions (AS sejak musim 2017/18; Inggris lewat Waitrose sejak Jan 2022)",
+   "singkat": "Sunions (AS 2018, Inggris 2022)",
+   "penerbit": "Vegetable Growers News; Grocery Gazette",
+   "url": "https://www.grocerygazette.co.uk/2022/01/12/waitrose-tearless-onions/",
+   "diakses": "2026-11-09",
+   "catatan": null
+  },
+  {
+   "id": "tips-bawang",
+   "judul": "Why do onions make you cry? (tips: dinginkan, pisau tajam, akar terakhir)",
+   "singkat": "The Old Farmer's Almanac",
+   "penerbit": "The Old Farmer's Almanac",
+   "url": "https://www.almanac.com/why-do-onions-make-you-cry",
+   "diakses": "2026-11-09",
+   "catatan": null
+  }
+ ],
+ "suara": {
+  "id": "liam-v3",
+  "penyedia": "elevenlabs",
+  "model": "eleven_v3",
+  "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+  "nama": "Liam",
+  "pengaturan": {
+   "stability": 0.5,
+   "similarity_boost": 0.75,
+   "language_code": "id"
+  },
+  "tempo": 1.12,
+  "catatan_lisensi": "Akun gratis ElevenLabs: non-komersial, wajib atribusi 'Suara: ElevenLabs'. Paket berbayar untuk monetisasi."
+ },
+ "musik": {
+  "id": "gummies",
+  "berkas": "gummies.mp3",
+  "judul": "Gummies",
+  "artis": "Michael Ramir C.",
+  "lisensi": "Mixkit Stock Music Free License",
+  "url": "https://assets.mixkit.co/music/1142/1142.mp3",
+  "bpm": 117.45,
+  "mulai": 0.859,
+  "catatan": null
+ },
+ "aset": {
+  "tempe": {
+   "id": "tempe",
+   "jenis": "svg",
+   "berkas": "tempe.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  },
+  "tempe-potong": {
+   "id": "tempe-potong",
+   "jenis": "svg",
+   "berkas": "tempe-potong.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  },
+  "kedelai": {
+   "id": "kedelai",
+   "jenis": "svg",
+   "berkas": "kedelai.svg",
+   "lisensi": "dibuat untuk proyek ini",
+   "kredit": ""
+  }
+ }
+}

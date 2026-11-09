@@ -1,4 +1,23 @@
 [
- {"id": "tempe", "jenis": "svg", "berkas": "tempe.svg", "lisensi": "dibuat untuk proyek ini", "kredit": ""},
- {"id": "tempe-potong", "jenis": "svg", "berkas": "tempe-potong.svg", "lisensi": "dibuat untuk proyek ini", "kredit": ""}
+ {
+  "id": "tempe",
+  "jenis": "svg",
+  "berkas": "tempe.svg",
+  "lisensi": "dibuat untuk proyek ini",
+  "kredit": ""
+ },
+ {
+  "id": "tempe-potong",
+  "jenis": "svg",
+  "berkas": "tempe-potong.svg",
+  "lisensi": "dibuat untuk proyek ini",
+  "kredit": ""
+ },
+ {
+  "id": "kedelai",
+  "jenis": "svg",
+  "berkas": "kedelai.svg",
+  "lisensi": "dibuat untuk proyek ini",
+  "kredit": ""
+ }
 ]
