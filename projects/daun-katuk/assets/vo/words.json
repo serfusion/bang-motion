@@ -1,0 +1,658 @@
+{
+ "voice": "id-ID-ArdiNeural",
+ "rate": "+5%",
+ "lines": [
+  {
+   "key": "s1",
+   "text": "Daun ini, vitamin C-nya tiga kali lipat jeruk!",
+   "file": "assets/vo/s1.mp3",
+   "dur": 3.624,
+   "words": [
+    {
+     "w": "Daun",
+     "t": 0.099,
+     "d": 0.262
+    },
+    {
+     "w": "ini",
+     "t": 0.361,
+     "d": 0.452
+    },
+    {
+     "w": "vitamin",
+     "t": 1.087,
+     "d": 0.381
+    },
+    {
+     "w": "C-nya",
+     "t": 1.468,
+     "d": 0.274
+    },
+    {
+     "w": "tiga",
+     "t": 1.742,
+     "d": 0.25
+    },
+    {
+     "w": "kali",
+     "t": 1.992,
+     "d": 0.167
+    },
+    {
+     "w": "lipat",
+     "t": 2.158,
+     "d": 0.214
+    },
+    {
+     "w": "jeruk",
+     "t": 2.373,
+     "d": 0.452
+    }
+   ]
+  },
+  {
+   "key": "s2",
+   "text": "Ini daun katuk. Murah, gampang ditanam, gizinya luar biasa. Apa saja manfaatnya?",
+   "file": "assets/vo/s2.mp3",
+   "dur": 8.016,
+   "words": [
+    {
+     "w": "Ini",
+     "t": 0.1,
+     "d": 0.321
+    },
+    {
+     "w": "daun",
+     "t": 0.421,
+     "d": 0.274
+    },
+    {
+     "w": "katuk",
+     "t": 0.695,
+     "d": 0.488
+    },
+    {
+     "w": "Murah",
+     "t": 1.977,
+     "d": 0.56
+    },
+    {
+     "w": "gampang",
+     "t": 2.763,
+     "d": 0.345
+    },
+    {
+     "w": "ditanam",
+     "t": 3.108,
+     "d": 0.56
+    },
+    {
+     "w": "gizinya",
+     "t": 3.918,
+     "d": 0.452
+    },
+    {
+     "w": "luar",
+     "t": 4.37,
+     "d": 0.19
+    },
+    {
+     "w": "biasa",
+     "t": 4.561,
+     "d": 0.583
+    },
+    {
+     "w": "Apa",
+     "t": 5.943,
+     "d": 0.274
+    },
+    {
+     "w": "saja",
+     "t": 6.217,
+     "d": 0.286
+    },
+    {
+     "w": "manfaatnya",
+     "t": 6.502,
+     "d": 0.702
+    }
+   ]
+  },
+  {
+   "key": "s3",
+   "text": "Pertama, pelancar ASI. Turun-temurun dipakai ibu menyusui, dan beberapa penelitian hasilnya menjanjikan.",
+   "file": "assets/vo/s3.mp3",
+   "dur": 7.776,
+   "words": [
+    {
+     "w": "Pertama",
+     "t": 0.099,
+     "d": 0.679
+    },
+    {
+     "w": "pelancar",
+     "t": 1.051,
+     "d": 0.417
+    },
+    {
+     "w": "ASI",
+     "t": 1.468,
+     "d": 0.488
+    },
+    {
+     "w": "Turun-temurun",
+     "t": 2.762,
+     "d": 0.512
+    },
+    {
+     "w": "dipakai",
+     "t": 3.274,
+     "d": 0.333
+    },
+    {
+     "w": "ibu",
+     "t": 3.607,
+     "d": 0.202
+    },
+    {
+     "w": "menyusui",
+     "t": 3.81,
+     "d": 0.619
+    },
+    {
+     "w": "dan",
+     "t": 4.726,
+     "d": 0.226
+    },
+    {
+     "w": "beberapa",
+     "t": 4.952,
+     "d": 0.333
+    },
+    {
+     "w": "penelitian",
+     "t": 5.286,
+     "d": 0.476
+    },
+    {
+     "w": "hasilnya",
+     "t": 5.762,
+     "d": 0.405
+    },
+    {
+     "w": "menjanjikan",
+     "t": 6.167,
+     "d": 0.798
+    }
+   ]
+  },
+  {
+   "key": "s4",
+   "text": "Kedua, daya tahan tubuh. Vitamin C-nya seratus enam puluh empat miligram, jeruk manis cuma empat puluh sembilan.",
+   "file": "assets/vo/s4.mp3",
+   "dur": 7.944,
+   "words": [
+    {
+     "w": "Kedua",
+     "t": 0.099,
+     "d": 0.619
+    },
+    {
+     "w": "daya",
+     "t": 0.956,
+     "d": 0.309
+    },
+    {
+     "w": "tahan",
+     "t": 1.265,
+     "d": 0.274
+    },
+    {
+     "w": "tubuh",
+     "t": 1.539,
+     "d": 0.5
+    },
+    {
+     "w": "Vitamin",
+     "t": 2.845,
+     "d": 0.488
+    },
+    {
+     "w": "C-nya",
+     "t": 3.333,
+     "d": 0.298
+    },
+    {
+     "w": "seratus",
+     "t": 3.631,
+     "d": 0.345
+    },
+    {
+     "w": "enam",
+     "t": 3.976,
+     "d": 0.179
+    },
+    {
+     "w": "puluh",
+     "t": 4.155,
+     "d": 0.155
+    },
+    {
+     "w": "empat",
+     "t": 4.31,
+     "d": 0.214
+    },
+    {
+     "w": "miligram",
+     "t": 4.524,
+     "d": 0.56
+    },
+    {
+     "w": "jeruk",
+     "t": 5.381,
+     "d": 0.298
+    },
+    {
+     "w": "manis",
+     "t": 5.679,
+     "d": 0.298
+    },
+    {
+     "w": "cuma",
+     "t": 5.976,
+     "d": 0.214
+    },
+    {
+     "w": "empat",
+     "t": 6.19,
+     "d": 0.226
+    },
+    {
+     "w": "puluh",
+     "t": 6.417,
+     "d": 0.155
+    },
+    {
+     "w": "sembilan",
+     "t": 6.571,
+     "d": 0.571
+    }
+   ]
+  },
+  {
+   "key": "s5",
+   "text": "Ketiga, tulang dan gigi. Kalsiumnya dua ratus tiga puluh tiga miligram, lebih tinggi dari susu sapi segar.",
+   "file": "assets/vo/s5.mp3",
+   "dur": 7.56,
+   "words": [
+    {
+     "w": "Ketiga",
+     "t": 0.099,
+     "d": 0.655
+    },
+    {
+     "w": "tulang",
+     "t": 0.992,
+     "d": 0.333
+    },
+    {
+     "w": "dan",
+     "t": 1.325,
+     "d": 0.179
+    },
+    {
+     "w": "gigi",
+     "t": 1.504,
+     "d": 0.512
+    },
+    {
+     "w": "Kalsiumnya",
+     "t": 2.821,
+     "d": 0.512
+    },
+    {
+     "w": "dua",
+     "t": 3.333,
+     "d": 0.143
+    },
+    {
+     "w": "ratus",
+     "t": 3.476,
+     "d": 0.202
+    },
+    {
+     "w": "tiga",
+     "t": 3.679,
+     "d": 0.19
+    },
+    {
+     "w": "puluh",
+     "t": 3.869,
+     "d": 0.155
+    },
+    {
+     "w": "tiga",
+     "t": 4.024,
+     "d": 0.202
+    },
+    {
+     "w": "miligram",
+     "t": 4.226,
+     "d": 0.595
+    },
+    {
+     "w": "lebih",
+     "t": 5.083,
+     "d": 0.214
+    },
+    {
+     "w": "tinggi",
+     "t": 5.298,
+     "d": 0.309
+    },
+    {
+     "w": "dari",
+     "t": 5.607,
+     "d": 0.179
+    },
+    {
+     "w": "susu",
+     "t": 5.786,
+     "d": 0.25
+    },
+    {
+     "w": "sapi",
+     "t": 6.036,
+     "d": 0.214
+    },
+    {
+     "w": "segar",
+     "t": 6.25,
+     "d": 0.5
+    }
+   ]
+  },
+  {
+   "key": "s6",
+   "text": "Keempat, kesehatan mata. Kandungan karotenoidnya hampir menyamai wortel.",
+   "file": "assets/vo/s6.mp3",
+   "dur": 5.928,
+   "words": [
+    {
+     "w": "Keempat",
+     "t": 0.099,
+     "d": 0.607
+    },
+    {
+     "w": "kesehatan",
+     "t": 0.944,
+     "d": 0.476
+    },
+    {
+     "w": "mata",
+     "t": 1.42,
+     "d": 0.5
+    },
+    {
+     "w": "Kandungan",
+     "t": 2.715,
+     "d": 0.452
+    },
+    {
+     "w": "karotenoidnya",
+     "t": 3.168,
+     "d": 0.655
+    },
+    {
+     "w": "hampir",
+     "t": 3.823,
+     "d": 0.345
+    },
+    {
+     "w": "menyamai",
+     "t": 4.168,
+     "d": 0.357
+    },
+    {
+     "w": "wortel",
+     "t": 4.525,
+     "d": 0.583
+    }
+   ]
+  },
+  {
+   "key": "s7",
+   "text": "Kelima, zat besinya setara bayam, penting untuk membentuk sel darah merah.",
+   "file": "assets/vo/s7.mp3",
+   "dur": 5.232,
+   "words": [
+    {
+     "w": "Kelima",
+     "t": 0.11,
+     "d": 0.548
+    },
+    {
+     "w": "zat",
+     "t": 0.919,
+     "d": 0.274
+    },
+    {
+     "w": "besinya",
+     "t": 1.193,
+     "d": 0.381
+    },
+    {
+     "w": "setara",
+     "t": 1.574,
+     "d": 0.274
+    },
+    {
+     "w": "bayam",
+     "t": 1.848,
+     "d": 0.524
+    },
+    {
+     "w": "penting",
+     "t": 2.645,
+     "d": 0.321
+    },
+    {
+     "w": "untuk",
+     "t": 2.967,
+     "d": 0.202
+    },
+    {
+     "w": "membentuk",
+     "t": 3.169,
+     "d": 0.333
+    },
+    {
+     "w": "sel",
+     "t": 3.502,
+     "d": 0.238
+    },
+    {
+     "w": "darah",
+     "t": 3.74,
+     "d": 0.214
+    },
+    {
+     "w": "merah",
+     "t": 3.955,
+     "d": 0.476
+    }
+   ]
+  },
+  {
+   "key": "s8",
+   "text": "Tapi ingat, masak dulu, jangan terlalu lama supaya vitaminnya tidak banyak hilang. Hindari jus daun katuk mentah berlebihan.",
+   "file": "assets/vo/s8.mp3",
+   "dur": 8.256,
+   "words": [
+    {
+     "w": "Tapi",
+     "t": 0.11,
+     "d": 0.202
+    },
+    {
+     "w": "ingat",
+     "t": 0.312,
+     "d": 0.464
+    },
+    {
+     "w": "masak",
+     "t": 0.99,
+     "d": 0.274
+    },
+    {
+     "w": "dulu",
+     "t": 1.264,
+     "d": 0.452
+    },
+    {
+     "w": "jangan",
+     "t": 2.002,
+     "d": 0.333
+    },
+    {
+     "w": "terlalu",
+     "t": 2.336,
+     "d": 0.286
+    },
+    {
+     "w": "lama",
+     "t": 2.621,
+     "d": 0.19
+    },
+    {
+     "w": "supaya",
+     "t": 2.812,
+     "d": 0.298
+    },
+    {
+     "w": "vitaminnya",
+     "t": 3.11,
+     "d": 0.476
+    },
+    {
+     "w": "tidak",
+     "t": 3.586,
+     "d": 0.214
+    },
+    {
+     "w": "banyak",
+     "t": 3.8,
+     "d": 0.226
+    },
+    {
+     "w": "hilang",
+     "t": 4.026,
+     "d": 0.464
+    },
+    {
+     "w": "Hindari",
+     "t": 5.287,
+     "d": 0.393
+    },
+    {
+     "w": "jus",
+     "t": 5.68,
+     "d": 0.238
+    },
+    {
+     "w": "daun",
+     "t": 5.918,
+     "d": 0.274
+    },
+    {
+     "w": "katuk",
+     "t": 6.192,
+     "d": 0.31
+    },
+    {
+     "w": "mentah",
+     "t": 6.501,
+     "d": 0.25
+    },
+    {
+     "w": "berlebihan",
+     "t": 6.751,
+     "d": 0.69
+    }
+   ]
+  },
+  {
+   "key": "s9",
+   "text": "Murah, mudah ditanam, kaya manfaat. Simpan video ini, dan bagikan ke orang tersayang!",
+   "file": "assets/vo/s9.mp3",
+   "dur": 7.2,
+   "words": [
+    {
+     "w": "Murah",
+     "t": 0.099,
+     "d": 0.56
+    },
+    {
+     "w": "mudah",
+     "t": 0.896,
+     "d": 0.274
+    },
+    {
+     "w": "ditanam",
+     "t": 1.17,
+     "d": 0.571
+    },
+    {
+     "w": "kaya",
+     "t": 1.98,
+     "d": 0.274
+    },
+    {
+     "w": "manfaat",
+     "t": 2.254,
+     "d": 0.631
+    },
+    {
+     "w": "Simpan",
+     "t": 3.68,
+     "d": 0.369
+    },
+    {
+     "w": "video",
+     "t": 4.049,
+     "d": 0.262
+    },
+    {
+     "w": "ini",
+     "t": 4.311,
+     "d": 0.417
+    },
+    {
+     "w": "dan",
+     "t": 4.989,
+     "d": 0.202
+    },
+    {
+     "w": "bagikan",
+     "t": 5.192,
+     "d": 0.369
+    },
+    {
+     "w": "ke",
+     "t": 5.561,
+     "d": 0.048
+    },
+    {
+     "w": "orang",
+     "t": 5.608,
+     "d": 0.167
+    },
+    {
+     "w": "tersayang",
+     "t": 5.775,
+     "d": 0.607
+    }
+   ]
+  }
+ ]
+}
