@@ -45,7 +45,7 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden}
   clip-path:polygon(0% 8%,2.5% 0%,97% 3%,100% 12%,98.2% 30%,100% 52%,98% 74%,100% 90%,96.5% 100%,3% 97%,0% 88%,1.8% 64%,0% 42%,2% 22%);box-shadow:0 1px 3px rgba(0,0,0,.15)}
 .card{background:#FFFDF6;border-radius:10px;box-shadow:0 14px 30px rgba(30,42,34,.22)}
 .resep{background-image:repeating-linear-gradient(0deg,rgba(142,43,54,.13) 0 2px,transparent 2px 46px);background-position:0 30px}
-.stamp{border:8px solid var(--maroon);border-radius:14px;color:var(--maroon);font:800 58px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:.1em;padding:14px 26px 12px;opacity:0;background:rgba(255,253,246,.0)}
+.stamp{border:8px solid var(--maroon);border-radius:14px;color:var(--maroon);font:800 58px/1 "Plus Jakarta Sans",sans-serif;letter-spacing:.1em;padding:14px 26px 12px;opacity:0;background:rgba(255,253,246,.93)}
 .stamp.win{border-color:var(--leaf);color:var(--leaf)}
 .stamp.bad{border-color:var(--warn);color:var(--warn)}
 .note{background:var(--marker);box-shadow:0 12px 24px rgba(0,0,0,.28);padding:22px 28px}
@@ -74,9 +74,10 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden}
 #prog{position:absolute;left:0;top:78px;width:1080px;display:flex;justify-content:center;gap:14px;opacity:0}
 #prog .sg{width:118px;height:22px;border-radius:11px;background:rgba(30,42,34,.18);box-shadow:inset 0 0 0 3px rgba(255,253,246,.7);overflow:hidden;position:relative}
 #prog .sg i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--leaf);border-radius:11px}
+#prog .sg.w{background:rgba(229,83,61,.24);box-shadow:inset 0 0 0 3px rgba(229,83,61,.65)}
 #prog .sg.w i{background:var(--warn)}
 #mascot{position:absolute;left:0;top:0;width:10px;height:10px;will-change:transform}
-#subs .sp{position:absolute;left:540px;top:1488px;max-width:960px;width:max-content;padding:14px 34px 20px;border-radius:28px;
+#subs .sp{position:absolute;left:520px;top:1488px;max-width:840px;width:max-content;padding:14px 34px 20px;border-radius:28px;
   background:rgba(27,40,31,.94);color:#FFF8EA;font:800 70px/1.12 "Plus Jakarta Sans",sans-serif;text-align:center;letter-spacing:-.012em;
   box-shadow:0 14px 34px rgba(20,30,22,.3),inset 0 0 0 2px rgba(255,248,234,.10);visibility:hidden;transform:translate(-50%,-50%)}
 #subs .sw{opacity:.42;display:inline-block}#subs .sw.on{opacity:1}#subs .sw.cur{color:var(--marker)}
@@ -319,9 +320,9 @@ function build(){
   put(q,`<div class="stamp win" style="font-size:56px">MENANG!</div>`,{x:610,y:790,id:'winStamp',cls:'ab',rot:-10,z:10});
   put(q,`<path/>`,{x:0,y:0,id:'confetti',cls:'ab',z:8});
   const cf=$('#confetti');cf.innerHTML='';for(let i=0;i<26;i++){const d=document.createElement('div');d.className='ab cfl';d.style.opacity=0;d.innerHTML=leafMini(40+(i%3)*10,i%4===0);cf.appendChild(d);}
-  put(q,`<div class="num" style="font-size:66px;color:${PAL.orange};text-align:center;width:440px">49 mg</div>`,{x:60,y:1050,id:'tagA'});
-  put(q,`<div class="num" style="font-size:66px;color:${PAL.leaf};text-align:center;width:440px">164 mg</div>`,{x:580,y:1050,id:'tagB'});
-  put(q,`<div class="lbl" style="font-size:36px;width:1080px;text-align:center;opacity:.8">vitamin C · per 100 g</div>`,{x:0,y:1132,id:'tagU'});
+  put(q,`<div class="num" style="font-size:66px;color:${PAL.orange};text-align:center;width:440px">49 mg</div>`,{x:60,y:1100,id:'tagA',z:11});
+  put(q,`<div class="num" style="font-size:66px;color:${PAL.leaf};text-align:center;width:440px">164 mg</div>`,{x:580,y:1100,id:'tagB',z:11});
+  put(q,`<div class="lbl" style="font-size:36px;width:1080px;text-align:center;opacity:.8">vitamin C · daun segar, per 100 g</div>`,{x:0,y:1186,id:'tagU',z:11});
   const burst=(R1,R2,n)=>{let d='';for(let i=0;i<n*2;i++){const r=i%2?R2:R1,a=i/(n*2)*Math.PI*2-Math.PI/2;d+=(i?'L':'M')+f1(Math.cos(a)*r)+' '+f1(Math.sin(a)*r);}return d+'Z';};
   put(q,`<svg width="560" height="560" viewBox="-280 -280 560 560" style="overflow:visible"><path d="${burst(250,204,20)}" fill="${PAL.ink}" transform="translate(9 9)" opacity=".85"/><path d="${burst(250,204,20)}" fill="${PAL.marker}" stroke="${PAL.ink}" stroke-width="5"/></svg>`,{x:260,y:485,id:'burst3',z:8});
   const riso=put(q,'',{x:0,y:600,w:1080,h:330,id:'riso',cls:'ab',z:9});
@@ -337,13 +338,13 @@ function build(){
   put(a,`<div class="lbl" style="font-size:40px;font-style:italic;font-weight:500;opacity:.8">Sauropus androgynus</div>`,{x:76,y:1210,id:'sci2'});
   const pol=put(a,`<div class="polar" style="width:330px;height:330px;transform-origin:50% 50%"><img src="assets/img/katuk-foto.jpg" alt="Foto daun katuk"></div><div class="lbl" style="position:absolute;left:24px;top:362px;font-size:30px;font-weight:600;opacity:.75;line-height:1.1">Foto: Forest &amp; Kim Starr<br>CC BY 3.0</div>`,{x:62,y:130,id:'polar',cls:'ab',rot:-5,z:2});
   pol.style.opacity=0;
-  put(a,'',{x:72,y:150,id:'tape1',cls:'tape',z:6});put(a,'',{x:282,y:530,id:'tape2',cls:'tape',z:6});
+  put(a,'',{x:72,y:150,id:'tape1',cls:'tape',z:6});put(a,'',{x:300,y:96,id:'tape2',cls:'tape',z:6});
   put(a,`<div class="sticker" style="padding:14px">${carrotSVG()}</div>`,{x:640,y:120,id:'starC',rot:8,z:4,sc:.62});
   put(a,`<div class="sticker" style="padding:10px 18px">${spinachSVG()}</div>`,{x:820,y:220,id:'starS',rot:-6,z:4,sc:.5});
-  put(a,`<div class="hand" style="font-size:56px;color:${PAL.ink}">si populer ✨</div>`,{x:640,y:470,id:'popLbl',rot:-4,z:4});
+  put(a,`<div class="sticker hand" style="font-size:50px;color:${PAL.ink}">si populer ✨</div>`,{x:600,y:330,id:'popLbl',rot:-4,z:6});
   const chipPos=[[520,110],[700,300],[730,520],[90,640],[330,820]];
   NUTS.forEach((n,i)=>put(a,`<div class="chip">${n}</div>`,{x:chipPos[i][0],y:chipPos[i][1],id:'chip'+i,z:5,rot:[-6,4,-3,5,-4][i]}));
-  put(a,`<div class="card" style="width:330px;height:220px;display:flex;align-items:center;justify-content:center;gap:20px;background:#FBF4E4"><div class="ttl" style="font-size:150px;font-weight:800;color:${PAL.maroon}">?</div>${sealSVG()}</div>`,{x:120,y:610,id:'mystery',rot:-5,z:9});
+  put(a,`<div class="card" style="width:380px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FBF4E4"><div style="display:flex;align-items:center;gap:20px;height:180px"><div class="ttl" style="font-size:150px;font-weight:800;color:${PAL.maroon}">?</div>${sealSVG()}</div><div class="hand" style="font-size:50px;color:${PAL.maroon};margin-top:2px">di akhir video!</div></div>`,{x:100,y:580,id:'mystery',rot:-5,z:9});
 
   /* ===== a3: manfaat 1 — ASI ===== */
   const b=area('a3');
@@ -354,7 +355,7 @@ function build(){
   for(let i=0;i<3;i++)put(b,dropSVG(1),{x:0,y:0,id:'drop'+i,cls:'ab o0'});
   put(b,dropSVG(2.4,'#F6EEDB'),{x:230,y:680,id:'bigDrop',cls:'ab o0',z:9});
   put(b,`<div class="card resep" style="width:400px;height:250px;padding:24px 30px"><div class="hand" style="font-size:60px;color:${PAL.maroon};line-height:1">Sayur katuk</div><div class="hand" style="font-size:42px;font-weight:400;color:${PAL.ink};margin-top:16px">resep nenek</div></div><div class="tape" style="left:110px;top:-24px;rotate:4deg"></div>`,{x:60,y:1050,id:'resep',cls:'ab o0',rot:-6});
-  put(b,`<div class="card" style="width:360px;height:270px;padding:20px 24px;box-sizing:border-box"><div class="lbl" style="font-size:30px;font-weight:800;letter-spacing:.16em;color:${PAL.leaf}">JURNAL</div><div class="lbl" style="font-size:34px;font-weight:700;margin-top:6px">ASI &amp; daun katuk</div><div style="margin-top:10px">${chartSVG()}</div></div><div id="jcheck" class="ab" style="left:290px;top:-34px;width:92px;height:92px;border-radius:50%;background:${PAL.leaf};color:${PAL.cream};font:800 58px/92px 'Plus Jakarta Sans';text-align:center;opacity:0">✓</div>`,{x:500,y:1060,id:'jurnal',cls:'ab o0',rot:4});
+  put(b,`<div class="card" style="width:360px;height:270px;padding:20px 24px;box-sizing:border-box"><div class="lbl" style="font-size:30px;font-weight:800;letter-spacing:.16em;color:${PAL.leaf}">JURNAL</div><div class="lbl" style="font-size:34px;font-weight:700;margin-top:6px">ASI &amp; daun katuk</div><div style="margin-top:10px">${chartSVG()}</div></div><div id="jcheck" class="ab note hand" style="left:150px;top:-62px;padding:8px 20px 12px;font-size:42px;color:${PAL.ink};white-space:nowrap;opacity:0">masih diteliti</div>`,{x:500,y:1060,id:'jurnal',cls:'ab o0',rot:4});
 
   /* ===== a4: manfaat 2 — kalsium vs susu ===== */
   const c=area('a4');
@@ -398,11 +399,11 @@ function build(){
   put(g7,`<div class="sticker hand" style="font-size:58px;color:${PAL.leaf}">cadangan ✓</div>`,{x:470,y:1080,id:'backup',rot:-5,z:6});
   const g8=put(e,'<div class="darkpage"></div>',{x:0,y:0,w:1080,h:1920,id:'g8',cls:'ab'});g8.style.visibility='hidden';
   line(g8,'<em>Wajib tahu!</em>',{x:84,y:200,size:120,id:'ttl8',cls:'dark'});
-  put(g8,`<div class="news"><div class="mast">TAIWAN · 1990-an</div><div class="head">Tren diet:<br>jus daun katuk mentah</div><div class="bar" style="width:92%"></div><div class="bar" style="width:84%"></div><div class="bar" style="width:66%"></div></div>`,{x:90,y:380,id:'news',rot:-2});
+  put(g8,`<div class="news" style="position:relative"><svg class="ab" width="560" height="110" viewBox="0 0 560 110" style="left:8px;top:2px;overflow:visible;z-index:2"><path id="newsCircle" d="M520 44C520 10 40 4 30 48C22 92 500 98 528 58C536 46 524 26 486 16" fill="none" stroke="#E5533D" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg><div class="mast">TAIWAN · 1990-an</div><div class="head">Tren diet:<br><span style="position:relative;z-index:0;display:inline-block">jus daun katuk mentah<i id="hlJus" style="position:absolute;left:-8px;right:-8px;bottom:4px;height:44%;background:#F3C64E;z-index:-1;border-radius:6px;transform-origin:0 50%;transform:scaleX(0)"></i></span></div><div class="bar" style="width:92%"></div><div class="bar" style="width:84%"></div><div class="bar" style="width:66%"></div></div>`,{x:90,y:380,id:'news',rot:-2});
   put(g8,lungsSVG(),{x:330,y:850,id:'lungs'});
-  put(g8,`<div class="stamp bad" style="font-size:70px;background:rgba(31,61,43,.55)">BAHAYA!</div>`,{x:300,y:1000,id:'danger',cls:'ab',rot:-10,z:6});
+  put(g8,`<div class="stamp bad" style="font-size:70px;background:rgba(255,248,234,.95)">BAHAYA!</div>`,{x:300,y:1000,id:'danger',cls:'ab',rot:-10,z:6});
   put(g8,potSVG(),{x:60,y:1250,id:'pot'});
-  put(g8,`<div class="hand" style="font-size:60px;color:${PAL.cream}">✓ masak dulu</div>`,{x:110,y:1690,id:'lblMasak'});
+  put(g8,`<div class="hand" style="font-size:60px;color:${PAL.cream}">✓ masak dulu</div><div class="lbl" style="font-size:32px;color:#CFE3C2;margin-top:2px">direbus: vit C 66 mg</div>`,{x:110,y:1690,id:'lblMasak'});
   put(g8,juiceSVG(),{x:600,y:1290,id:'juice'});
   put(g8,`<div class="hand" style="font-size:52px;color:${PAL.cream};line-height:1.05">jangan<br>berlebihan</div>`,{x:640,y:1660,id:'lblJus'});
 
@@ -413,7 +414,7 @@ function build(){
   line(z,'Daun <span class="hlw" id="hlKatuk"><em>katuk</em></span>',{x:0,y:850,size:168,id:'ttl9',w:1080,align:'center'});
   put(z,`<div class="lbl" style="font-size:46px;font-weight:700;width:1080px;text-align:center"><span id="tg1" style="opacity:0">murah</span> <span style="opacity:.35">·</span> <span id="tg2" style="opacity:0">gampang ditanam</span> <span style="opacity:.35">·</span> <span id="tg3" style="opacity:0">kaya manfaat</span></div>`,{x:0,y:1046,cls:'ab',id:'tagline'});
   put(z,`<div style="display:flex;align-items:center;justify-content:center;gap:16px;width:1080px">${shareSVG()}<span class="hand" style="font-size:54px">kirim ke temanmu</span><span id="ctaOr" style="display:inline-block;margin-left:6px">${orangeSVG(34)}</span></div>`,{x:0,y:1112,id:'ctaShare'});
-  put(z,`<div class="lbl" style="font-size:30px;font-weight:600;width:690px;line-height:1.25;opacity:.78;white-space:normal">Sumber gizi: Data Komposisi Pangan Indonesia (Kemenkes RI), per 100 g. Edukasi umum, bukan pengganti saran tenaga kesehatan. Suara: ElevenLabs.</div>`,{x:350,y:1222,id:'foot9'});
+  put(z,`<div class="lbl" style="font-size:30px;font-weight:600;width:690px;line-height:1.25;opacity:.78;white-space:normal">Sumber gizi: Data Komposisi Pangan Indonesia (Kemenkes RI), per 100 g. Edukasi umum, bukan pengganti saran tenaga kesehatan. Suara: ElevenLabs.</div>`,{x:350,y:1240,id:'foot9'});
 
   $('#lens').innerHTML=`<svg width="3000" height="1100" viewBox="-60 -560 3060 1120" style="overflow:visible;filter:blur(7px)"><g>${leafG(2900,1000)}</g></svg>`;
   $('#mascot').innerHTML=mascotSVG();
@@ -435,9 +436,9 @@ function build(){
 }
 /* ============================== timeline (detik absolut dari VO) ============================== */
 const tl=gsap.timeline({paused:true});
-const C={x:560,y:600,z:1.55};                       // kamera: fokus (koordinat dunia) + zoom
-const FX={whipX:0,whipY:0,lensP:0};
-function applyCam(t){const z=C.z*(1+.006*Math.sin(t*.9));world.style.transform=`translate(${f1(540-C.x*z)}px,${f1(960-C.y*z)}px) scale(${z.toFixed(5)})`;}
+const C={x:540,y:-1760,z:1};                       // kamera: fokus (koordinat dunia) + zoom
+const FX={whipX:0,whipY:0,lensP:0,pulse:0};
+function applyCam(t){const z=C.z*(1+.006*Math.sin(t*.9))*(1+FX.pulse);world.style.transform=`translate(${f1(540-C.x*z)}px,${f1(960-C.y*z)}px) scale(${z.toFixed(5)})`;}
 const look=(at,x,y,z,dur=1,ease='power2.inOut')=>tl.to(C,{x,y,z,duration:dur,ease},at);
 const camSet=(at,x,y,z)=>tl.set(C,{x,y,z},at);
 const pw=(k,x,y)=>WP(k,x,y);
@@ -477,7 +478,8 @@ function demote(sel,at,{s=.5,y=-60,x=0}={}){tl.to($(sel),{scale:s,x,y,transformO
 const SCH={};
 const MPOS=[];   // posisi maskot: {t, x, y, s, dur}
 const MEXP=[];   // ekspresi maskot: {t, e, p}  e = ekspresi wajah, p = pose lengan
-const mpos=(t,x,y,s,dur=.5)=>MPOS.push({t,x,y,s,dur});
+const mpos=(t,x,y,s,dur=.5,arc=110)=>MPOS.push({t,x,y,s,dur,arc});
+const MHIDE=[];   // selang [t0,t1] maskot disembunyikan (kamera menyelam)
 const mexp=(t,e,p='idle')=>MEXP.push({t,e,p});
 const SPOT={BC:[540,1395,.52],BR:[930,1382,.5],TR:[944,470,.44],BL:[170,1385,.52]};
 const wiggle=(sel,at,amp=6,dur=.5)=>tl.fromTo($(sel),{rotate:0},{rotate:amp,duration:dur/4,ease:'sine.inOut',yoyo:true,repeat:3,immediateRender:false},at);
@@ -486,10 +488,11 @@ function choreo(){
   const [qx,qy]=AREA.aQ;
   /* ---------- S1 KUIS (hook) ---------- */
   camSet(0,qx,qy-60,1);tl.to(C,{z:1.03,duration:3.3,ease:'sine.inOut'},0);
-  tl.fromTo('#cardA',{x:-640,rotate:-30},{x:0,rotate:0,duration:.5,ease:'back.out(1.3)',immediateRender:true},0);
-  tl.fromTo('#cardB',{x:640,rotate:30},{x:0,rotate:0,duration:.5,ease:'back.out(1.3)',immediateRender:true},.06);
+  /* kartu sudah di tempat sejak frame 0 (sampul/feed), lalu "menepuk" masuk */
+  tl.fromTo('#cardA',{scale:.88,rotate:-6},{scale:1,rotate:0,duration:.42,ease:'back.out(2.2)',immediateRender:true},0);
+  tl.fromTo('#cardB',{scale:.88,rotate:6},{scale:1,rotate:0,duration:.42,ease:'back.out(2.2)',immediateRender:true},.05);
   pop('#qKuis',.12,{dur:.45,from:.3,rot:-20});
-  say('#qTitle',.3,{mode:'scale',dur:.5,st:.08});
+  say('#qTitle',.05,{mode:'scale',dur:.42,st:.06});
   wiggle('#cardA',at('s1','Jeruk...'),5,.5);wiggle('#cardB',at('s1','daun'),5,.5);
   mpos(.35,...SPOT.BC);mexp(.35,'think','think');
   tl.to('#ring',{scale:1.12,duration:.25,yoyo:true,repeat:3,ease:'sine.inOut',transformOrigin:'50% 50%'},at('s1','Mana'));
@@ -510,7 +513,7 @@ function choreo(){
   SCH.conf={t0:rv};
   mexp(rv-.05,'excited','excited');mpos(rv-.05,540,1300,.6,.35);
   tl.to(C,{z:1.17,duration:.12,ease:'power3.out'},rv-.02);tl.to(C,{z:1.07,duration:.6,ease:'power2.out'},rv+.12);   /* crash-zoom punch #1 */
-  mpos(at('s2','Vitamin')-.2,960,1425,.46,.45);
+  mpos(at('s2','Vitamin')-.2,960,1425,.46,.45,24);
   pop('#tagA',at('s2','Vitamin')-.05,{dur:.45,from:.4,rot:0});pop('#tagB',at('s2','Vitamin')+.08,{dur:.45,from:.4,rot:0});label('#tagU',at('s2','C-nya')+.1);
   SCH.riso={hit:at('s2','tiga')};
   tl.to('#winStamp',{opacity:0,scale:.85,duration:.14,ease:'power2.in'},SCH.riso.hit-.1);
@@ -560,6 +563,7 @@ function choreo(){
   look(at('s4','Dari')-.1,AREA.a3[0],AREA.a3[1],1,.7);
   fly('#resep',at('s4','nenek,')-.1,{from:{x:-520,rotate:-20,scale:.9},dur:.8});
   look(at('s4','dan')-.05,WP('a3',560,0)[0],WP('a3',0,1000)[1],1.06,.9);
+  tl.to(C,{z:1.06,duration:2.1,ease:'sine.inOut'},at('s4','katuk'));mexp(at('s4','dipercaya'),'happy','present');
   fly('#jurnal',at('s4','penelitian')-.15,{from:{x:560,rotate:18,scale:.9},dur:.8});
   tl.fromTo('#jline',{strokeDashoffset:1},{strokeDashoffset:0,duration:.7,ease:'power2.inOut',immediateRender:false},at('s4','bilang,'));
   pop('#jcheck',at('s4','menjanjikan!')+.05,{dur:.5,from:.2,rot:-30});
@@ -567,6 +571,7 @@ function choreo(){
   /* tetes ASI -> menyelam -> kalsium */
   const c5=CUT('s5'),[dx,dy]=WP('a3',230+72,680+125);
   tl.fromTo('#bigDrop',{opacity:0,scale:.2},{opacity:1,scale:1,duration:.35,ease:'back.out(2)',immediateRender:false},c5-1.15);
+  MHIDE.push([c5-.95,c5+.12]);
   look(c5-1.0,dx,dy,1.3,.42,'power2.inOut');look(c5-.56,dx,dy,16,.56,'power2.in');
   /* ---------- S5 MANFAAT 2: KALSIUM ---------- */
   camSet(c5,AREA.a4[0],AREA.a4[1],1.12);tl.to(C,{z:1,duration:1.1,ease:'power3.out'},c5);
@@ -595,7 +600,7 @@ function choreo(){
   SCH.eye={t0:c6+.25};
   look(c6+.25,AREA.a5[0],WP('a5',0,650)[1],1.08,.7);
   fly('#leaf6',at('s6','karotenoidnya')-.05,{from:{x:-380,rotate:-40,scale:.7},dur:.6});label('#tag6a',at('s6','karotenoidnya')+.35);
-  look(at('s6','hampir')-.2,AREA.a5[0],AREA.a5[1],1,.6);
+  look(at('s6','karotenoidnya')-.08,AREA.a5[0],AREA.a5[1],1,.6);
   pop('#approx',at('s6','hampir'),{dur:.4,from:.2,rot:0});
   fly('#carrot',at('s6','wortel.')-.2,{from:{x:400,rotate:40,scale:.7},dur:.55});label('#tag6b',at('s6','wortel.')+.1);label('#foot6',at('s6','wortel.')+.3);
   SCH.blink=[c6+1.6];
@@ -630,19 +635,25 @@ function choreo(){
   say('#ttl8',SCH.ink.f0+.45,{mode:'up',dur:.55,st:.14});
   mexp(at('s8','Tahun')-.2,'serious','idle');
   look(at('s8','Tahun')-.15,AREA.a67[0],WP('a67',0,640)[1],1.1,.8);
+  tl.to('#newsCircle',{attr:{'stroke-dashoffset':0},duration:.45,ease:'power2.inOut'},at('s8','Taiwan,')-.05);
+  tl.to(C,{z:1.17,duration:2.4,ease:'sine.inOut'},at('s8','sempat')-.2);                    /* merayap pelan ke judul kliping */
+  tl.to('#hlJus',{scaleX:1,duration:.55,ease:'power2.inOut'},at('s8','jus')-.05);
   look(at('s8','Banyak')-.15,AREA.a67[0],WP('a67',0,900)[1],1.06,.7);
-  fly('#news',at('s8','Tahun')-.1,{from:{y:640,rotate:12,scale:.9},dur:.75,ease:'back.out(1.2)'});
-  SCH.heart={t0:atE('s8','Hasilnya?')+.02};mexp(at('s8','Hasilnya?'),'nervous','nervous');
+  fly('#news',at('s8','tahu.')+.05,{from:{y:640,rotate:12,scale:.9},dur:.75,ease:'back.out(1.2)'});
+  SCH.heart={t0:atE('s8','Hasilnya?')+.02};   /* deg-deg: kamera berdenyut + kilat merah tipis */
+  [0,.36].forEach(d=>{tl.to(FX,{pulse:.035,duration:.07,ease:'power2.out'},SCH.heart.t0+d);tl.to(FX,{pulse:0,duration:.22,ease:'power2.in'},SCH.heart.t0+d+.07);
+    tl.fromTo('#flash',{opacity:0},{opacity:.16,duration:.07,immediateRender:false},SCH.heart.t0+d);tl.to('#flash',{opacity:0,duration:.25},SCH.heart.t0+d+.07);});mexp(at('s8','Hasilnya?'),'nervous','nervous');
   pop('#lungs',at('s8','Banyak')-.05,{dur:.5,from:.3,rot:0});
   tl.fromTo('#danger .stamp',{opacity:0,scale:2.2,rotate:14},{opacity:1,scale:1,rotate:0,duration:.18,ease:'power3.in',immediateRender:false},at('s8','serius!'));
   mexp(at('s8','gangguan'),'shock','shock');
   const jd=at('s8','Jadi:');
+  out(['#ttl8','#news'],jd-.4,{to:{y:-240,rotate:-4},dur:.32});
   look(jd-.25,AREA.a67[0],WP('a67',0,1500)[1],1,.8,'power2.inOut');
   fly('#pot',at('s8','masak')-.15,{from:{y:420,rotate:-6,scale:.85},dur:.7,ease:'back.out(1.4)'});label('#lblMasak',at('s8','dulu,'));
   SCH.steam={t0:at('s8','dulu,')};
   fly('#juice',at('s8','jangan')-.15,{from:{y:440,rotate:10,scale:.85},dur:.6,ease:'back.out(1.4)'});
   tl.to('#xA',{strokeDashoffset:0,duration:.2,ease:'power2.out'},at('s8','berlebihan.')-.05);tl.to('#xB',{strokeDashoffset:0,duration:.2,ease:'power2.out'},at('s8','berlebihan.')+.15);
-  label('#lblJus',at('s8','berlebihan.')+.2);
+  label('#lblJus',at('s8','jangan')+.25);
   mexp(jd,'serious','wag');
   /* ---------- daun raksasa lewat lensa -> CTA ---------- */
   const c9=CUT('s9');
@@ -657,7 +668,7 @@ function choreo(){
   pop('#ctaShare',at('s9','Kirim')-.05,{dur:.55,from:.4,rot:6});
   mexp(at('s9','Kirim')-.05,'wink','point');
   label('#foot9',at('s9','Kirim')+.5);
-  tl.to('#ctaOr',{scale:1.8,rotate:-16,duration:.32,ease:'back.out(3)',transformOrigin:'50% 50%'},at('s9','jeruk!')-.08);
+  tl.to('#ctaOr',{scale:1.45,rotate:-16,duration:.32,ease:'back.out(3)',transformOrigin:'0% 50%'},at('s9','jeruk!')-.08);
   wiggle('#ctaOr',at('s9','jeruk!')+.3,10,.6);
   mexp(at('s9','jeruk!')-.05,'laugh','laugh');
   mexp(atE('s9','jeruk!')+.35,'happy','wave');
@@ -672,10 +683,10 @@ function sfxTable(){
   /* S5: bunyi perkusif disejajarkan di PUNCAKnya (berkas ini punya jeda 50-900 ms dari awal ke puncak) */
   const PK=new Set(['counter/clock-tick-single','impact/hit-blow','impact/impact-zoom-quick','impact/impact-cine-big','paper/paper-staple','paper/paper-slice-quick','fluid/water-drop-cave','fluid/water-splash','camera/click-camera','text/pen-click-twice']);
   const X=[],add=(t,src,vol,o={})=>X.push({t:+t.toFixed(3),src,vol,max:o.max||null,al:o.al||(PK.has(src)?'pk':'on'),note:o.note||''});
-  add(0,'transition/swoosh-quick',.3,{note:'kartu A masuk'});add(.06,'transition/swoosh-quick',.26,{note:'kartu B masuk'});
+  add(0,'paper/paper-move-quick',.3,{max:.5,note:'kartu A menepuk'});add(.05,'paper/paper-slice-quick',.26,{note:'kartu B menepuk'});
   add(.12,'paper/paper-slide',.3,{max:.5,note:'stiker KUIS'});
   add(.35,'transition/wind-swoosh-short',.18,{note:'maskot muncul'});
-  [0,1,2].forEach(i=>add(SCH.cd.t0+i*(SCH.cd.t1-SCH.cd.t0)/3,'counter/clock-tick-single',.6+i*.06,{note:'hitung mundur '+(3-i)}));
+  [0,1,2].forEach(i=>add(SCH.cd.t0+i*(SCH.cd.t1-SCH.cd.t0)/3,'counter/clock-tick-single',.6+i*.06,{al:'pkwin',max:.07,note:'hitung mundur '+(3-i)+' (satu tik dari berkas)'}));
   SCH.roul.t.forEach((x,i)=>add(x,i%2?'ui/switch-tap':'ui/switch-click-quick',.32+.22*i/SCH.roul.t.length,{max:.25,note:'rolet '+(i%2?'B':'A')+' (dua sampel bergantian, makin keras saat melambat)'}));
   add(SCH.rv-1.1,'light/light-sweep-magic',.3,{max:1.1,al:'tail',note:'naik menuju jawaban'});
   add(SCH.rv,'impact/hit-fast-exciting',.5,{note:'DAUN INI!'});
@@ -794,13 +805,14 @@ function renderMascot(t){
   let i=0;while(i+1<MPOS.length&&MPOS[i+1].t<=t)i++;const cur=MPOS[i],prev=i>0?MPOS[i-1]:null,p=clamp((t-cur.t)/cur.dur),e=E.ioC(p);
   let x,y,s;
   if(!prev){const q=E.outB(p,1.6);x=cur.x;y=cur.y+(1-clamp(q,0,1.2))*260;s=cur.s*Math.max(.01,Math.min(1.1,q));}
-  else{const moved=prev.x!==cur.x||prev.y!==cur.y;x=lerp(prev.x,cur.x,e);y=lerp(prev.y,cur.y,e)-(moved?Math.sin(p*Math.PI)*110:0);s=lerp(prev.s,cur.s,e);}
+  else{const moved=prev.x!==cur.x||prev.y!==cur.y;x=lerp(prev.x,cur.x,e);y=lerp(prev.y,cur.y,e)-(moved?Math.sin(p*Math.PI)*cur.arc:0);s=lerp(prev.s,cur.s,e);}
   let k=0;while(k+1<MEXP.length&&MEXP[k+1].t<=t)k++;const X=MEXP[k],ex=EXPR[X.e]||EXPR.happy,since=t-X.t;
   const pop=Math.max(0,1-since/.22),sq=.09*pop*Math.sin(Math.min(1,since/.22)*Math.PI*1.5+.5);
   let bob=Math.sin(t*3.1)*5,sx=0;
   if(X.e==='laugh')bob=-Math.abs(Math.sin(t*9))*20;if(X.e==='excited'&&since<1.2)bob=-Math.abs(Math.sin(t*7.5))*26*(1-since/1.2)+bob;
   if(X.e==='shock'&&since<.55)sx=Math.sin(t*55)*5*(1-since/.55);
-  MZ.root.style.opacity=1;MZ.root.style.transform=`translate(${f1(x+sx)}px,${f1(y)}px) scale(${s.toFixed(4)})`;
+  let hid=0;for(const [h0,h1] of MHIDE)hid=Math.max(hid,Math.min(clamp((t-h0)/.15),clamp((h1-t)/.15)));
+  MZ.root.style.opacity=(1-hid).toFixed(3);MZ.root.style.transform=`translate(${f1(x+sx)}px,${f1(y)}px) scale(${s.toFixed(4)})`;
   setA(MZ.mzB,'transform',`translate(0 ${f1(bob)}) translate(0 -44) scale(${(1+sq).toFixed(3)} ${(1-sq).toFixed(3)}) translate(0 44)`);
   /* mata: kedip deterministik, pupil, mata tertutup (tertawa/kedip) */
   const blink=((t*1000+400)%3100)<110,cl=ex.closed||[0,0];
@@ -873,7 +885,7 @@ function render(t){
     const fy=lerp(-120,0,E.outC(clamp((fN-FS)/(FE-FS)))),op=clamp((fN-FS)/10),rot=froz(fN,1.5,.16),bob=froz(fN,5,.11),sink=lerp(0,2,clamp((fN-S2)/2));
     const sh=[lerp(16,3,clamp((fN-S2)/2)),lerp(34,8,clamp((fN-S2)/2)),lerp(.22,.1,clamp((fN-S2)/2))];
     pol.style.opacity=op;pol.style.transform=`translateY(${f1(fy+bob+sink)}px) rotate(${rot.toFixed(2)}deg)`;$('#polar .polar').style.boxShadow=`0 ${f1(sh[0])}px ${f1(sh[1])}px rgba(30,42,34,${sh[2].toFixed(3)})`;
-    [['#tape1',S1,-170,-130,-38],['#tape2',S2,170,130,-34]].forEach(([sel,land,fx,fy2,r0])=>{const el=$(sel);if(fN<land-6){el.style.opacity=0;return;}
+    [['#tape1',S1,-170,-130,-38],['#tape2',S2,170,-130,36]].forEach(([sel,land,fx,fy2,r0])=>{const el=$(sel);if(fN<land-6){el.style.opacity=0;return;}
       const q=E.outC(clamp((fN-(land-6))/6)),sc=lerp(1.45,1,q),r=fN<land?lerp(r0-16,r0+7,E.outQ(clamp((fN-(land-6))/6))):lerp(r0+7,r0,E.outQ(clamp((fN-land)/4))),sy=fN>=land&&fN<land+1?.72:fN>=land+1&&fN<land+2?.9:1;
       el.style.opacity=Math.min(.95,(fN-(land-6))/2*.85);el.style.transform=`translate(${f1(fx*(1-q))}px,${f1(fy2*(1-q))}px) rotate(${r.toFixed(2)}deg) scale(${sc.toFixed(3)}) scaleY(${sy})`;});}
 
@@ -930,9 +942,11 @@ function render(t){
   renderMascot(t);
 
   /* subtitle per kata (ID / EN) */
-  for(let i=0;i<REF.pages.length;i++){const q=REF.pages[i],p=q.p,nx=REF.pages[i+1],a0=p.t-.06,cutNext=!!nx&&nx.p.t-.06<=p.out+.12,end=cutNext?nx.p.t-.06:p.out;
+  const SL=.12;   /* halaman muncul 120 ms sebelum kata pertamanya */
+  for(let i=0;i<REF.pages.length;i++){const q=REF.pages[i],p=q.p,nx=REF.pages[i+1],pv=REF.pages[i-1],a0=p.t-SL,cutNext=!!nx&&nx.p.t-SL<=p.out+.12,end=cutNext?nx.p.t-SL:p.out,
+      swap=!!pv&&a0<=pv.p.out+.12;   /* langsung menggantikan halaman sebelumnya: kotak tetap tampil, hanya teks berganti */
     if(t<a0||t>=end){if(q.v){q.el.style.visibility='hidden';q.v=false;}continue;}
-    q.v=true;const e=E.outB(clamp((t-a0)/.16),2.2),fo=cutNext?1:clamp((end-t)/.08);q.el.style.visibility='visible';q.el.style.opacity=(Math.min(1,(t-a0)/.07)*fo).toFixed(3);
+    q.v=true;const e=swap?1:E.outB(clamp((t-a0)/.16),2.2),fo=cutNext?1:clamp((end-t)/.08),fi=swap?1:Math.min(1,(t-a0)/.07);q.el.style.visibility='visible';q.el.style.opacity=(fi*fo).toFixed(3);
     q.el.style.transform=`translate(-50%,-50%) translateY(${f1((1-e)*20)}px) scale(${(.93+.07*e).toFixed(4)})`;
     q.spans.forEach((s,i)=>{const w=q.ws[i],on=t>=w.t-.03,nx=q.ws[i+1],cur=on&&(nx?t<nx.t-.03:t<w.e+.3);const c='sw'+(on?' on':'')+(cur?' cur':'');if(s.className!==c)s.className=c;
       const sc=cur?(1+.06*Math.max(0,1-(t-w.t)/.18)).toFixed(3):'1';if(s.style.scale!==sc)s.style.scale=sc;});}

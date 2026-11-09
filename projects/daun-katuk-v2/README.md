@@ -21,9 +21,9 @@ edukasi-hiburan (gaya kanal sains populer): **kuis → hitung mundur → jawaban
 |---|---|
 | Fakta dibacakan berurutan | Kuis "Jeruk… atau daun ini?" di detik 0–3, hitung mundur 3-2-1, sorotan rolet A/B yang melambat, jawaban "DAUN INI!" |
 | Suara TTS datar (Edge) | ElevenLabs `eleven_v3` (suara "Liam") dengan tag emosi per kalimat: penasaran, berbisik, kaget, tertawa, serius |
-| Tidak ada alasan menonton sampai akhir | *Open loop* di detik 14: "Tapi ada satu hal yang wajib kamu tahu… nanti di akhir" + layar meredup |
+| Tidak ada alasan menonton sampai akhir | *Open loop* di detik 14: "Tapi ada satu hal yang wajib kamu tahu…" + layar meredup + kartu "?! di akhir video!"; segmen ke-5 progress bar merah sejak awal |
 | Tanpa karakter | Maskot "Si Katuk": berpindah posisi, berganti ekspresi & pose, mulut mengikuti suara |
-| Manfaat 1–5 tanpa penanda | Progress bar 4 manfaat + 1 peringatan (merah) di atas layar |
+| Manfaat 1–5 tanpa penanda | Progress bar 4 manfaat (hijau) + 1 peringatan (merah) di atas layar |
 | Musik terus berjalan | Musik berhenti saat hitung mundur, masuk lagi tepat di "DAUN INI!"; goresan piringan menghentikan musik di twist |
 | Penutup biasa | Callback: "Kirim ke temanmu yang masih pilih jeruk!" + jeruk kecil membesar |
 
@@ -32,10 +32,11 @@ edukasi-hiburan (gaya kanal sains populer): **kuis → hitung mundur → jawaban
 Angka gizi per 100 g: **Data Komposisi Pangan Indonesia, Kementerian Kesehatan RI** (https://www.panganku.org) —
 daun katuk segar vitamin C 164 mg, kalsium 233 mg, karotenoid total 10.020 µg, besi 3,0 mg; jeruk manis
 vitamin C 49 mg (164/49 ≈ 3,3 → "3x lipat"); susu sapi segar kalsium 143 mg; wortel karotenoid total 11.046 µg;
-bayam besi 3,0 mg. Rinciannya sama dengan v1 (`projects/daun-katuk/README.md`).
+bayam besi 3,0 mg; daun katuk **rebus** vitamin C 66 mg (masih di atas jeruk; ditampilkan di label "masak dulu").
+Angka "3x" di layar diberi keterangan "daun segar, per 100 g". Rinciannya sama dengan v1 (`projects/daun-katuk/README.md`).
 
 - **Pelancar ASI** — tradisi turun-temurun; bukti ilmiah menjanjikan tetapi belum seragam, sehingga naskah
-  berbunyi "beberapa penelitian bilang, hasilnya menjanjikan".
+  berbunyi "beberapa penelitian bilang, hasilnya menjanjikan" dan kartu jurnal diberi catatan "masih diteliti".
 - **Twist (Taiwan 1990-an)** — tren diet jus daun katuk mentah dalam jumlah besar dikaitkan dengan
   *bronchiolitis obliterans* (gangguan paru serius): [Hospital Authority Hong Kong](https://www3.ha.org.hk/toxicplant/en/sauropus_androgynus.html),
   [ulasan di PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4564651/). Pesan penutupnya: masak dulu, jangan berlebihan.

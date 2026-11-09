@@ -9,8 +9,8 @@ for lang in ("id", "en"):
     path = os.path.join(ROOT, "out", f"daun-katuk-v2.{lang}.srt")
     with open(path, "w", encoding="utf-8") as f:
         for i, p in enumerate(P):
-            a = max(0.0, p["t"] - 0.06)
+            a = max(0.0, p["t"] - 0.12)
             nx = P[i + 1] if i + 1 < len(P) else None          # same rule as the page: the next page replaces this one
-            end = nx["t"] - 0.06 if nx and nx["t"] - 0.06 <= p["out"] + 0.12 else p["out"]
+            end = nx["t"] - 0.12 if nx and nx["t"] - 0.12 <= p["out"] + 0.12 else p["out"]
             f.write(f"{i + 1}\n{ts(a)} --> {ts(end)}\n{p[lang]}\n\n")
     print(len(P), "cues ->", os.path.relpath(path, ROOT))
