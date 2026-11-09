@@ -563,7 +563,7 @@ SCENES.langkah={
     const P=s.param,A=s.el=areaEl(s),n=P.item.length,list=P.gaya==='daftar';
     const ty=list?190:200,ttl=lineW(A,P.judul||'',{x:70,y:ty,w:940,size:list?100:90,id:sid(s,'ttl')});fitLines(ttl,2,60);
     const tb=ty+ttl.offsetHeight;s.items=[];
-    if(list){const y0=tb+110,gap=Math.min(290,(1300-y0)/n);
+    if(list){const y0=tb+90,gap=Math.min(270,(1260-y0)/n);
       P.item.forEach((it,k)=>{const y=y0+k*gap;put(A,`<div class="step card" style="width:940px;box-sizing:border-box;padding:22px 30px;gap:26px"><div class="badge">${k+1}</div>${icon(it.ikon,170)}<div class="tx"><div class="t1" style="font-size:62px">${esc(it.teks)}</div>${it.sub?`<div class="t2">${esc(it.sub)}</div>`:''}</div></div>`,{x:70,y,id:sid(s,'i'+k),z:3});
         s.items.push({x:540,y:y+75});});}
     else{const ys=[[620,1060],[540,860,1180],[490,740,990,1240]][n-2];

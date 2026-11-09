@@ -431,7 +431,7 @@ SCENES.kuis={
     put(A,`<div class="sticker" style="background:${PAL.marker};font:800 64px/1 'Plus Jakarta Sans';letter-spacing:.06em;padding:12px 30px 16px">${esc(P.stiker||'KUIS!')}</div>`,{x:70,y:132,id:sid(s,'stk'),rot:-6,z:3});
     const ttl=lineW(A,P.judul,{x:70,y:250,w:940,size:92,id:sid(s,'ttl')});fitLines(ttl,2,60);
     const tb=250+ttl.offsetHeight;let G;
-    if(n===3){const w=300,h=420,y=Math.max(tb+70,500);G={w,h,y,xs:[45,390,735],rot:[-4,0,4],ic:180,name:46,ring:[540,y+h+120]};}
+    if(n===3){const w=300,h=420,y=Math.max(tb+60,490);G={w,h,y,xs:[45,390,735],rot:[-4,0,4],ic:180,name:46,ring:[540,y+h+92]};}
     else if(hero){const w=420,h=330,y=Math.max(tb+360,780);G={w,h,y,xs:[70,590],rot:[-4,4],ic:130,name:76,ring:[540,y+h/2],hero:[540,(tb+y)/2]};}
     else{const w=440,h=540,y=Math.max(tb+70,460);G={w,h,y,xs:[60,580],rot:[-4,4],ic:280,name:56,ring:[540,y+h/2]};}
     s.G=G;
@@ -563,7 +563,7 @@ SCENES.langkah={
     const P=s.param,A=s.el=areaEl(s),n=P.item.length,list=P.gaya==='daftar';
     const ty=list?190:200,ttl=lineW(A,P.judul||'',{x:70,y:ty,w:940,size:list?100:90,id:sid(s,'ttl')});fitLines(ttl,2,60);
     const tb=ty+ttl.offsetHeight;s.items=[];
-    if(list){const y0=tb+110,gap=Math.min(290,(1300-y0)/n);
+    if(list){const y0=tb+90,gap=Math.min(270,(1260-y0)/n);
       P.item.forEach((it,k)=>{const y=y0+k*gap;put(A,`<div class="step card" style="width:940px;box-sizing:border-box;padding:22px 30px;gap:26px"><div class="badge">${k+1}</div>${icon(it.ikon,170)}<div class="tx"><div class="t1" style="font-size:62px">${esc(it.teks)}</div>${it.sub?`<div class="t2">${esc(it.sub)}</div>`:''}</div></div>`,{x:70,y,id:sid(s,'i'+k),z:3});
         s.items.push({x:540,y:y+75});});}
     else{const ys=[[620,1060],[540,860,1180],[490,740,990,1240]][n-2];

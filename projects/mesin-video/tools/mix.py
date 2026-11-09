@@ -136,7 +136,8 @@ def main(eid):
         jn = json.loads(mm[mm.rindex("{"):mm.rindex("}") + 1])
         af = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={jn['input_i']}:measured_TP={jn['input_tp']}:measured_LRA={jn['input_lra']}:"
               f"measured_thresh={jn['input_thresh']}:offset={jn['target_offset']}:linear=true")
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", af, "-ar", str(SR), D("build", f"{name}.wav")], check=True)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", af + ",alimiter=limit=0.79:level=false:attack=1:release=60",
+                        "-ar", str(SR), D("build", f"{name}.wav")], check=True)       # safety limiter: true peak stays under -1 dBTP after AAC
         os.remove(raw)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", D("build", "mix.wav"), "-c:a", "aac", "-b:a", "192k", D("mix.m4a")], check=True)
     os.remove(tmp)

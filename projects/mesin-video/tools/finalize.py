@@ -34,7 +34,9 @@ def main(eid):
                             ("build-en", [("mix", f"{eid}-en", "en")])):
         if not os.path.exists(D(build, "video.mp4")):
             continue
-        run("ffmpeg", "-v", "error", "-y", "-i", D(build, "video.mp4"), "-c:v", "libx264", "-preset", "slow", "-crf", os.environ.get("CRF", "21"),
+        vf = D(build, "video-final.mp4")
+        if not (os.path.exists(vf) and os.path.getmtime(vf) > os.path.getmtime(D(build, "video.mp4"))):
+          run("ffmpeg", "-v", "error", "-y", "-i", D(build, "video.mp4"), "-c:v", "libx264", "-preset", "slow", "-crf", os.environ.get("CRF", "21"),
             "-maxrate", "5M", "-bufsize", "10M", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.2", "-an", D(build, "video-final.mp4"))
         for mix, name, lang in variants:
             run("ffmpeg", "-v", "error", "-y", "-i", D(build, "video-final.mp4"), "-i", D("build", f"{mix}.wav"), "-map", "0:v", "-map", "1:a",
