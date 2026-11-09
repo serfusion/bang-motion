@@ -1,0 +1,7 @@
+[
+ {"id": "mitos-fakta", "nama": "Mitos vs Fakta", "nama_en": "Myth vs Fact", "deskripsi": "Kepercayaan populer diuji dengan data; format kuis MITOS/FAKTA."},
+ {"id": "gizi", "nama": "Makanan & Gizi", "nama_en": "Food & Nutrition", "deskripsi": "Perbandingan gizi makanan sehari-hari (per 100 g dan per porsi)."},
+ {"id": "sains", "nama": "Sains Sehari-hari", "nama_en": "Everyday Science", "deskripsi": "Kenapa sesuatu terjadi di sekitar kita, dijelaskan langkah demi langkah."},
+ {"id": "tubuh", "nama": "Fakta Tubuh", "nama_en": "Body Facts", "deskripsi": "Cara kerja tubuh manusia (bukan klaim pengobatan)."},
+ {"id": "intermezo", "nama": "Intermezo", "nama_en": "Fun Facts", "deskripsi": "Fakta unik, hewan, sejarah, asal-usul."}
+]

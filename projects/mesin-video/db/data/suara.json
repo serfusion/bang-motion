@@ -1,0 +1,3 @@
+[
+ {"id": "liam-v3", "penyedia": "elevenlabs", "model": "eleven_v3", "voice_id": "TX3LPaxmHKxFdv7VOQHJ", "nama": "Liam", "pengaturan": {"stability": 0.5, "similarity_boost": 0.75, "language_code": "id"}, "tempo": 1.12, "catatan_lisensi": "Akun gratis ElevenLabs: non-komersial, wajib atribusi 'Suara: ElevenLabs'. Paket berbayar untuk monetisasi."}
+]
