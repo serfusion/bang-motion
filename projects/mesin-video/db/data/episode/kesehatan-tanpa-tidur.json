@@ -1,0 +1,303 @@
+{
+  "id": "kesehatan-tanpa-tidur",
+  "kategori_id": "kesehatan",
+  "format": "fakta",
+  "judul": "11 hari tanpa tidur: apa yang terjadi?",
+  "judul_en": "11 days without sleep: what happened?",
+  "suara_id": "liam-v3",
+  "suara_en_id": "liam-v3-en",
+  "musik_id": "gummies",
+  "status": "siap",
+  "fakta": [
+    "gardner-264-jam",
+    "gardner-pulih",
+    "melek-17-jam",
+    "tidur-7-jam"
+  ],
+  "adegan": [
+    {
+      "jenis": "pembuka",
+      "vo": "[serious] {b0}<11=Sebelas> hari. | {b1}Tanpa tidur, | sama sekali. | Ini rekor {sorot}seorang anak SMA, | tahun <1964=seribu sembilan ratus enam puluh empat>.",
+      "vo_en": "[serious] {b0}<11=Eleven> days. | {b1}No sleep, | at all. | This is the record {sorot}of a high school kid, | back in <1964=nineteen sixty-four>.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "alarm-clock",
+            "sleeping-face",
+            "spiral-calendar"
+          ]
+        },
+        "judul": [
+          "11 hari.",
+          "Tanpa tidur."
+        ],
+        "sorot": "264 jam",
+        "kicker": "REKOR 1964"
+      },
+      "param_en": {
+        "judul": [
+          "11 days.",
+          "No sleep."
+        ],
+        "sorot": "264 hours",
+        "kicker": "RECORD · 1964"
+      }
+    },
+    {
+      "jenis": "catatan",
+      "vo": "[warm] Namanya {k0}Randy Gardner, | <17 tahun=tujuh belas tahun>, | dari San Diego. | Ini {k1}proyek lomba sains sekolahnya. | Dan dia diawasi langsung | {k2}peneliti tidur dari Stanford.",
+      "vo_en": "[warm] His name: {k0}Randy Gardner, | <17=seventeen>, | from San Diego. | It was {k1}his school science fair project. | And he was watched | {k2}by a sleep researcher from Stanford.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "boy",
+            "clipboard",
+            "microscope"
+          ]
+        },
+        "kartu": [
+          {
+            "kicker": "SIAPA",
+            "nilai": "Randy Gardner, 17"
+          },
+          {
+            "kicker": "UNTUK APA",
+            "nilai": "lomba sains sekolah"
+          },
+          {
+            "kicker": "DIAWASI",
+            "nilai": "William Dement, Stanford"
+          }
+        ]
+      },
+      "param_en": {
+        "kartu": [
+          {
+            "kicker": "WHO",
+            "nilai": "Randy Gardner, 17"
+          },
+          {
+            "kicker": "WHY",
+            "nilai": "school science fair"
+          },
+          {
+            "kicker": "MONITORED BY",
+            "nilai": "William Dement, Stanford"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "catatan",
+      "vo": "[curious] Hasilnya? | {k0}Hari keempat, | dia mulai berhalusinasi. | {k1}Susah fokus, | gampang marah, | ingatannya bolong-bolong. | [surprised] Anehnya, | dia {k2}masih kuat main basket | dan pinball.",
+      "vo_en": "[curious] The result? | {k0}By day four, | he was hallucinating. | {k1}He couldn't focus, | got irritable, | his memory full of holes. | [surprised] Strangely, | he {k2}could still play basketball | and pinball.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "face-with-spiral-eyes",
+            "brain",
+            "basketball"
+          ]
+        },
+        "kartu": [
+          {
+            "kicker": "HARI KE-4",
+            "nilai": "mulai halusinasi",
+            "warna": "merah"
+          },
+          {
+            "kicker": "GEJALA",
+            "nilai": "susah fokus, gampang marah"
+          },
+          {
+            "kicker": "TAPI MASIH",
+            "nilai": "main basket & pinball"
+          }
+        ]
+      },
+      "param_en": {
+        "kartu": [
+          {
+            "kicker": "DAY 4",
+            "nilai": "hallucinations",
+            "warna": "merah"
+          },
+          {
+            "kicker": "SYMPTOMS",
+            "nilai": "no focus, irritable"
+          },
+          {
+            "kicker": "YET STILL",
+            "nilai": "basketball & pinball"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "catatan",
+      "vo": "[serious] Padahal, | {k0}<17 jam=tujuh belas jam> saja tanpa tidur, | kemampuan kita sudah turun, | setara orang dengan {k1}kadar alkohol darah | <0,05%=nol koma nol lima persen>. | Itu temuan {k2}penelitian di jurnal Nature.",
+      "vo_en": "[serious] Here's the thing: | {k0}after just <17 hours=seventeen hours> awake, | your performance drops | to the level of someone with {k1}a blood alcohol level | of <0.05%=zero point zero five percent>. | That's {k2}a study published in Nature.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "alarm-clock",
+            "beer-mug",
+            "man-scientist"
+          ]
+        },
+        "kartu": [
+          {
+            "kicker": "17 JAM MELEK",
+            "nilai": "kinerja turun"
+          },
+          {
+            "kicker": "SETARA ALKOHOL DARAH",
+            "nilai": "0,05%",
+            "warna": "merah"
+          },
+          {
+            "kicker": "SUMBER",
+            "nilai": "Nature, 1997"
+          }
+        ]
+      },
+      "param_en": {
+        "kartu": [
+          {
+            "kicker": "17 HOURS AWAKE",
+            "nilai": "performance drops"
+          },
+          {
+            "kicker": "LIKE BLOOD ALCOHOL",
+            "nilai": "0.05%",
+            "warna": "merah"
+          },
+          {
+            "kicker": "SOURCE",
+            "nilai": "Nature, 1997"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "ibarat",
+      "vo": "[warm] {kutip}Ibarat ponsel yang baterainya tinggal <5%=lima persen>. | Masih nyala, | tapi semua aplikasi lemot. | [playful] {k0}Bisa dipakai? | Bisa. | {k1}Bisa diandalkan? | Nanti dulu.",
+      "vo_en": "[warm] {kutip}It's like a phone at <5%=five percent> battery. | Still on, | but every app lags. | [playful] {k0}Can you use it? | Sure. | {k1}Can you rely on it? | Not really.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "low-battery",
+            "mobile-phone",
+            "hourglass-not-done"
+          ]
+        },
+        "kutipan": "ibarat ponsel dengan baterai 5%",
+        "kartu": [
+          {
+            "teks": "Bisa dipakai? Bisa."
+          },
+          {
+            "teks": "Diandalkan? Nanti dulu.",
+            "warna": "merah"
+          }
+        ]
+      },
+      "param_en": {
+        "kutipan": "like a phone at 5% battery",
+        "kartu": [
+          {
+            "teks": "Usable? Sure."
+          },
+          {
+            "teks": "Reliable? Not really.",
+            "warna": "merah"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "catatan",
+      "vo": "[warm] Setelah rekornya, | {k0}Randy tidur sekitar <14 jam=empat belas jam>, | dan pulih. | [serious] Tapi sekarang, | {k1}Guinness tidak mau lagi mencatat rekor seperti ini. | {k2}Terlalu berbahaya.",
+      "vo_en": "[warm] After the record, | {k0}Randy slept about <14 hours=fourteen hours>, | and recovered. | [serious] But today, | {k1}Guinness won't record attempts like this anymore. | {k2}Too dangerous.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "bed",
+            "trophy",
+            "warning"
+          ]
+        },
+        "kartu": [
+          {
+            "kicker": "SETELAHNYA",
+            "nilai": "tidur ±14 jam"
+          },
+          {
+            "kicker": "GUINNESS",
+            "nilai": "tidak mencatat lagi"
+          },
+          {
+            "kicker": "ALASAN",
+            "nilai": "terlalu berbahaya",
+            "warna": "merah"
+          }
+        ]
+      },
+      "param_en": {
+        "kartu": [
+          {
+            "kicker": "AFTERWARDS",
+            "nilai": "slept ±14 hours"
+          },
+          {
+            "kicker": "GUINNESS",
+            "nilai": "no longer records it"
+          },
+          {
+            "kicker": "WHY",
+            "nilai": "too dangerous",
+            "warna": "merah"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "tanya",
+      "vo": "[warm] {k0}Orang dewasa butuh minimal <7 jam=tujuh jam> tidur semalam. | [curious] {tanya}Menurutmu, | tidurmu sudah cukup, | {pilih}atau masih kurang? | Tulis di komentar.",
+      "vo_en": "[warm] {k0}Adults need at least <7 hours=seven hours> of sleep a night. | [curious] {tanya}So, | are you getting enough, | {pilih}or not quite? | Tell us in the comments.",
+      "param": {
+        "ilustrasi": {
+          "ikon": [
+            "sleeping-face"
+          ]
+        },
+        "kartu": [
+          {
+            "kicker": "ORANG DEWASA",
+            "nilai": "≥ 7 jam semalam"
+          }
+        ],
+        "pertanyaan": "Tidurmu cukup?",
+        "pilihan": [
+          "Cukup",
+          "Kurang"
+        ],
+        "ajakan": "tulis di komentar"
+      },
+      "param_en": {
+        "kartu": [
+          {
+            "kicker": "ADULTS",
+            "nilai": "≥ 7 hours a night"
+          }
+        ],
+        "pertanyaan": "Enough sleep?",
+        "pilihan": [
+          "Enough",
+          "Not enough"
+        ],
+        "ajakan": "tell us in the comments"
+      }
+    }
+  ]
+}

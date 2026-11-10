@@ -1,18 +1,32 @@
 """Assemble the single-file page for one episode: engine CSS + JS + GSAP + timeline + icon SVGs.
 
-  python3 tools/build_page.py ID      -> episodes/ID/index.html   (open it directly; ?debug=1 scrub, ?lang=en)
+  python3 tools/build_page.py ID [id|en]     -> episodes/ID/<lang>/index.html   (open it directly; ?debug=1 scrub)
 """
-import json, os, sys
-from common import ENGINE, NODE_MODULES, ep_dir, load_json, icon_names, icon_svg
+import base64, json, mimetypes, os, sys
+from common import ENGINE, NODE_MODULES, ep_dir, lang_dir, load_json, icon_names, icon_svg
 
-ENGINE_ICONS = ["love-letter"]          # icons the templates use themselves
-JS = ["core.js", "reuse.js", "scenes.js", "main.js"]
+ENGINE_ICONS = ["love-letter", "speech-balloon", "check-mark-button", "cross-mark"]   # icons the templates use themselves
+JS = ["core.js", "reuse.js", "scenes.js", "fakta.js", "main.js"]
 
 
-def main(eid):
+def images(tl, ep):
+    """Uploaded images referenced as {"gambar": "<aset id>"} -> data URIs (the page stays a single file)."""
+    out, assets = {}, ep.get("aset", {})
+    for s in tl["scenes"]:
+        il = (s["param"] or {}).get("ilustrasi") or {}
+        g = il.get("gambar")
+        if g and g in assets and g not in out:
+            path = os.path.join(ENGINE, "icons", assets[g]["berkas"])
+            mt = mimetypes.guess_type(path)[0] or "image/png"
+            out[g] = f"data:{mt};base64," + base64.b64encode(open(path, "rb").read()).decode()
+    return out
+
+
+def main(eid, lang="id"):
     ep = load_json(ep_dir(eid, "episode.json"))
-    tl = load_json(ep_dir(eid, "timeline.json"))
+    tl = load_json(lang_dir(eid, lang, "timeline.json"))
     tl["icons"] = {n: icon_svg(n, ep.get("aset", {})) for n in icon_names(ep) + ENGINE_ICONS}
+    tl["images"] = images(tl, ep)
     miss = [n for n, v in tl["icons"].items() if not v]
     if miss:
         sys.exit(f"ikon tidak ditemukan: {miss}")
@@ -22,7 +36,7 @@ def main(eid):
     gsap = rd(os.path.join(NODE_MODULES, "gsap", "dist", "gsap.min.js"))
     data = json.dumps(tl, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     html = f"""<!doctype html>
-<html lang="id">
+<html lang="{lang}">
 <!-- {ep['judul']} — dibangkitkan oleh mesin-video dari database (episode '{eid}'). Bang Motion (HTML + GSAP) + video-shotcraft.
      ?debug=1 scrub, ?clean=1 export, ?lang=en subtitle Inggris. -->
 <head>
@@ -51,10 +65,10 @@ def main(eid):
 </body>
 </html>
 """
-    with open(ep_dir(eid, "index.html"), "w", encoding="utf-8") as f:
+    with open(lang_dir(eid, lang, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"halaman: episodes/{eid}/index.html ({len(html) // 1024} KB, {len(tl['icons'])} ikon)")
+    print(f"halaman: episodes/{eid}/{lang}/index.html ({len(html) // 1024} KB, {len(tl['icons'])} ikon)")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "id")

@@ -19,6 +19,7 @@ function enter(s){
     tl.fromTo(FX,{lensP:0},{lensP:1,duration:.9,ease:'power1.inOut',immediateRender:false},c-.45);
     camSet(c,s.cx,s.cy,1.06);tl.to(C,{z:1,duration:1.3,ease:'power3.out'},c);
     sfx(c,'transition/air-whoosh-powerful',.4,{al:'pk',note:'daun melintas lensa'});sfx(c,'impact/impact-cine-big',.36,{al:'pk',note:'CTA'});return;}
+  if(FMT==='fakta'){look(c-.55,s.cx,s.cy,1,.95,'power2.inOut');sfx(c-.45,'transition/air-woosh-quick',.14,{max:.9,note:'geser ke adegan '+s.key});return;}
   const horiz=s.dir&&s.dir[0]!==0,k=horiz?'whipX':'whipY';
   look(c-.36,s.cx,s.cy,1,.62,'power2.inOut');
   tl.fromTo(FX,{[k]:0},{[k]:26,duration:.3,ease:'power2.in',immediateRender:false},c-.36);tl.to(FX,{[k]:0,duration:.32,ease:'power2.out'},c-.06);
@@ -30,7 +31,7 @@ const leave=(s,sels,at=s.end-.75)=>{const ok=sels.filter(n=>S$(s,n));if(s.next&&
 SCENES.kuis={
   build(s){
     const P=s.param,A=s.el=areaEl(s),n=P.pilihan.length,hero=!!P.ikon&&n===2;
-    put(A,`<div class="sticker" style="background:${PAL.marker};font:800 64px/1 'Plus Jakarta Sans';letter-spacing:.06em;padding:12px 30px 16px">${esc(P.stiker||'KUIS!')}</div>`,{x:70,y:132,id:sid(s,'stk'),rot:-6,z:3});
+    put(A,`<div class="sticker" style="background:${PAL.marker};font:800 64px/1 'Plus Jakarta Sans';letter-spacing:.06em;padding:12px 30px 16px">${esc(P.stiker||TX.kuis)}</div>`,{x:70,y:132,id:sid(s,'stk'),rot:-6,z:3});
     const ttl=lineW(A,P.judul,{x:70,y:250,w:940,size:92,id:sid(s,'ttl')});fitLines(ttl,2,60);
     const tb=250+ttl.offsetHeight;let G;
     if(n===3){const w=280,h=400,y=Math.max(tb+60,490);G={w,h,y,xs:[70,400,730],rot:[-4,0,4],ic:170,name:44,ring:[540,y+h+92]};}
@@ -250,8 +251,8 @@ SCENES.twist={
     const P=s.param,kej=P.nada==='kejutan',A=s.el=areaEl(s,5);A.style.clipPath='path("M0 0Z")';
     put(A,`<div class="darkpage${kej?' kejutan':''}"></div>`,{x:0,y:0,cls:'ab',z:0});
     if(kej)put(A,'<div class="rays" style="left:-460px;top:-860px;width:2000px;height:2000px"></div>',{x:0,y:0,id:sid(s,'rays'),cls:'ab',z:0});
-    const ttl=lineW(A,`${P.judul||(kej?'Kejutan!':'Wajib tahu!')}`,{x:84,y:140,w:900,size:116,id:sid(s,'ttl'),align:'left'});ttl.style.color=PAL.cream;ttl.style.fontStyle='italic';
-    const news=put(A,`<div class="news"><svg class="ab" width="600" height="110" viewBox="0 0 600 110" style="left:8px;top:2px;overflow:visible;z-index:2"><path id="${sid(s,'circ')}" d="M560 44C560 10 40 4 30 48C22 92 540 98 568 58C576 46 564 26 526 16" fill="none" stroke="#E5533D" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg><div class="mast"><span class="kk">${esc(P.kicker||'FAKTA')}</span></div><div class="head">${hlText(P.headline,sid(s,'hl'))}</div><div class="bar" style="width:92%"></div><div class="bar" style="width:70%"></div><div class="ab note hand" id="${sid(s,'redact')}" style="left:24px;right:24px;top:70px;height:150px;display:flex;align-items:center;justify-content:center;font-size:96px;color:${PAL.ink};transform-origin:90% 10%">???</div></div>`,{x:90,y:300,id:sid(s,'news'),rot:-2,z:3});
+    const ttl=lineW(A,`${P.judul||(kej?TX.kejutan:TX.wajib)}`,{x:84,y:140,w:900,size:116,id:sid(s,'ttl'),align:'left'});ttl.style.color=PAL.cream;ttl.style.fontStyle='italic';
+    const news=put(A,`<div class="news"><svg class="ab" width="600" height="110" viewBox="0 0 600 110" style="left:8px;top:2px;overflow:visible;z-index:2"><path id="${sid(s,'circ')}" d="M560 44C560 10 40 4 30 48C22 92 540 98 568 58C576 46 564 26 526 16" fill="none" stroke="#E5533D" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg><div class="mast"><span class="kk">${esc(P.kicker||TX.fakta)}</span></div><div class="head">${hlText(P.headline,sid(s,'hl'))}</div><div class="bar" style="width:92%"></div><div class="bar" style="width:70%"></div><div class="ab note hand" id="${sid(s,'redact')}" style="left:24px;right:24px;top:70px;height:150px;display:flex;align-items:center;justify-content:center;font-size:96px;color:${PAL.ink};transform-origin:90% 10%">???</div></div>`,{x:90,y:300,id:sid(s,'news'),rot:-2,z:3});
     {const kk=news.querySelector('.kk'),w=kk.offsetWidth,cx=28+w/2,cy=44,rx=w/2+34,ry=34;
       const pt=(a,d)=>`${f1(cx+(rx+d)*Math.cos(a*Math.PI/180))} ${f1(cy+(ry+d*.5)*Math.sin(a*Math.PI/180))}`;
       $('#'+sid(s,'circ')).setAttribute('d',`M${pt(-25,0)}A${f1(rx)} ${ry} 0 1 1 ${pt(160,3)}A${f1(rx+3)} ${f1(ry+1.5)} 0 0 1 ${pt(345,7)}`);}
@@ -314,10 +315,10 @@ SCENES.cta={
     let y=650+ttl.offsetHeight+44;
     put(A,`<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;width:1000px">${(P.tagline||[]).map((x,i)=>`<span class="chip" id="${sid(s,'chip'+i)}" style="opacity:0;display:inline-block">${esc(x)}</span>`).join('')}</div>`,{x:40,y,id:sid(s,'tags'),cls:'ab',z:3});
     y+=$('#'+sid(s,'tags')).offsetHeight+40;
-    put(A,`<div style="display:flex;align-items:center;justify-content:center;gap:18px;width:1080px">${icon('love-letter',84,'flat')}<span class="hand" style="font-size:58px;white-space:nowrap">${esc(P.ajakan||'kirim ke temanmu')}</span><span id="${sid(s,'cb')}" style="display:inline-block">${icon(P.ikon_ajakan||P.ikon,76,'flat')}</span></div>`,{x:0,y,id:sid(s,'share'),z:3});
+    put(A,`<div style="display:flex;align-items:center;justify-content:center;gap:18px;width:1080px">${icon('love-letter',84,'flat')}<span class="hand" style="font-size:58px;white-space:nowrap">${esc(P.ajakan||TX.kirim)}</span><span id="${sid(s,'cb')}" style="display:inline-block">${icon(P.ikon_ajakan||P.ikon,76,'flat')}</span></div>`,{x:0,y,id:sid(s,'share'),z:3});
     y+=120;
     const cr=TL.meta||{},src=(cr.sumber||[]).join('; ');
-    put(A,`<div class="lbl" style="font-size:34px;font-weight:600;width:700px;line-height:1.22;opacity:.85">Sumber: ${esc(src)}. Edukasi umum, bukan pengganti saran tenaga kesehatan. ${esc(cr.suara||'')}</div>`,{x:340,y:y-10,id:sid(s,'foot'),z:3});
+    put(A,`<div class="lbl" style="font-size:34px;font-weight:600;width:700px;line-height:1.22;opacity:.85">${TX.sumber}: ${esc(src)}. ${TX.disclaimer} ${cr.elevenlabs?TX.suara:''}</div>`,{x:340,y:y-10,id:sid(s,'foot'),z:3});
   },
   choreo(s){
     const P=s.param,c=s.cut;enter(s);mspot(c+.15,'BL');

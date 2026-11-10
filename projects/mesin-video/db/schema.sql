@@ -65,27 +65,36 @@ CREATE TABLE IF NOT EXISTS musik (
 CREATE TABLE IF NOT EXISTS episode (
   id          TEXT PRIMARY KEY,          -- slug, juga nama folder keluaran
   kategori_id TEXT REFERENCES kategori(id),
+  format      TEXT NOT NULL DEFAULT 'tebakan' CHECK (format IN ('tebakan','fakta')),
+                                         -- tebakan: kuis cepat (hook, hitung mundur, jawaban)
+                                         -- fakta: penjelasan santai bergaya catatan (kartu angka, analogi, pertanyaan penutup)
   judul       TEXT NOT NULL,
   judul_en    TEXT,
-  suara_id    TEXT REFERENCES suara(id),
+  suara_id    TEXT REFERENCES suara(id), -- suara untuk naskah Indonesia
+  suara_en_id TEXT REFERENCES suara(id), -- suara untuk naskah Inggris
   musik_id    TEXT REFERENCES musik(id),
+  tempo       REAL,                      -- kosong = bawaan format (tebakan 1.12, fakta 1.0)
   status      TEXT DEFAULT 'draf' CHECK (status IN ('draf','siap','dirender','terbit')),
   catatan     TEXT,
   dibuat      TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
--- Jenis adegan (templat di engine/scenes.js): kuis, jawaban, langkah, banding, twist, cta.
--- vo   : naskah suara. '[tag]' = arahan intonasi ElevenLabs v3, '|' = batas halaman subtitle,
---        '{nama}' sebelum sebuah kata = isyarat waktu untuk visual (mis. {p0} pilihan A disebut, {jawab} jawaban).
--- vo_en: subtitle Inggris, jumlah '|' sama dengan vo.
--- param: JSON khusus per jenis adegan (lihat README).
+-- Jenis adegan (templat di engine/js/scenes.js dan fakta.js):
+--   format tebakan: kuis, jawaban, langkah, banding, twist, cta
+--   format fakta  : pembuka, catatan, ibarat, tanya (+ langkah, banding)
+-- vo      : naskah suara Indonesia. '[tag]' = arahan intonasi ElevenLabs v3, '|' = batas halaman subtitle,
+--           '{nama}' sebelum sebuah kata = isyarat waktu untuk visual (mis. {p0} pilihan A disebut, {k0} kartu pertama).
+-- vo_en   : naskah suara Inggris (format sama, isyaratnya sama) — dipakai untuk video berbahasa Inggris.
+-- param   : JSON khusus per jenis adegan (lihat README).
+-- param_en: JSON yang menimpa teks layar di param untuk video berbahasa Inggris (hanya kunci yang berbeda).
 CREATE TABLE IF NOT EXISTS adegan (
   episode_id TEXT REFERENCES episode(id) ON DELETE CASCADE,
   urutan     INTEGER NOT NULL,
-  jenis      TEXT NOT NULL CHECK (jenis IN ('kuis','jawaban','langkah','banding','twist','cta')),
+  jenis      TEXT NOT NULL CHECK (jenis IN ('kuis','jawaban','langkah','banding','twist','cta','pembuka','catatan','ibarat','tanya')),
   vo         TEXT NOT NULL,
-  vo_en      TEXT NOT NULL,
+  vo_en      TEXT NOT NULL DEFAULT '',
   param      TEXT NOT NULL DEFAULT '{}',
+  param_en   TEXT NOT NULL DEFAULT '{}',
   PRIMARY KEY (episode_id, urutan)
 );
 
@@ -97,8 +106,36 @@ CREATE TABLE IF NOT EXISTS episode_fakta (
 
 CREATE TABLE IF NOT EXISTS render (
   episode_id TEXT REFERENCES episode(id) ON DELETE CASCADE,
-  bahasa     TEXT,                       -- 'id', 'en', 'id-tanpa-musik'
+  bahasa     TEXT,                       -- 'id', 'id-tanpa-musik', 'en', 'en-tanpa-musik'
   berkas     TEXT,
   durasi     REAL,
   dibuat     TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Kunci API TTS. Dicoba berurutan; bila satu ditolak (kuota habis / tidak valid / batas laju), pindah ke berikutnya.
+-- Berkas db/konten.db tidak pernah di-commit, dan kunci tidak ikut diekspor ke JSON.
+CREATE TABLE IF NOT EXISTS kunci_api (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  penyedia    TEXT NOT NULL DEFAULT 'elevenlabs',
+  label       TEXT,
+  kunci       TEXT NOT NULL,
+  urutan      INTEGER NOT NULL DEFAULT 1,
+  aktif       INTEGER NOT NULL DEFAULT 1,
+  status      TEXT DEFAULT 'belum dites',  -- ok / habis / ditolak / galat
+  sisa        INTEGER,                     -- sisa karakter bila API mengizinkan cek langganan
+  terakhir    TEXT,                        -- waktu terakhir dipakai
+  catatan     TEXT
+);
+
+-- Antrean render dari panel web.
+CREATE TABLE IF NOT EXISTS tugas (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  episode_id TEXT REFERENCES episode(id) ON DELETE CASCADE,
+  bahasa     TEXT NOT NULL,                -- 'id' atau 'en'
+  status     TEXT NOT NULL DEFAULT 'antre' CHECK (status IN ('antre','jalan','selesai','gagal','batal')),
+  langkah    TEXT,                         -- langkah pipeline yang sedang berjalan
+  log        TEXT,                         -- path log
+  dibuat     TEXT DEFAULT CURRENT_TIMESTAMP,
+  mulai      TEXT,
+  selesai    TEXT
 );

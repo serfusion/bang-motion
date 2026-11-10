@@ -15,7 +15,12 @@ function bez(x1,y1,x2,y2){const cx=3*x1,bx=3*(x2-x1)-cx,ax=1-cx-bx,cy=3*y1,by=3*
 const mulberry32=a=>()=>{let t=(a+=0x6d2b79f5);t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const T=TL.T, beat=n=>n*T;
-const LANG=new URLSearchParams(location.search).get('lang')==='en'?'en':'id';
+const LANG=TL.lang==='en'?'en':'id', FMT=TL.format||'tebakan';
+/* teks bawaan templat per bahasa (teks konten datang dari database: param / param_en) */
+const TX={id:{kuis:'KUIS!',kirim:'kirim ke temanmu',sumber:'Sumber',disclaimer:'Edukasi umum, bukan pengganti saran tenaga kesehatan.',
+    suara:'Suara: ElevenLabs.',wajib:'Wajib tahu!',kejutan:'Kejutan!',fakta:'FAKTA',komentar:'tulis di komentar'},
+  en:{kuis:'QUIZ!',kirim:'send to a friend',sumber:'Sources',disclaimer:'General education, not a substitute for professional advice.',
+    suara:'Voice: ElevenLabs.',wajib:'Must know!',kejutan:'Surprise!',fakta:'FACT',komentar:'tell us in the comments'}}[LANG];
 const world=$('#world');
 
 /* adegan dari timeline.json: {key,jenis,param,cut,speechStart,speechEnd,words:[{w,t,e,p,tag}],cues:{nama:t}} */
@@ -35,7 +40,8 @@ const icon=(name,size,cls='')=>`<div class="ic ${cls}" style="width:${size}px;he
    kuis + jawaban berbagi satu area; twist menimpa area sebelumnya (tinta merembes); adegan lain pindah area
    searah gerak kamera (turun / kanan / turun / kiri ...). Koordinat lokal area: 0..1080 x 0..1920. */
 (function layoutAreas(){
-  const dirs=[[0,2700],[1900,0],[0,2700],[-1900,0]];let cx=540,cy=960,k=0;
+  /* format fakta: satu lembar kertas panjang, kamera bergeser ke kanan dengan tenang */
+  const dirs=FMT==='fakta'?[[1240,0]]:[[0,2700],[1900,0],[0,2700],[-1900,0]];let cx=540,cy=960,k=0;
   SCN.forEach((s,i)=>{
     if(i===0){s.cx=cx;s.cy=cy;s.dir=null;return;}
     if(s.jenis==='jawaban'||s.jenis==='twist'){s.cx=s.prev.cx;s.cy=s.prev.cy;s.dir=null;return;}
@@ -65,7 +71,7 @@ function mascotFromTags(){SCN.forEach(s=>{let last=null;s.words.forEach(w=>{if(w
 /* denyut mengikuti ketukan musik (render): elemen yang sedang dibicarakan "bernapas" di tiap ketukan */
 const PULSES=[];const pulse=(el,t0,t1,amp=.05)=>{if(el&&t1>t0+.2)PULSES.push({el,t0,t1,amp});};
 /* spasi tak-putus antara angka dan satuan ("±30 menit" tidak terpotong) */
-const nb=s=>String(s).replace(/±\s+/g,'±').replace(/(\d[\d.,]*)\s+(menit|detik|jam|g|kg|mg|µg|ml|liter|kkal|kalori|°C|sdm|sdt|cm|potong|butir)(?![a-z])/gi,'$1\u00a0$2');
+const nb=s=>String(s).replace(/±\s+/g,'±').replace(/(\d[\d.,]*)\s+(menit|detik|jam|hari|g|kg|mg|µg|ml|liter|kkal|kcal|kalori|calories|°C|sdm|sdt|tbsp|tsp|cm|potong|butir|minutes|hours|days|slices?)(?![a-z])/gi,'$1\u00a0$2');
 
 /* ============================== SFX: tabel pin (detik video) ============================== */
 const SFX=[];

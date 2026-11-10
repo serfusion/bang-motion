@@ -1,125 +1,204 @@
 {
- "id": "gizi-tempe-telur",
- "kategori_id": "gizi",
- "judul": "Tempe vs telur: protein mana lebih tinggi?",
- "judul_en": "Tempeh vs egg: which has more protein?",
- "suara_id": "liam-v3",
- "musik_id": "keep-smiling",
- "status": "siap",
- "fakta": [
-  "tempe-protein",
-  "telur-protein",
-  "tempe-fermentasi",
-  "porsi-telur",
-  "porsi-tempe",
-  "tempe-1815"
- ],
- "adegan": [
-  {
-   "jenis": "kuis",
-   "vo": "[curious] Protein siapa | yang lebih tinggi? | {p0}Tempe... | atau {p1}telur?",
-   "vo_en": "Which one | has more protein? | Tempeh... | or egg?",
-   "param": {
-    "judul": "Siapa juara protein?",
-    "pilihan": [
-     {
-      "label": "Tempe",
-      "ikon": "tempe"
-     },
-     {
-      "label": "Telur",
-      "ikon": "egg"
-     }
-    ],
-    "jawaban": 0
-   }
-  },
-  {
-   "jenis": "jawaban",
-   "vo": "[excited] Jawabannya... | {jawab}TEMPE! | [excited] Per seratus gram, | {label}tempe dua puluh gram protein, | telur cuma dua belas! | [whispers] Tapi awas, ada jebakan angka... | {teaser}di akhir video.",
-   "vo_en": "The answer... | TEMPEH! | Per hundred grams, | tempeh has twenty grams of protein, | egg only twelve! | But careful, there's a number trap... | at the end of the video.",
-   "param": {
-    "stempel": "MENANG!",
-    "label": [
-     "20,3 g",
-     "12,6 g"
-    ],
-    "catatan": "protein · per 100 g (USDA)",
-    "teaser": "di akhir video!"
-   }
-  },
-  {
-   "jenis": "langkah",
-   "vo": "[curious] Rahasianya? | {l0}Kedelai, | kacang yang kaya protein. | {l1}Lalu difermentasi | jamur Rhizopus... | [excited] {l2}jadi lebih gampang dicerna!",
-   "vo_en": "The secret? | Soybeans, | a protein-rich bean. | Then fermented | by Rhizopus mould... | so it's easier to digest!",
-   "param": {
-    "judul": "Rahasia tempe",
-    "gaya": "rantai",
-    "item": [
-     {
-      "ikon": "kedelai",
-      "teks": "kedelai",
-      "sub": "kaya protein"
-     },
-     {
-      "ikon": "microbe",
-      "teks": "jamur Rhizopus",
-      "sub": "fermentasi"
-     },
-     {
-      "ikon": "flexed-biceps",
-      "teks": "mudah dicerna",
-      "sub": "protein siap pakai"
-     }
-    ]
-   }
-  },
-  {
-   "jenis": "banding",
-   "vo": "[mischievously] Nah, ini jebakannya: | angka tadi per seratus gram. | {b0}Sebutir telur: tujuh koma enam gram. | {b1}Sepotong tempe tipis: | cuma lima koma satu gram! | [laughs] Jadi... | {b2}makan tempenya dua potong!",
-   "vo_en": "Now, here's the trap: | those numbers were per hundred grams. | One egg: seven point six grams. | One thin slice of tempeh: | only five point one grams! | So... | eat two slices of tempeh!",
-   "param": {
-    "judul": "Jebakan angka!",
-    "sub": "protein per porsi",
-    "tema": "kejutan",
-    "item": [
-     {
-      "label": "1 butir telur (±60 g)",
-      "ikon": "egg",
-      "nilai": 7.6,
-      "teks": "7,6 g"
-     },
-     {
-      "label": "1 potong tempe (±25 g)",
-      "ikon": "tempe-potong",
-      "nilai": 5.1,
-      "teks": "5,1 g"
-     },
-     {
-      "label": "2 potong tempe",
-      "ikon": "tempe-potong",
-      "nilai": 10.2,
-      "teks": "10,2 g",
-      "juara": true
-     }
-    ]
-   }
-  },
-  {
-   "jenis": "cta",
-   "vo": "[playful] Tempe: murah, asli Indonesia, | tercatat sejak tahun seribu delapan ratusan! | Kirim ke temanmu | yang suka meremehkan tempe!",
-   "vo_en": "Tempeh: cheap, truly Indonesian, | on record since the 1800s! | Send this to a friend | who looks down on tempeh!",
-   "param": {
-    "judul": "Tempe juara!",
-    "ikon": "tempe",
-    "tagline": [
-     "murah",
-     "asli Indonesia",
-     "sejak ±1815"
-    ],
-    "ajakan": "kirim ke temanmu",
-    "ikon_ajakan": "egg"
-   }
-  }
- ]
+  "id": "gizi-tempe-telur",
+  "kategori_id": "gizi",
+  "judul": "Tempe vs telur: protein mana lebih tinggi?",
+  "judul_en": "Tempeh vs egg: which has more protein?",
+  "suara_id": "liam-v3",
+  "musik_id": "keep-smiling",
+  "status": "siap",
+  "fakta": [
+    "tempe-protein",
+    "telur-protein",
+    "tempe-fermentasi",
+    "porsi-telur",
+    "porsi-tempe",
+    "tempe-1815"
+  ],
+  "adegan": [
+    {
+      "jenis": "kuis",
+      "vo": "[curious] Protein siapa | yang lebih tinggi? | {p0}Tempe... | atau {p1}telur?",
+      "vo_en": "[curious] Which one | has more protein? | {p0}Tempeh... | or {p1}egg?",
+      "param": {
+        "judul": "Siapa juara protein?",
+        "pilihan": [
+          {
+            "label": "Tempe",
+            "ikon": "tempe"
+          },
+          {
+            "label": "Telur",
+            "ikon": "egg"
+          }
+        ],
+        "jawaban": 0
+      },
+      "param_en": {
+        "judul": "Protein champion?",
+        "stiker": "QUIZ!",
+        "pilihan": [
+          {
+            "label": "Tempeh",
+            "ikon": "tempe"
+          },
+          {
+            "label": "Egg",
+            "ikon": "egg"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "jawaban",
+      "vo": "[excited] Jawabannya... | {jawab}TEMPE! | [excited] Per seratus gram, | {label}tempe dua puluh gram protein, | telur cuma dua belas! | [whispers] Tapi awas, ada jebakan angka... | {teaser}di akhir video.",
+      "vo_en": "[excited] The answer... | {jawab}TEMPEH! | [excited] Per <100 g=hundred grams>, | {label}tempeh has <20 g=twenty grams> of protein, | egg only <12 g=twelve>! | [whispers] But careful, there's a number trap... | {teaser}at the end of the video.",
+      "param": {
+        "stempel": "MENANG!",
+        "label": [
+          "20,3 g",
+          "12,6 g"
+        ],
+        "catatan": "protein · per 100 g (USDA)",
+        "teaser": "di akhir video!"
+      },
+      "param_en": {
+        "stempel": "WINNER!",
+        "label": [
+          "20.3 g",
+          "12.6 g"
+        ],
+        "catatan": "protein · per 100 g (USDA)",
+        "teaser": "at the end!"
+      }
+    },
+    {
+      "jenis": "langkah",
+      "vo": "[curious] Rahasianya? | {l0}Kedelai, | kacang yang kaya protein. | {l1}Lalu difermentasi | jamur Rhizopus... | [excited] {l2}jadi lebih gampang dicerna!",
+      "vo_en": "[curious] The secret? | {l0}Soybeans, | a protein-rich bean. | {l1}Then fermented | by Rhizopus mould... | [excited] {l2}so it's easier to digest!",
+      "param": {
+        "judul": "Rahasia tempe",
+        "gaya": "rantai",
+        "item": [
+          {
+            "ikon": "kedelai",
+            "teks": "kedelai",
+            "sub": "kaya protein"
+          },
+          {
+            "ikon": "microbe",
+            "teks": "jamur Rhizopus",
+            "sub": "fermentasi"
+          },
+          {
+            "ikon": "flexed-biceps",
+            "teks": "mudah dicerna",
+            "sub": "protein siap pakai"
+          }
+        ]
+      },
+      "param_en": {
+        "judul": "Tempeh's secret",
+        "item": [
+          {
+            "ikon": "kedelai",
+            "teks": "soybeans",
+            "sub": "protein-rich"
+          },
+          {
+            "ikon": "microbe",
+            "teks": "Rhizopus mould",
+            "sub": "fermentation"
+          },
+          {
+            "ikon": "flexed-biceps",
+            "teks": "easy to digest",
+            "sub": "protein ready to use"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "banding",
+      "vo": "[mischievously] Nah, ini jebakannya: | angka tadi per seratus gram. | {b0}Sebutir telur: tujuh koma enam gram. | {b1}Sepotong tempe tipis: | cuma lima koma satu gram! | [laughs] Jadi... | {b2}makan tempenya dua potong!",
+      "vo_en": "[mischievously] Now, here's the trap: | those numbers were per hundred grams. | {b0}One egg: <7.6 g=seven point six grams>. | {b1}One thin slice of tempeh: | only <5.1 g=five point one grams>! | [laughs] So... | {b2}eat two slices of tempeh!",
+      "param": {
+        "judul": "Jebakan angka!",
+        "sub": "protein per porsi",
+        "tema": "kejutan",
+        "item": [
+          {
+            "label": "1 butir telur (±60 g)",
+            "ikon": "egg",
+            "nilai": 7.6,
+            "teks": "7,6 g"
+          },
+          {
+            "label": "1 potong tempe (±25 g)",
+            "ikon": "tempe-potong",
+            "nilai": 5.1,
+            "teks": "5,1 g"
+          },
+          {
+            "label": "2 potong tempe",
+            "ikon": "tempe-potong",
+            "nilai": 10.2,
+            "teks": "10,2 g",
+            "juara": true
+          }
+        ]
+      },
+      "param_en": {
+        "judul": "Number trap!",
+        "sub": "protein per serving",
+        "item": [
+          {
+            "label": "1 egg (±60 g)",
+            "ikon": "egg",
+            "nilai": 7.6,
+            "teks": "7.6 g"
+          },
+          {
+            "label": "1 slice of tempeh (±25 g)",
+            "ikon": "tempe-potong",
+            "nilai": 5.1,
+            "teks": "5.1 g"
+          },
+          {
+            "label": "2 slices of tempeh",
+            "ikon": "tempe-potong",
+            "nilai": 10.2,
+            "teks": "10.2 g",
+            "juara": true
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "cta",
+      "vo": "[playful] Tempe: murah, asli Indonesia, | tercatat sejak tahun seribu delapan ratusan! | Kirim ke temanmu | yang suka meremehkan tempe!",
+      "vo_en": "[playful] Tempeh: cheap, truly Indonesian, | on record since the <1800s=eighteen hundreds>! | Send this to a friend | who looks down on tempeh!",
+      "param": {
+        "judul": "Tempe juara!",
+        "ikon": "tempe",
+        "tagline": [
+          "murah",
+          "asli Indonesia",
+          "sejak ±1815"
+        ],
+        "ajakan": "kirim ke temanmu",
+        "ikon_ajakan": "egg"
+      },
+      "param_en": {
+        "judul": "Tempeh wins!",
+        "tagline": [
+          "cheap",
+          "from Indonesia",
+          "since ±1815"
+        ],
+        "ajakan": "send to a friend"
+      }
+    }
+  ],
+  "format": "tebakan",
+  "suara_en_id": "liam-v3-en"
 }

@@ -9,11 +9,11 @@ Music edit (all derived from the timeline, nothing per episode):
 Levels: music -24 LUFS where nobody speaks, -10 dB under the voice (hold 0.45 s, release 0.5 s; kept big for
 0.7 s on the reveal and the CTA), voice -16 LUFS, SFX peak-normalised; master -14 LUFS / -1.5 dBTP.
 
-  python3 tools/mix.py ID   -> episodes/ID/build/mix.wav, mix-nobgm.wav, stems; episodes/ID/mix.m4a (page playback)
+  python3 tools/mix.py ID [id|en]   -> episodes/ID/<lang>/build/mix.wav, mix-nobgm.wav, stems; <lang>/mix.m4a
 """
 import json, math, os, subprocess, sys
 import numpy as np
-from common import ENGINE, ep_dir, load_json
+from common import ENGINE, ep_dir, lang_dir, load_json
 
 SR = 48000
 
@@ -66,9 +66,9 @@ def fade(sig, fin=0.0, fout=0.0):
     return sig
 
 
-def main(eid):
-    D = lambda *p: ep_dir(eid, *p)
-    tl, ep = load_json(D("timeline.json")), load_json(D("episode.json"))
+def main(eid, lang="id"):
+    D = lambda *p: lang_dir(eid, lang, *p)
+    tl, ep = load_json(D("timeline.json")), load_json(ep_dir(eid, "episode.json"))
     sfx = load_json(D("sfx.json")) if os.path.exists(D("sfx.json")) else []
     os.makedirs(D("build"), exist_ok=True); tmp = D("build", "_meter.wav")
     dur, T, N = tl["duration"], tl["T"], int(round(tl["duration"] * SR))
@@ -163,4 +163,4 @@ def main(eid):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "id")

@@ -1,118 +1,191 @@
 {
- "id": "mitos-air-es",
- "kategori_id": "mitos-fakta",
- "judul": "Minum air es bikin gendut?",
- "judul_en": "Does iced water make you fat?",
- "suara_id": "liam-v3",
- "musik_id": "comical",
- "status": "siap",
- "fakta": [
-  "air-0-kkal",
-  "hangatkan-air-es",
-  "es-teh-2sdm",
-  "batas-gula"
- ],
- "adegan": [
-  {
-   "jenis": "kuis",
-   "vo": "[curious] Minum air es... | bikin gendut? | {p0}Mitos... | atau {p1}fakta?",
-   "vo_en": "Drinking iced water... | makes you fat? | Myth... | or fact?",
-   "param": {
-    "judul": "Air es bikin gendut?",
-    "ikon": "ice",
-    "pilihan": [
-     {
-      "label": "MITOS",
-      "ikon": "cross-mark"
-     },
-     {
-      "label": "FAKTA",
-      "ikon": "check-mark-button"
-     }
-    ],
-    "jawaban": 0
-   }
-  },
-  {
-   "jenis": "jawaban",
-   "vo": "[excited] Jawabannya... | {jawab}MITOS! | [excited] Air es itu | {besar}nol kalori! | [whispers] Tapi ada pelaku sebenarnya... | {teaser}di akhir video.",
-   "vo_en": "The answer... | MYTH! | Iced water has | zero calories! | But there's a real culprit... | at the end of the video.",
-   "param": {
-    "stempel": "MITOS!",
-    "besar": "0 kkal",
-    "catatan": "air putih tawar · per gelas",
-    "teaser": "di akhir video!"
-   }
-  },
-  {
-   "jenis": "langkah",
-   "vo": "[curious] Malah sebaliknya: | {l0}air es suhunya sekitar empat derajat. | {l1}Tubuh harus menghangatkannya | sampai tiga puluh tujuh derajat. | [surprised] {l2}Itu butuh energi: | kira-kira enam belas kalori | per setengah liter! | [laughs] Kecil sih, | tapi jelas nggak bikin gendut.",
-   "vo_en": "In fact, it's the opposite: | iced water is about four degrees. | Your body has to warm it | up to thirty-seven degrees. | That takes energy: | about sixteen calories | per half liter! | Tiny, sure, | but it clearly won't make you fat.",
-   "param": {
-    "judul": "Tubuh malah kerja!",
-    "gaya": "rantai",
-    "item": [
-     {
-      "ikon": "ice",
-      "teks": "4 °C",
-      "sub": "air es"
-     },
-     {
-      "ikon": "thermometer",
-      "teks": "37 °C",
-      "sub": "suhu tubuh"
-     },
-     {
-      "ikon": "fire",
-      "teks": "±16 kkal",
-      "sub": "hitungan fisika · 500 ml"
-     }
-    ]
-   }
-  },
-  {
-   "jenis": "twist",
-   "vo": "[serious] Jadi, siapa pelakunya? | {k}GULA! | [dramatically] {i0}Air es tawar: nol kalori. | {i1}Es teh manis dua sendok gula: | sekitar seratus kalori! | Padahal batas gula sehari | {angka}cuma empat sendok makan.",
-   "vo_en": "So, who's the culprit? | SUGAR! | Plain iced water: zero calories. | Sweet iced tea with two spoons of sugar: | about a hundred calories! | And the daily sugar limit | is just four tablespoons.",
-   "param": {
-    "nada": "peringatan",
-    "judul": "Pelakunya!",
-    "kicker": "BATAS GULA · KEMENKES",
-    "headline": "Bukan esnya, tapi GULANYA",
-    "baris": [
-     {
-      "ikon": "ice",
-      "teks": "air es tawar",
-      "nilai": "0 kkal",
-      "ok": true
-     },
-     {
-      "ikon": "cup-with-straw",
-      "teks": "es teh manis (2 sdm gula)",
-      "nilai": "±100 kkal",
-      "ok": false
-     }
-    ],
-    "angka": {
-     "teks": "4 sdm",
-     "sub": "batas gula sehari (50 g)"
+  "id": "mitos-air-es",
+  "kategori_id": "mitos-fakta",
+  "judul": "Minum air es bikin gendut?",
+  "judul_en": "Does iced water make you fat?",
+  "suara_id": "liam-v3",
+  "musik_id": "comical",
+  "status": "siap",
+  "fakta": [
+    "air-0-kkal",
+    "hangatkan-air-es",
+    "es-teh-2sdm",
+    "batas-gula"
+  ],
+  "adegan": [
+    {
+      "jenis": "kuis",
+      "vo": "[curious] Minum air es... | bikin gendut? | {p0}Mitos... | atau {p1}fakta?",
+      "vo_en": "[curious] Drinking iced water... | makes you fat? | {p0}Myth... | or {p1}fact?",
+      "param": {
+        "judul": "Air es bikin gendut?",
+        "ikon": "ice",
+        "pilihan": [
+          {
+            "label": "MITOS",
+            "ikon": "cross-mark"
+          },
+          {
+            "label": "FAKTA",
+            "ikon": "check-mark-button"
+          }
+        ],
+        "jawaban": 0
+      },
+      "param_en": {
+        "judul": "Does iced water make you fat?",
+        "stiker": "QUIZ!",
+        "pilihan": [
+          {
+            "label": "MYTH",
+            "ikon": "cross-mark"
+          },
+          {
+            "label": "FACT",
+            "ikon": "check-mark-button"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "jawaban",
+      "vo": "[excited] Jawabannya... | {jawab}MITOS! | [excited] Air es itu | {besar}nol kalori! | [whispers] Tapi ada pelaku sebenarnya... | {teaser}di akhir video.",
+      "vo_en": "[excited] The answer... | {jawab}MYTH! | [excited] Iced water has | {besar}zero calories! | [whispers] But there's a real culprit... | {teaser}at the end of the video.",
+      "param": {
+        "stempel": "MITOS!",
+        "besar": "0 kkal",
+        "catatan": "air putih tawar · per gelas",
+        "teaser": "di akhir video!"
+      },
+      "param_en": {
+        "stempel": "MYTH!",
+        "besar": "0 kcal",
+        "catatan": "plain water · per glass",
+        "teaser": "at the end!"
+      }
+    },
+    {
+      "jenis": "langkah",
+      "vo": "[curious] Malah sebaliknya: | {l0}air es suhunya sekitar empat derajat. | {l1}Tubuh harus menghangatkannya | sampai tiga puluh tujuh derajat. | [surprised] {l2}Itu butuh energi: | kira-kira enam belas kalori | per setengah liter! | [laughs] Kecil sih, | tapi jelas nggak bikin gendut.",
+      "vo_en": "[curious] In fact, it's the opposite: | {l0}iced water is about <4°C=four degrees>. | {l1}Your body has to warm it | up to <37°C=thirty-seven degrees>. | [surprised] {l2}That takes energy: | about <16 calories=sixteen calories> | per half liter! | [laughs] Tiny, sure, | but it clearly won't make you fat.",
+      "param": {
+        "judul": "Tubuh malah kerja!",
+        "gaya": "rantai",
+        "item": [
+          {
+            "ikon": "ice",
+            "teks": "4 °C",
+            "sub": "air es"
+          },
+          {
+            "ikon": "thermometer",
+            "teks": "37 °C",
+            "sub": "suhu tubuh"
+          },
+          {
+            "ikon": "fire",
+            "teks": "±16 kkal",
+            "sub": "hitungan fisika · 500 ml"
+          }
+        ]
+      },
+      "param_en": {
+        "judul": "Your body does the work!",
+        "item": [
+          {
+            "ikon": "ice",
+            "teks": "4 °C",
+            "sub": "iced water"
+          },
+          {
+            "ikon": "thermometer",
+            "teks": "37 °C",
+            "sub": "body temperature"
+          },
+          {
+            "ikon": "fire",
+            "teks": "±16 kcal",
+            "sub": "physics estimate · 500 ml"
+          }
+        ]
+      }
+    },
+    {
+      "jenis": "twist",
+      "vo": "[serious] Jadi, siapa pelakunya? | {k}GULA! | [dramatically] {i0}Air es tawar: nol kalori. | {i1}Es teh manis dua sendok gula: | sekitar seratus kalori! | Padahal batas gula sehari | {angka}cuma empat sendok makan.",
+      "vo_en": "[serious] So, who's the culprit? | {k}SUGAR! | [dramatically] {i0}Plain iced water: zero calories. | {i1}Sweet iced tea with two spoons of sugar: | about <100 calories=a hundred calories>! | And the daily sugar limit | {angka}is just <4 tablespoons=four tablespoons>.",
+      "param": {
+        "nada": "peringatan",
+        "judul": "Pelakunya!",
+        "kicker": "BATAS GULA · KEMENKES",
+        "headline": "Bukan esnya, tapi GULANYA",
+        "baris": [
+          {
+            "ikon": "ice",
+            "teks": "air es tawar",
+            "nilai": "0 kkal",
+            "ok": true
+          },
+          {
+            "ikon": "cup-with-straw",
+            "teks": "es teh manis (2 sdm gula)",
+            "nilai": "±100 kkal",
+            "ok": false
+          }
+        ],
+        "angka": {
+          "teks": "4 sdm",
+          "sub": "batas gula sehari (50 g)"
+        }
+      },
+      "param_en": {
+        "judul": "The culprit!",
+        "kicker": "SUGAR LIMIT · INDONESIAN MoH",
+        "headline": "Not the ice, it's the *SUGAR*",
+        "baris": [
+          {
+            "ikon": "ice",
+            "teks": "plain iced water",
+            "nilai": "0 kcal",
+            "ok": true
+          },
+          {
+            "ikon": "cup-with-straw",
+            "teks": "sweet iced tea (2 tbsp sugar)",
+            "nilai": "±100 kcal",
+            "ok": false
+          }
+        ],
+        "angka": {
+          "teks": "4 tbsp",
+          "sub": "daily sugar limit (50 g)"
+        }
+      }
+    },
+    {
+      "jenis": "cta",
+      "vo": "[playful] Jadi, minum air es? | Aman, asal tawar! | Kirim ke temanmu | yang masih takut minum es!",
+      "vo_en": "[playful] So, iced water? | Safe, as long as it's plain! | Send this to a friend | who's still scared of ice!",
+      "param": {
+        "judul": "Air es? Aman!",
+        "ikon": "ice",
+        "tagline": [
+          "0 kkal",
+          "asal tawar"
+        ],
+        "ajakan": "kirim ke temanmu",
+        "ikon_ajakan": "cup-with-straw"
+      },
+      "param_en": {
+        "judul": "Iced water? Safe!",
+        "tagline": [
+          "0 kcal",
+          "plain only"
+        ],
+        "ajakan": "send to a friend"
+      }
     }
-   }
-  },
-  {
-   "jenis": "cta",
-   "vo": "[playful] Jadi, minum air es? | Aman, asal tawar! | Kirim ke temanmu | yang masih takut minum es!",
-   "vo_en": "So, iced water? | Safe, as long as it's plain! | Send this to a friend | who's still scared of ice!",
-   "param": {
-    "judul": "Air es? Aman!",
-    "ikon": "ice",
-    "tagline": [
-     "0 kkal",
-     "asal tawar"
-    ],
-    "ajakan": "kirim ke temanmu",
-    "ikon_ajakan": "cup-with-straw"
-   }
-  }
- ]
+  ],
+  "format": "tebakan",
+  "suara_en_id": "liam-v3-en"
 }

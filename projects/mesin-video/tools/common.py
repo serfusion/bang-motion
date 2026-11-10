@@ -8,13 +8,43 @@ ENGINE = os.path.join(PROJ, "engine")
 EPISODES = os.path.join(PROJ, "episodes")
 NODE_MODULES = os.environ.get("NODE_MODULES", os.path.join(PROJ, "node_modules"))
 
-SCENE_TYPES = ("kuis", "jawaban", "langkah", "banding", "twist", "cta")
+SCENE_TYPES = ("kuis", "jawaban", "langkah", "banding", "twist", "cta", "pembuka", "catatan", "ibarat", "tanya")
+FORMAT_SCENES = {"tebakan": ("kuis", "jawaban", "langkah", "banding", "twist", "cta"),
+                 "fakta": ("pembuka", "catatan", "ibarat", "tanya", "langkah", "banding")}
+# pacing per format: max pause between words, pause after "...", after "?", default tempo, breath between scenes
+PACE = {"tebakan": {"cap": 0.24, "suspense": 0.42, "question": 0.34, "tempo": None, "scene_gap": 0.0},
+        "fakta": {"cap": 0.42, "suspense": 0.6, "question": 0.5, "tempo": 1.0, "scene_gap": 0.3}}
+LANGS = ("id", "en")
 TAG = re.compile(r"\[([^\]]+)\]")
 CUE = re.compile(r"\{(\w+)\}")
+SHOWN = re.compile(r"<([^=>]*)=([^>]*)>(.*)")
+SHOWN_ANY = re.compile(r"<([^=>]*)=([^>]*)>")
 
 
 def ep_dir(eid, *p):
     return os.path.join(EPISODES, eid, *p)
+
+
+def lang_dir(eid, lang, *p):
+    """Per-language output folder: episodes/ID/id/... or episodes/ID/en/..."""
+    return os.path.join(EPISODES, eid, lang, *p)
+
+
+def merged_param(sc, lang):
+    """Scene params for a language: param_en overrides param (dicts merge, lists are replaced)."""
+    def merge(a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            out = dict(a)
+            for k, v in b.items():
+                out[k] = merge(a.get(k), v) if k in a else v
+            return out
+        return b
+    p = sc.get("param") or {}
+    return merge(p, sc.get("param_en") or {}) if lang == "en" else p
+
+
+def script(sc, lang):
+    return sc["vo_en"] if lang == "en" else sc["vo"]
 
 
 def load_json(path):
@@ -31,14 +61,17 @@ def save_json(path, obj, indent=1):
 def parse_vo(vo):
     """Parse a scene script.
 
-    '[tag]'   ElevenLabs v3 delivery tag (kept for TTS, not a word, remembered as the mood of following words)
-    '|'       subtitle page break (removed for TTS)
-    '{cue}'   visual cue on the next word (removed for TTS)
+    '[tag]'           ElevenLabs v3 delivery tag (kept for TTS, not a word, remembered as the mood of following words)
+    '|'               subtitle page break (removed for TTS)
+    '{cue}'           visual cue on the next word (removed for TTS)
+    '<shown=spoken>'  the voice says 'spoken', the subtitle shows 'shown' (numbers: <1964=seribu sembilan ratus
+                      enam puluh empat>, <0,05%=nol koma nol lima persen>); punctuation right after '>' is kept on both
 
-    Returns (tts_text, words) where words = [{'w', 'page', 'cues': [...], 'tag': last tag or None}].
+    Returns (tts_text, words) where words = [{'w', 'page', 'cues': [...], 'tag': last tag or None}], one entry per
+    spoken word; the 2nd.. spoken words of a <shown=spoken> group get w == '' (layout merges them into the first).
     """
     words, page, tag, pending = [], 0, None, []
-    for tok in re.findall(r"\[[^\]]+\]|\||\S+", vo):
+    for tok in re.findall(r"\[[^\]]+\]|\||(?:\{[^}]*\})*<[^>]*>[^\s\[|<]*|\S+", vo):
         if tok == "|":
             page += 1
             continue
@@ -47,14 +80,29 @@ def parse_vo(vo):
             continue
         cues = CUE.findall(tok)
         word = CUE.sub("", tok)
+        g = SHOWN.fullmatch(word)
+        if g:
+            shown, spoken, tail = g.group(1).strip(), g.group(2).split(), g.group(3)
+            if not shown or not spoken:
+                raise ValueError(f"format <tampil=ucapan> salah: {tok}")
+            words.append({"w": shown + tail, "page": page, "cues": pending + cues, "tag": tag})
+            words += [{"w": "", "page": page, "cues": [], "tag": tag} for _ in spoken[1:]]
+            pending = []
+            continue
         if not word:                      # a cue standing alone applies to the next word
             pending += cues
             continue
         words.append({"w": word, "page": page, "cues": pending + cues, "tag": tag})
         pending = []
-    tts = CUE.sub("", vo).replace("|", " ")
+    tts = SHOWN_ANY.sub(lambda m: m.group(2), CUE.sub("", vo)).replace("|", " ")
     tts = re.sub(r"\s+", " ", tts).strip()
     return tts, words
+
+
+def display_text(vo):
+    """What the subtitle shows for a script (tags, cues and page breaks removed, <shown=spoken> -> shown)."""
+    _, ws = parse_vo(vo)
+    return " ".join(w["w"] for w in ws if w["w"])
 
 
 def pages_en(vo_en):
@@ -94,8 +142,8 @@ def icon_svg(name, assets):
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}">{ic["body"]}</svg>'
 
 
-def icon_names(ep):
-    """All icon names referenced by an episode's scene params."""
+def icon_names(ep, lang=None):
+    """All icon names referenced by an episode's scene params (both languages unless one is given)."""
     out = set()
 
     def walk(v, key=None):
@@ -108,5 +156,7 @@ def icon_names(ep):
         elif isinstance(v, str) and key and key.startswith("ikon"):
             out.add(v)
     for sc in ep["adegan"]:
-        walk(sc["param"])
+        walk(sc.get("param") or {})
+        if lang in (None, "en"):
+            walk(sc.get("param_en") or {})
     return sorted(out)

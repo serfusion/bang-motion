@@ -1,7 +1,98 @@
 [
- {"id": "mitos-fakta", "nama": "Mitos vs Fakta", "nama_en": "Myth vs Fact", "deskripsi": "Kepercayaan populer diuji dengan data; format kuis MITOS/FAKTA."},
- {"id": "gizi", "nama": "Makanan & Gizi", "nama_en": "Food & Nutrition", "deskripsi": "Perbandingan gizi makanan sehari-hari (per 100 g dan per porsi)."},
- {"id": "sains", "nama": "Sains Sehari-hari", "nama_en": "Everyday Science", "deskripsi": "Kenapa sesuatu terjadi di sekitar kita, dijelaskan langkah demi langkah."},
- {"id": "tubuh", "nama": "Fakta Tubuh", "nama_en": "Body Facts", "deskripsi": "Cara kerja tubuh manusia (bukan klaim pengobatan)."},
- {"id": "intermezo", "nama": "Intermezo", "nama_en": "Fun Facts", "deskripsi": "Fakta unik, hewan, sejarah, asal-usul."}
+ {
+  "id": "sains",
+  "nama": "Sains Sehari-hari",
+  "nama_en": "Everyday Science",
+  "deskripsi": "Kenapa sesuatu terjadi di sekitar kita."
+ },
+ {
+  "id": "kesehatan",
+  "nama": "Kesehatan",
+  "nama_en": "Health",
+  "deskripsi": "Fakta kesehatan bersumber; edukasi umum, bukan saran medis."
+ },
+ {
+  "id": "gizi",
+  "nama": "Makanan & Gizi",
+  "nama_en": "Food & Nutrition",
+  "deskripsi": "Perbandingan gizi makanan sehari-hari."
+ },
+ {
+  "id": "tubuh",
+  "nama": "Fakta Tubuh",
+  "nama_en": "Body Facts",
+  "deskripsi": "Cara kerja tubuh manusia."
+ },
+ {
+  "id": "mitos-fakta",
+  "nama": "Mitos vs Fakta",
+  "nama_en": "Myth vs Fact",
+  "deskripsi": "Kepercayaan populer diuji dengan data."
+ },
+ {
+  "id": "fakta-unik",
+  "nama": "Fakta Unik",
+  "nama_en": "Weird Facts",
+  "deskripsi": "Rekor, kejadian langka, angka mengejutkan."
+ },
+ {
+  "id": "intermezo",
+  "nama": "Intermezo",
+  "nama_en": "Fun Facts",
+  "deskripsi": "Selingan ringan dan lucu."
+ },
+ {
+  "id": "pengetahuan-umum",
+  "nama": "Pengetahuan Umum",
+  "nama_en": "General Knowledge",
+  "deskripsi": "Hal yang sering ditanyakan tapi jarang dijelaskan."
+ },
+ {
+  "id": "analogi",
+  "nama": "Analogi",
+  "nama_en": "Analogies",
+  "deskripsi": "Konsep sulit dijelaskan lewat perumpamaan sehari-hari."
+ },
+ {
+  "id": "tumbuhan",
+  "nama": "Tumbuhan",
+  "nama_en": "Plants",
+  "deskripsi": "Tanaman, rempah, dan manfaatnya."
+ },
+ {
+  "id": "hewan",
+  "nama": "Dunia Hewan",
+  "nama_en": "Animals",
+  "deskripsi": "Perilaku dan kemampuan hewan."
+ },
+ {
+  "id": "alam",
+  "nama": "Alam & Bumi",
+  "nama_en": "Nature & Earth",
+  "deskripsi": "Cuaca, bumi, antariksa."
+ },
+ {
+  "id": "sejarah",
+  "nama": "Sejarah & Asal-usul",
+  "nama_en": "History & Origins",
+  "deskripsi": "Asal-usul benda, kata, dan kebiasaan."
+ },
+ {
+  "id": "teknologi",
+  "nama": "Teknologi",
+  "nama_en": "Technology",
+  "deskripsi": "Cara kerja teknologi sehari-hari."
+ },
+ {
+  "id": "psikologi",
+  "nama": "Psikologi Ringan",
+  "nama_en": "Everyday Psychology",
+  "deskripsi": "Kebiasaan dan cara kerja pikiran."
+ },
+ {
+  "id": "uang",
+  "nama": "Uang & Ekonomi Sehari-hari",
+  "nama_en": "Money",
+  "deskripsi": "Harga, diskon, kebiasaan belanja."
+ }
 ]

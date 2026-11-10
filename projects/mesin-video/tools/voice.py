@@ -6,31 +6,16 @@
 2. Tighten pauses (max 0.24 s; deliberate suspense pauses after "..." and "?" inside a scene), cut only at the
    quietest point of a gap, then speed up with rubberband (pitch kept). Word times follow every edit.
 
-  python3 tools/voice.py ID      -> episodes/ID/vo/sK.mp3, sK.align.json, sK.edit.wav, words.edit.json
+  python3 tools/voice.py ID [id|en]    -> episodes/ID/<lang>/vo/sK.mp3, sK.align.json, sK.edit.wav, words.edit.json
+Keys: tools/elevenlabs.py tries every saved key in order (failover).
 """
-import base64, hashlib, json, os, re, subprocess, sys, urllib.error, urllib.request
+import base64, hashlib, json, os, re, subprocess, sys
 import numpy as np
-from common import ep_dir, load_json, save_json, parse_vo
+from common import ep_dir, lang_dir, load_json, save_json, parse_vo, script, PACE
+import elevenlabs
 
 SR = 48000
-CAP, SUSPENSE, QUESTION = 0.24, 0.42, 0.34
 TAGRE = re.compile(r"\[[^\]]*\]")
-
-
-def tts_request(V, text, seed):
-    st = V.get("pengaturan", {})
-    body = json.dumps({"text": text, "model_id": V["model"], "language_code": st.get("language_code", "id"), "seed": seed,
-                       "voice_settings": {k: st[k] for k in ("stability", "similarity_boost", "style") if k in st}}).encode()
-    req = urllib.request.Request(
-        f"https://api.elevenlabs.io/v1/text-to-speech/{V['voice_id']}/with-timestamps?output_format=mp3_44100_128",
-        data=body, method="POST", headers={"Content-Type": "application/json"})
-    if os.environ.get("XI_API_KEY"):
-        req.add_header("xi-api-key", os.environ["XI_API_KEY"])
-    try:
-        with urllib.request.urlopen(req, timeout=300) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:
-        sys.exit(f"ElevenLabs error {e.code}: {e.read()[:400].decode(errors='replace')}")
 
 
 def words_from_alignment(text, al):
@@ -65,17 +50,21 @@ def save(path, x):
                    input=x.astype(np.float32).tobytes(), check=True)
 
 
-def tts(ep):
-    V, out, lines = ep["suara"], ep_dir(ep["id"], "vo"), []
+def voice_for(ep, lang):
+    return ep["suara_en"] if lang == "en" else ep["suara"]
+
+
+def tts(ep, lang="id"):
+    V, out, lines = voice_for(ep, lang), lang_dir(ep["id"], lang, "vo"), []
     os.makedirs(out, exist_ok=True)
     for k, sc in enumerate(ep["adegan"]):
         key, seed = f"s{k + 1}", 4200 + k
-        text, words = parse_vo(sc["vo"])
+        text, words = parse_vo(script(sc, lang))
         h = hashlib.sha1(json.dumps([text, V["voice_id"], V["model"], V.get("pengaturan"), seed]).encode()).hexdigest()[:16]
         ap = os.path.join(out, key + ".align.json")
         d = load_json(ap) if os.path.exists(ap) else None
         if not d or d.get("hash") != h:
-            d = tts_request(V, text, seed)
+            d = elevenlabs.tts_with_timestamps(V, text, seed)
             with open(os.path.join(out, key + ".mp3"), "wb") as f:
                 f.write(base64.b64decode(d.pop("audio_base64")))
             d["hash"] = h
@@ -106,11 +95,14 @@ def refine(words, env):
     return out
 
 
-def edit(ep, lines):
-    tempo, out_lines = float(ep["suara"].get("tempo") or 1.12), []
+def edit(ep, lines, lang="id"):
+    pace = PACE[ep.get("format", "tebakan")]
+    CAP, SUSPENSE, QUESTION = pace["cap"], pace["suspense"], pace["question"]
+    tempo = float(ep.get("tempo") or pace["tempo"] or voice_for(ep, lang).get("tempo") or 1.12)
+    out_lines = []
     for L in lines:
         key = L["key"]
-        x = load(ep_dir(ep["id"], L["file"]))
+        x = load(lang_dir(ep["id"], lang, L["file"]))
         hop = int(0.01 * SR)
         env = np.sqrt(np.convolve(x ** 2, np.ones(hop) / hop, "same"))[::hop]
         ws = refine(L["words"], env)
@@ -143,7 +135,7 @@ def edit(ep, lines):
             if n > 0:
                 s[:n] *= np.linspace(0, 1, n); s[-n:] *= np.linspace(1, 0, n)
             y.append(s)
-        raw, outp = ep_dir(ep["id"], "vo", key + ".tight.wav"), ep_dir(ep["id"], "vo", key + ".edit.wav")
+        raw, outp = lang_dir(ep["id"], lang, "vo", key + ".tight.wav"), lang_dir(ep["id"], lang, "vo", key + ".edit.wav")
         save(raw, np.concatenate(y))
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", f"rubberband=tempo={tempo}:transients=mixed:window=standard",
                         "-ar", str(SR), outp], check=True)
@@ -153,10 +145,10 @@ def edit(ep, lines):
         nw = [{"w": w["w"], "t": round(w["t"] / tempo, 3), "e": round(w["e"] / tempo, 3)} for w in new_words]
         out_lines.append({"key": key, "file": f"vo/{key}.edit.wav", "dur": round(dur, 3), "words": nw})
         print(f"{key}: {ws[-1]['e'] - ws[0]['t']:5.2f}s -> {nw[-1]['e'] - nw[0]['t']:5.2f}s")
-    save_json(ep_dir(ep["id"], "vo", "words.edit.json"), {"tempo": tempo, "lines": out_lines})
+    save_json(lang_dir(ep["id"], lang, "vo", "words.edit.json"), {"tempo": tempo, "lang": lang, "lines": out_lines})
     print("total ucapan", round(sum(l["words"][-1]["e"] - l["words"][0]["t"] for l in out_lines), 2), "s")
 
 
 if __name__ == "__main__":
-    ep = load_json(ep_dir(sys.argv[1], "episode.json"))
-    edit(ep, tts(ep))
+    ep, lang = load_json(ep_dir(sys.argv[1], "episode.json")), (sys.argv[2] if len(sys.argv) > 2 else "id")
+    edit(ep, tts(ep, lang), lang)

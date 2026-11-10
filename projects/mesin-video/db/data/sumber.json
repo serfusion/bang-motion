@@ -63,5 +63,29 @@
   "url": "https://doi.org/10.1111/j.1365-2672.2004.02471.x",
   "diakses": "2026-11-09",
   "singkat": "Nout & Kiers, J. Appl. Microbiol. 2005"
+ },
+ {
+  "id": "npr-gardner-2024",
+  "judul": "Lessons from sleeplessness: the 60th anniversary of Randy Gardner's world record",
+  "penerbit": "NPR",
+  "url": "https://www.npr.org/2024/01/28/1227217274/sleep-deprivation-record",
+  "diakses": "2026-11-10",
+  "singkat": "NPR 2024"
+ },
+ {
+  "id": "dawson-reid-1997",
+  "judul": "Dawson D. & Reid K., Fatigue, alcohol and performance impairment, Nature 388:235 (1997)",
+  "penerbit": "Nature",
+  "url": "https://www.nature.com/articles/40775",
+  "diakses": "2026-11-10",
+  "singkat": "Dawson & Reid, Nature 1997"
+ },
+ {
+  "id": "aasm-2015",
+  "judul": "Watson N.F. et al., Recommended amount of sleep for a healthy adult (AASM & SRS consensus), J Clin Sleep Med 11(6) (2015)",
+  "penerbit": "American Academy of Sleep Medicine",
+  "url": "https://jcsm.aasm.org/doi/10.5664/jcsm.4758",
+  "diakses": "2026-11-10",
+  "singkat": "AASM 2015"
  }
 ]

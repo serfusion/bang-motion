@@ -1,7 +1,9 @@
 node_modules
 __pycache__/
 db/konten.db
-episodes/*/build/
-episodes/*/build-en/
-episodes/*/out/*.mp4
-episodes/*/vo/*.edit.wav
+db/konten.db-journal
+panel/uploads/
+episodes/*/*/build/
+episodes/*/*/out/*.mp4
+episodes/*/*/vo/*.edit.wav
+episodes/*/*/vo/*.tight.wav

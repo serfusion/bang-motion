@@ -92,3 +92,29 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden}
 #subs .sw{opacity:.42;display:inline-block}#subs .sw.on{opacity:1}#subs .sw.cur{color:var(--marker)}
 #dbg{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:none;gap:12px;align-items:center;padding:10px 16px;border-radius:14px;background:rgba(14,16,22,.9);color:#cfd5e3;font:13px system-ui;z-index:50}
 #dbg input{width:360px}#dbg span{font-variant-numeric:tabular-nums;min-width:6ch}
+/* ===== format fakta ===== */
+.fmt-fakta .paper{background-color:#EDE1C6;background-image:radial-gradient(circle at 18% 12%,rgba(150,110,60,.13),transparent 38%),
+  radial-gradient(circle at 82% 68%,rgba(150,110,60,.12),transparent 44%),repeating-linear-gradient(0deg,rgba(30,42,34,.035) 0 2px,transparent 2px 64px),var(--fiber)}
+.fmt-fakta .vig{background:radial-gradient(80% 62% at 50% 46%,transparent 52%,rgba(70,48,20,.24) 100%)}
+.veil{position:absolute;left:-160px;top:-200px;width:1400px;height:2320px;background:radial-gradient(60% 42% at 50% 52%,rgba(26,22,16,.52),rgba(26,22,16,.88))}
+.kick{text-align:center;font:800 40px/1 "Plus Jakarta Sans";letter-spacing:.24em;color:#F3C64E}
+.hl1{font:800 116px/1.02 "Plus Jakarta Sans";color:#FFF8EA;letter-spacing:-.025em;text-align:center;text-shadow:0 6px 22px rgba(0,0,0,.5)}
+.sorot{background:#C8322B;color:#FFF8EA;font:800 100px/1 "Plus Jakarta Sans";padding:18px 36px 22px;border-radius:14px;box-shadow:0 14px 30px rgba(0,0,0,.45);white-space:nowrap;rotate:-2deg}
+.dcard{display:inline-block;background:#FBF6EA;border:4px solid #1E2A22;border-radius:6px;padding:16px 28px 20px;box-shadow:7px 7px 0 rgba(30,42,34,.88);max-width:880px;box-sizing:border-box}
+.dcard .dk{font:800 33px/1 "Plus Jakarta Sans";letter-spacing:.16em;text-transform:uppercase;color:#1E2A22;opacity:.8}
+.dcard .dv{font:800 74px/1.05 "Plus Jakarta Sans";color:#1E2A22;margin-top:10px;letter-spacing:-.015em}
+.dcard.red .dv{color:#C8322B}
+.dcard.note{background:#F3C64E}.dcard.note.red{background:#FBF6EA}
+.dcard .dv.sm{font-size:62px;margin-top:0}
+.ilus{position:relative}.ilus .ilm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.ilus .ils{position:absolute}
+.ilus.img img{position:absolute;inset:6%;width:88%;height:88%;object-fit:cover;border-radius:12px;filter:sepia(.28) contrast(1.05) saturate(.9);box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.quote{text-wrap:balance;background:#FBF6EA;border:4px solid #1E2A22;border-radius:8px;padding:26px 36px 30px;font:italic 600 66px/1.12 Fraunces,serif;color:#1E2A22;box-shadow:8px 8px 0 rgba(30,42,34,.88);rotate:-1deg;box-sizing:border-box}
+.qcard2{text-wrap:balance;background:#1E2A22;color:#FFF8EA;border-radius:16px;padding:26px 34px 30px;font:800 88px/1.05 Fraunces,serif;text-align:center;box-shadow:0 14px 30px rgba(0,0,0,.3);box-sizing:border-box}
+.pick{width:400px;height:280px;border-radius:26px;border:6px solid #1E2A22;background:#FBF6EA;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  font:800 62px/1 "Plus Jakarta Sans";box-shadow:10px 10px 0 #1E2A22;box-sizing:border-box;text-align:center}
+.pick.ok{color:#2F6B3A}.pick.no{color:#C8322B}
+.foot{font-size:32px;line-height:1.25;opacity:.85;text-align:center;font-weight:600}
+/* caption karaoke besar di tengah bawah (format fakta) */
+#subs.fk .sp{text-wrap:balance;word-spacing:.1em;background:none;box-shadow:none;padding:0 20px;left:540px;top:1440px;max-width:900px;color:#FFF;font:800 76px/1.12 "Plus Jakarta Sans",sans-serif;
+  text-shadow:3px 3px 0 #1E2A22,-3px 3px 0 #1E2A22,3px -3px 0 #1E2A22,-3px -3px 0 #1E2A22,0 4px 0 #1E2A22,0 -4px 0 #1E2A22,4px 0 0 #1E2A22,-4px 0 0 #1E2A22,0 10px 18px rgba(0,0,0,.35)}
+#subs.fk .sw{opacity:.62}#subs.fk .sw.on{opacity:1}#subs.fk .sw.cur{color:#F7D046}

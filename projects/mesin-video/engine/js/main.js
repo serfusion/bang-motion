@@ -6,9 +6,10 @@ function build(){
   SCN.forEach(s=>SCENES[s.jenis].build(s));
   $('#mascot').innerHTML=mascotSVG();
   $('#lens').innerHTML=`<svg width="1400" height="800" viewBox="-20 -400 1400 800" style="overflow:visible">${leafG(1340,480)}</svg>`;
-  PROG=SCN.filter(s=>['langkah','banding','twist'].includes(s.jenis));
+  PROG=FMT==='fakta'?[]:SCN.filter(s=>['langkah','banding','twist'].includes(s.jenis));
   $('#prog').innerHTML=PROG.map((s,i)=>`<div class="sg${s.jenis==='twist'?' w':''}"><i id="pg${i}"></i></div>`).join('');
-  const subs=$('#subs');PAGES=(TL.pages||[]).map(p=>{const ws=LANG==='en'?p.en_words:p.words;const el=document.createElement('div');el.className='sp';
+  const subs=$('#subs');if(FMT==='fakta')subs.classList.add('fk');document.getElementById('stage').classList.add('fmt-'+FMT);
+  PAGES=(TL.pages||[]).map(p=>{const ws=p.words;const el=document.createElement('div');el.className='sp';
     el.innerHTML=ws.map(w=>`<span class="sw">${esc(w.w)}</span>`).join(' ');subs.appendChild(el);return {p,ws,el,spans:$$('.sw',el)};});
   const noise=`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")`;
   const fiber=`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .05' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 0 .10 0'/%3E%3C/filter%3E%3Crect width='520' height='520' filter='url(%23f)'/%3E%3C/svg%3E")`;

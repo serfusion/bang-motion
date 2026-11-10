@@ -13,7 +13,7 @@ di penutup tiap video). Untuk monetisasi, pakai paket berbayar lalu jalankan ula
 | `bgm/gummies.mp3` | Gummies | Michael Ramir C. | Mixkit Stock Music Free License | https://assets.mixkit.co/music/1142/1142.mp3 |
 | `bgm/kids.mp3` | Kids | Michael Ramir C. | Mixkit Stock Music Free License | https://assets.mixkit.co/music/786/786.mp3 |
 
-## Efek suara (37 berkas dari pustaka video-shotcraft; Mixkit Sound Effects Free License)
+## Efek suara (39 berkas dari pustaka video-shotcraft; Mixkit Sound Effects Free License)
 
 | Berkas | Judul asli | Sumber |
 |---|---|---|
@@ -38,6 +38,7 @@ di penutup tiap video). Untuk monetisasi, pakai paket berbayar lalu jalankan ula
 | `sfx/light/sparkle-touch.mp3` | Magic sparkle touch | https://assets.mixkit.co/active_storage/sfx/3083/3083-preview.mp3 |
 | `sfx/light/sparkle-wand.mp3` | Magic wand sparkle | https://assets.mixkit.co/active_storage/sfx/3062/3062-preview.mp3 |
 | `sfx/paper/paper-move-quick.mp3` | Paper quick movement | https://assets.mixkit.co/active_storage/sfx/2380/2380-preview.mp3 |
+| `sfx/paper/paper-page-turn.mp3` | Page turn single | https://assets.mixkit.co/active_storage/sfx/1104/1104-preview.mp3 |
 | `sfx/paper/paper-page-turn-big.mp3` | Big paper page turn | https://assets.mixkit.co/active_storage/sfx/1105/1105-preview.mp3 |
 | `sfx/paper/paper-slice-quick.mp3` | Paper quick slice | https://assets.mixkit.co/active_storage/sfx/2384/2384-preview.mp3 |
 | `sfx/paper/paper-slide.mp3` | Paper slide | https://assets.mixkit.co/active_storage/sfx/1530/1530-preview.mp3 |
@@ -48,6 +49,7 @@ di penutup tiap video). Untuk monetisasi, pakai paket berbayar lalu jalankan ula
 | `sfx/text/typewriter-hit-soft.mp3` | Typewriter soft hit | https://assets.mixkit.co/active_storage/sfx/1366/1366-preview.mp3 |
 | `sfx/transition/air-whoosh-powerful.mp3` | Powerful air whooshes | https://assets.mixkit.co/active_storage/sfx/3220/3220-preview.mp3 |
 | `sfx/transition/air-woosh-deep.mp3` | Deep air woosh | https://assets.mixkit.co/active_storage/sfx/2604/2604-preview.mp3 |
+| `sfx/transition/air-woosh-quick.mp3` | Quick air woosh | https://assets.mixkit.co/active_storage/sfx/2605/2605-preview.mp3 |
 | `sfx/transition/air-zoom-vacuum.mp3` | Air zoom vacuum | https://assets.mixkit.co/active_storage/sfx/2608/2608-preview.mp3 |
 | `sfx/transition/swoosh-quick.mp3` | Fast small sweep transition | https://assets.mixkit.co/active_storage/sfx/166/166-preview.mp3 |
 | `sfx/transition/whoosh-fast.mp3` | Fast whoosh transition | https://assets.mixkit.co/active_storage/sfx/1490/1490-preview.mp3 |
