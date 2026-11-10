@@ -478,7 +478,7 @@ SCENES.kuis={
     sfx(c+.12,'paper/paper-slide',.3,{max:.5,note:'stiker KUIS'});sfx(c+.35,'transition/wind-swoosh-short',.18,{note:'maskot muncul'});
     if(S$(s,'hero'))sfx(c+.1,'light/sparkle-touch',.22,{max:.8,note:'ikon utama'});
     P.pilihan.forEach((o,k)=>{const t=cue(s,'p'+k,null);if(t!=null)sfx(t,k%2?'transition/swoosh-quick':'paper/paper-move-quick',.2-k*.02,{max:.5,note:'pilihan '+'ABC'[k]});});
-    if(s.cd)[0,1,2].forEach(i=>sfx(s.cd.t0+i*(s.cd.t1-s.cd.t0)/3,'counter/clock-tick-single',.6+i*.06,{al:'pkwin',max:.07,rv:1,note:'hitung mundur '+(3-i)}));
+    if(s.cd)[0,1,2].forEach(i=>sfx(s.cd.t0+i*(s.cd.t1-s.cd.t0)/3,'counter/clock-tick-single',.5+i*.05,{al:'pkwin',max:.07,rv:1,note:'hitung mundur '+(3-i)}));
   },
   render(s,t){
     const R=s.roul,n=s.param.pilihan.length;
