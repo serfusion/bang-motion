@@ -1,0 +1,551 @@
+[
+ {
+  "t": 0,
+  "src": "paper/paper-move-quick",
+  "vol": 0.3,
+  "max": 0.5,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu menepuk"
+ },
+ {
+  "t": 0.05,
+  "src": "paper/paper-slice-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "kartu menepuk"
+ },
+ {
+  "t": 0.1,
+  "src": "light/sparkle-touch",
+  "vol": 0.22,
+  "max": 0.8,
+  "al": "on",
+  "rv": 0,
+  "note": "ikon utama"
+ },
+ {
+  "t": 0.12,
+  "src": "paper/paper-slide",
+  "vol": 0.3,
+  "max": 0.5,
+  "al": "on",
+  "rv": 0,
+  "note": "stiker KUIS"
+ },
+ {
+  "t": 0.35,
+  "src": "transition/wind-swoosh-short",
+  "vol": 0.18,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "maskot muncul"
+ },
+ {
+  "t": 2.735,
+  "src": "paper/paper-move-quick",
+  "vol": 0.2,
+  "max": 0.5,
+  "al": "on",
+  "rv": 0,
+  "note": "pilihan A"
+ },
+ {
+  "t": 3.81,
+  "src": "transition/swoosh-quick",
+  "vol": 0.18000000000000002,
+  "max": 0.5,
+  "al": "on",
+  "rv": 0,
+  "note": "pilihan B"
+ },
+ {
+  "t": 4.443,
+  "src": "counter/clock-tick-single",
+  "vol": 0.5,
+  "max": 0.07,
+  "al": "pkwin",
+  "rv": 1,
+  "note": "hitung mundur 3"
+ },
+ {
+  "t": 4.906,
+  "src": "counter/clock-tick-single",
+  "vol": 0.55,
+  "max": 0.07,
+  "al": "pkwin",
+  "rv": 1,
+  "note": "hitung mundur 2"
+ },
+ {
+  "t": 5.369,
+  "src": "counter/clock-tick-single",
+  "vol": 0.6,
+  "max": 0.07,
+  "al": "pkwin",
+  "rv": 1,
+  "note": "hitung mundur 1"
+ },
+ {
+  "t": 5.912,
+  "src": "ui/switch-click-quick",
+  "vol": 0.32,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 5.97,
+  "src": "ui/switch-tap",
+  "vol": 0.34,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.039,
+  "src": "ui/switch-click-quick",
+  "vol": 0.36,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.119,
+  "src": "ui/switch-tap",
+  "vol": 0.38,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.212,
+  "src": "ui/switch-click-quick",
+  "vol": 0.4,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.322,
+  "src": "ui/switch-tap",
+  "vol": 0.42000000000000004,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.422,
+  "src": "light/light-sweep-magic",
+  "vol": 0.3,
+  "max": 1.1,
+  "al": "tail",
+  "rv": 0,
+  "note": "naik menuju jawaban"
+ },
+ {
+  "t": 6.45,
+  "src": "ui/switch-click-quick",
+  "vol": 0.44,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.6,
+  "src": "ui/switch-tap",
+  "vol": 0.46,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.776,
+  "src": "ui/switch-click-quick",
+  "vol": 0.48,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 6.981,
+  "src": "ui/switch-tap",
+  "vol": 0.5,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 7.221,
+  "src": "ui/switch-click-quick",
+  "vol": 0.52,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "rolet"
+ },
+ {
+  "t": 7.522,
+  "src": "impact/hit-fast-exciting",
+  "vol": 0.5,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "JAWABAN"
+ },
+ {
+  "t": 7.542,
+  "src": "light/sparkle-poof-hit",
+  "vol": 0.28,
+  "max": 1.4,
+  "al": "on",
+  "rv": 0,
+  "note": "konfeti"
+ },
+ {
+  "t": 7.572,
+  "src": "crowd/applause-rhythmic-loop",
+  "vol": 0.22,
+  "max": 1.6,
+  "al": "on",
+  "rv": 0,
+  "note": "tepuk tangan"
+ },
+ {
+  "t": 7.922,
+  "src": "impact/hit-weak",
+  "vol": 0.45,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "stempel"
+ },
+ {
+  "t": 9.102,
+  "src": "transition/whoosh-fast",
+  "vol": 0.32,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "riso meluncur"
+ },
+ {
+  "t": 9.102,
+  "src": "impact/hit-blow",
+  "vol": 0.55,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "riso menghantam"
+ },
+ {
+  "t": 9.835,
+  "src": "paper/paper-staple",
+  "vol": 0.36,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "pelat terkunci"
+ },
+ {
+  "t": 12.079,
+  "src": "transition/air-woosh-deep",
+  "vol": 0.24,
+  "max": 1.2,
+  "al": "on",
+  "rv": 0,
+  "note": "layar meredup"
+ },
+ {
+  "t": 12.179,
+  "src": "paper/paper-slide",
+  "vol": 0.3,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu misteri"
+ },
+ {
+  "t": 13.793,
+  "src": "transition/air-zoom-vacuum",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "menembus kartu jawaban"
+ },
+ {
+  "t": 14.043,
+  "src": "transition/swoosh-quick",
+  "vol": 0.22,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "judul"
+ },
+ {
+  "t": 15.427,
+  "src": "paper/paper-slide",
+  "vol": 0.28,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "item 1"
+ },
+ {
+  "t": 17.103,
+  "src": "text/marker-pen-line",
+  "vol": 0.24,
+  "max": 0.45,
+  "al": "on",
+  "rv": 0,
+  "note": "panah"
+ },
+ {
+  "t": 17.473,
+  "src": "transition/swoosh-quick",
+  "vol": 0.25,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "item 2"
+ },
+ {
+  "t": 19.557,
+  "src": "text/marker-pen-line",
+  "vol": 0.24,
+  "max": 0.45,
+  "al": "on",
+  "rv": 0,
+  "note": "panah"
+ },
+ {
+  "t": 19.927,
+  "src": "paper/paper-slide",
+  "vol": 0.22000000000000003,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "item 3"
+ },
+ {
+  "t": 26.71,
+  "src": "film/vinyl-scratch-small",
+  "vol": 0.62,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "piringan berhenti: TWIST"
+ },
+ {
+  "t": 27.03,
+  "src": "fluid/water-drop-cave",
+  "vol": 0.5,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "tetes tinta"
+ },
+ {
+  "t": 27.13,
+  "src": "transition/air-woosh-deep",
+  "vol": 0.26,
+  "max": 2,
+  "al": "on",
+  "rv": 0,
+  "note": "tinta merembes"
+ },
+ {
+  "t": 27.78,
+  "src": "paper/paper-page-turn-big",
+  "vol": 0.4,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu berita"
+ },
+ {
+  "t": 28.472,
+  "src": "paper/paper-slice-quick",
+  "vol": 0.42,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "stiker ??? dirobek"
+ },
+ {
+  "t": 29.082,
+  "src": "text/marker-pen-line",
+  "vol": 0.34,
+  "max": 0.45,
+  "al": "on",
+  "rv": 0,
+  "note": "lingkaran merah"
+ },
+ {
+  "t": 29.218,
+  "src": "paper/paper-slide",
+  "vol": 0.26,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "baris 1"
+ },
+ {
+  "t": 29.482,
+  "src": "text/marker-pen-line",
+  "vol": 0.28,
+  "max": 0.55,
+  "al": "on",
+  "rv": 0,
+  "note": "stabilo"
+ },
+ {
+  "t": 29.938,
+  "src": "crowd/clap-single",
+  "vol": 0.36,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "centang"
+ },
+ {
+  "t": 31.242,
+  "src": "paper/paper-slide",
+  "vol": 0.26,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "baris 2"
+ },
+ {
+  "t": 31.962,
+  "src": "impact/hit-blow",
+  "vol": 0.45,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "silang"
+ },
+ {
+  "t": 36.362,
+  "src": "impact/hit-weak",
+  "vol": 0.45,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "angka"
+ },
+ {
+  "t": 36.412,
+  "src": "light/sparkle-touch",
+  "vol": 0.22,
+  "max": 1,
+  "al": "on",
+  "rv": 0,
+  "note": "angka"
+ },
+ {
+  "t": 38.454,
+  "src": "transition/air-whoosh-powerful",
+  "vol": 0.4,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "daun melintas lensa"
+ },
+ {
+  "t": 38.454,
+  "src": "impact/impact-cine-big",
+  "vol": 0.36,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "CTA"
+ },
+ {
+  "t": 38.554,
+  "src": "light/sparkle-touch",
+  "vol": 0.24,
+  "max": 1,
+  "al": "on",
+  "rv": 0,
+  "note": "ikon penutup"
+ },
+ {
+  "t": 38.904,
+  "src": "transition/swoosh-quick",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "judul"
+ },
+ {
+  "t": 39.604,
+  "src": "fluid/liquid-bubble",
+  "vol": 0.3,
+  "max": 0.4,
+  "al": "on",
+  "rv": 0,
+  "note": "chip 1"
+ },
+ {
+  "t": 39.804,
+  "src": "text/marker-pen-line",
+  "vol": 0.34,
+  "max": 0.45,
+  "al": "on",
+  "rv": 0,
+  "note": "spidol judul"
+ },
+ {
+  "t": 40.484,
+  "src": "fluid/water-bubble",
+  "vol": 0.26,
+  "max": 0.4,
+  "al": "on",
+  "rv": 0,
+  "note": "chip 2"
+ },
+ {
+  "t": 41.644,
+  "src": "transition/swoosh-quick",
+  "vol": 0.28,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "ajakan kirim"
+ },
+ {
+  "t": 43.709,
+  "src": "impact/metal-spring-hit",
+  "vol": 0.24,
+  "max": 1,
+  "al": "on",
+  "rv": 0,
+  "note": "ikon callback membesar"
+ },
+ {
+  "t": 44.285,
+  "src": "light/sparkle-wand",
+  "vol": 0.28,
+  "max": 2,
+  "al": "on",
+  "rv": 0,
+  "note": "sparkle penutup"
+ }
+]
