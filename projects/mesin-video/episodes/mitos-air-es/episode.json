@@ -7,7 +7,7 @@
  "musik_id": "comical",
  "status": "siap",
  "catatan": null,
- "dibuat": "2026-11-09 23:15:12",
+ "dibuat": "2026-11-10 00:16:46",
  "adegan": [
   {
    "jenis": "kuis",
@@ -42,10 +42,10 @@
   },
   {
    "jenis": "langkah",
-   "vo": "[curious] Malah sebaliknya: | {l0}air es suhunya sekitar empat derajat. | {l1}Tubuh harus menghangatkannya | sampai tiga puluh tujuh derajat. | [surprised] {l2}Itu butuh energi: | kira-kira enam belas kalori | per setengah liter!",
-   "vo_en": "In fact, it's the opposite: | iced water is about four degrees. | Your body has to warm it | up to thirty-seven degrees. | That takes energy: | about sixteen calories | per half liter!",
+   "vo": "[curious] Malah sebaliknya: | {l0}air es suhunya sekitar empat derajat. | {l1}Tubuh harus menghangatkannya | sampai tiga puluh tujuh derajat. | [surprised] {l2}Itu butuh energi: | kira-kira enam belas kalori | per setengah liter! | [laughs] Kecil sih, | tapi jelas nggak bikin gendut.",
+   "vo_en": "In fact, it's the opposite: | iced water is about four degrees. | Your body has to warm it | up to thirty-seven degrees. | That takes energy: | about sixteen calories | per half liter! | Tiny, sure, | but it clearly won't make you fat.",
    "param": {
-    "judul": "Malah bakar kalori?",
+    "judul": "Tubuh malah kerja!",
     "gaya": "rantai",
     "item": [
      {
@@ -61,7 +61,7 @@
      {
       "ikon": "fire",
       "teks": "±16 kkal",
-      "sub": "per 500 ml"
+      "sub": "hitungan fisika · 500 ml"
      }
     ]
    }

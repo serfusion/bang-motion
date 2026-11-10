@@ -7,12 +7,12 @@
  "musik_id": "keep-smiling",
  "status": "siap",
  "catatan": null,
- "dibuat": "2026-11-09 23:15:12",
+ "dibuat": "2026-11-10 00:16:46",
  "adegan": [
   {
    "jenis": "kuis",
-   "vo": "[curious] {p0}Tempe... | atau {p1}telur? | Protein siapa | yang lebih tinggi?",
-   "vo_en": "Tempeh... | or egg? | Which one | has more protein?",
+   "vo": "[curious] Protein siapa | yang lebih tinggi? | {p0}Tempe... | atau {p1}telur?",
+   "vo_en": "Which one | has more protein? | Tempeh... | or egg?",
    "param": {
     "judul": "Siapa juara protein?",
     "pilihan": [
@@ -70,8 +70,8 @@
   },
   {
    "jenis": "banding",
-   "vo": "[mischievously] Nah, ini jebakannya: | angka tadi per seratus gram. | {b0}Sebutir telur: tujuh setengah gram. | {b1}Sepotong tempe tipis: | cuma lima gram! | [laughs] Jadi... | {b2}makan tempenya dua potong!",
-   "vo_en": "Now, here's the trap: | those numbers were per hundred grams. | One egg: seven and a half grams. | One thin slice of tempeh: | only five grams! | So... | eat two slices of tempeh!",
+   "vo": "[mischievously] Nah, ini jebakannya: | angka tadi per seratus gram. | {b0}Sebutir telur: tujuh koma enam gram. | {b1}Sepotong tempe tipis: | cuma lima koma satu gram! | [laughs] Jadi... | {b2}makan tempenya dua potong!",
+   "vo_en": "Now, here's the trap: | those numbers were per hundred grams. | One egg: seven point six grams. | One thin slice of tempeh: | only five point one grams! | So... | eat two slices of tempeh!",
    "param": {
     "judul": "Jebakan angka!",
     "sub": "protein per porsi",

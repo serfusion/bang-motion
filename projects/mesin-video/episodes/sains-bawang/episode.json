@@ -7,7 +7,7 @@
  "musik_id": "gummies",
  "status": "siap",
  "catatan": null,
- "dibuat": "2026-11-09 23:15:12",
+ "dibuat": "2026-11-10 00:16:46",
  "adegan": [
   {
    "jenis": "kuis",
@@ -29,7 +29,8 @@
       "ikon": "brain"
      }
     ],
-    "jawaban": 1
+    "jawaban": 1,
+    "ikon": "onion"
    }
   },
   {
@@ -94,8 +95,8 @@
   },
   {
    "jenis": "twist",
-   "vo": "[mischievously] Dan kejutannya: | {k}enzim pelakunya ditemukan | ilmuwan Jepang tahun dua ribu dua. | [excited] {i0}Sekarang sudah ada bawang | yang nggak bikin nangis, | dijual di Amerika dan Inggris!",
-   "vo_en": "And the surprise: | the culprit enzyme was found | by Japanese scientists in 2002. | Now there's an onion | that doesn't make you cry, | sold in the US and the UK!",
+   "vo": "[mischievously] Dan kejutannya: | {k}enzim pelakunya ditemukan | ilmuwan Jepang tahun dua ribu dua. | [excited] {i0}Sekarang sudah ada bawang hasil pemuliaan | yang nggak bikin nangis, | dijual di Amerika dan Inggris!",
+   "vo_en": "And the surprise: | the culprit enzyme was found | by Japanese scientists in 2002. | Now there's a specially bred onion | that doesn't make you cry, | sold in the US and the UK!",
    "param": {
     "nada": "kejutan",
     "judul": "Kejutan!",
@@ -104,7 +105,7 @@
     "baris": [
      {
       "ikon": "onion",
-      "teks": "bawang 'tanpa air mata'",
+      "teks": "bawang hasil pemuliaan 'tanpa air mata'",
       "nilai": "sudah dijual",
       "ok": true
      }
