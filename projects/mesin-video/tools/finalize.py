@@ -40,6 +40,9 @@ def main(eid, lang="id"):
                 "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest", "-movflags", "+faststart", D("out", f"{name}.mp4"))
             outs.append((variant_lang, f"episodes/{eid}/{lang}/out/{name}.mp4"))
     srt(eid, lang)
+    for f in os.listdir(D("build")) if outs else []:      # potongan render paralel sudah digabung ke video.mp4
+        if f.startswith("seg") and f.endswith(".mp4"):
+            os.remove(D("build", f))
     dur = load_json(D("timeline.json"))["duration"]
     if os.path.exists(DBFILE):
         con = sqlite3.connect(DBFILE)

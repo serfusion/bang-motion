@@ -22,6 +22,7 @@ function choreo(){
   mascotFromTags();
   SCN.forEach(s=>SCENES[s.jenis].choreo(s));
   SCN.forEach(s=>{const f=SCENES[s.jenis].sfx;if(f)f(s);});
+  if(FMT==='fakta')MPOS.length=0;                 // format fakta tanpa maskot (adegan langkah/banding pun)
   const cta=SCN.find(s=>s.jenis==='cta');
   if(PROG.length)PROG.on=PROG[0].cut,PROG.off=cta?cta.cut+.3:DUR;
   tl.to({},{duration:.001},DUR);

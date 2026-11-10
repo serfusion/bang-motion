@@ -1,0 +1,82 @@
+{% extends "base.html" %}{% block title %}Dasbor{% endblock %}
+{% block body %}
+<div class="head">
+  <h1>Dasbor</h1>
+  <div class="actions">
+    <form method="post" action="{{ url_for('json_simpan') }}"><input type="hidden" name="_csrf" value="{{ csrf }}">
+      <button title="Tulis isi database ke db/data/*.json supaya bisa di-commit ke git (tanpa kunci API)">Simpan ke JSON</button></form>
+    <form method="post" action="{{ url_for('json_muat') }}" onsubmit="return confirm('Muat ulang dari db/data/*.json? Baris yang sama di database akan ditimpa isi berkas JSON.')">
+      <input type="hidden" name="_csrf" value="{{ csrf }}"><button class="ghost">Muat dari JSON</button></form>
+    <a class="btn primary" href="{{ url_for('episode_daftar') }}#baru">+ Episode baru</a>
+  </div>
+</div>
+
+<div class="stats">
+  <a class="stat" href="{{ url_for('episode_daftar') }}"><b>{{ hit.episode }}</b><span>episode</span>
+    <small>{{ per_format.get('tebakan', 0) }} tebakan · {{ per_format.get('fakta', 0) }} fakta</small></a>
+  <a class="stat" href="{{ url_for('tabel_daftar', t='fakta') }}"><b>{{ hit.fakta }}</b><span>fakta bersumber</span><small>{{ hit.sumber }} sumber</small></a>
+  <a class="stat" href="{{ url_for('tabel_daftar', t='kategori') }}"><b>{{ hit.kategori }}</b><span>kategori</span><small>sains, kesehatan, intermezo, …</small></a>
+  <a class="stat" href="{{ url_for('tabel_daftar', t='aset') }}"><b>{{ hit.aset }}</b><span>aset gambar</span><small>+ 3.181 ikon Fluent Emoji</small></a>
+  <a class="stat" href="{{ url_for('tabel_daftar', t='musik') }}"><b>{{ hit.musik }}</b><span>musik</span><small>{{ hit.suara }} suara</small></a>
+</div>
+
+<div class="grid2">
+<section class="card">
+  <h2>Konten per kategori</h2>
+  <table class="list">
+    <thead><tr><th>Kategori</th><th class="n">Tebakan</th><th class="n">Fakta</th><th class="n">Data fakta</th><th></th></tr></thead>
+    <tbody>
+    {% for k in kat %}
+      <tr><td><b>{{ k.nama }}</b>{% if k.nama_en %} <span class="muted">· {{ k.nama_en }}</span>{% endif %}
+            {% if k.deskripsi %}<div class="muted small">{{ k.deskripsi }}</div>{% endif %}</td>
+        <td class="n">{% if k.teb %}<a href="{{ url_for('episode_daftar', kategori=k.id, format='tebakan') }}">{{ k.teb }}</a>{% else %}<span class="muted">–</span>{% endif %}</td>
+        <td class="n">{% if k.fak %}<a href="{{ url_for('episode_daftar', kategori=k.id, format='fakta') }}">{{ k.fak }}</a>{% else %}<span class="muted">–</span>{% endif %}</td>
+        <td class="n">{% if k.nf %}<a href="{{ url_for('tabel_daftar', t='fakta', kategori=k.id) }}">{{ k.nf }}</a>{% else %}<span class="muted">–</span>{% endif %}</td>
+        <td class="r nowrap"><a class="small" href="{{ url_for('episode_daftar', kategori=k.id) }}#baru">+ episode</a></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<div>
+<section class="card">
+  <h2>Kunci ElevenLabs</h2>
+  {% if kunci %}
+  <ol class="keys">
+    {% for r in kunci %}<li><span class="chip st-{{ r.status|replace(' ', '-') }}">{{ r.status }}</span> <b>{{ r.label }}</b>
+      <code>{{ mask(r.kunci) }}</code>{% if not r.aktif %} <span class="muted">(nonaktif)</span>{% endif %}
+      {% if r.sisa is not none %}<span class="muted">· sisa {{ r.sisa|angka }} karakter</span>{% endif %}</li>{% endfor %}
+  </ol>
+  {% else %}
+  <p class="warn">Belum ada kunci di panel. {% if env_key %}Mesin memakai variabel <code>XI_API_KEY</code>.{% else %}Isi minimal satu kunci agar suara bisa dibuat.{% endif %}</p>
+  {% endif %}
+  <p><a href="{{ url_for('kunci') }}">Kelola kunci →</a></p>
+</section>
+
+<section class="card">
+  <h2>Antrean</h2>
+  {% if tugas %}
+  <table class="list">
+    {% for t in tugas %}
+    <tr><td><a href="{{ url_for('episode_edit', eid=t.episode_id) }}">{{ t.judul or t.episode_id }}</a>
+        <span class="tag">{{ t.bahasa|upper }}</span>{% if t.sampai %} <span class="tag">pratinjau</span>{% endif %}</td>
+      <td><span class="chip st-{{ t.status }}">{{ t.status }}</span></td>
+      <td style="width:35%"><div class="bar"><i style="width:{{ t.pct }}%"></i></div><span class="muted small">{{ t.langkah or '' }}</span></td></tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">Kosong. Render dimulai dari halaman episode.</p>{% endif %}
+  <p><a href="{{ url_for('antrean') }}">Semua tugas →</a></p>
+</section>
+
+<section class="card">
+  <h2>Hasil terbaru</h2>
+  {% if renders %}
+  <ul class="plain">
+    {% for r in renders %}<li><a href="{{ url_for('berkas', p=r.berkas[9:]) }}" target="_blank">▶ {{ r.judul }}</a>
+      <span class="tag">{{ r.bahasa|upper }}</span> <span class="muted small">{{ '%.0f'|format(r.durasi or 0) }} dtk · {{ r.dibuat }}</span></li>{% endfor %}
+  </ul>
+  {% else %}<p class="muted">Belum ada video.</p>{% endif %}
+</section>
+</div>
+</div>
+{% endblock %}

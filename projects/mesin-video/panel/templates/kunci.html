@@ -1,0 +1,63 @@
+{% extends "base.html" %}{% block title %}Kunci API{% endblock %}
+{% block body %}
+<div class="head"><h1>Kunci API ElevenLabs</h1></div>
+
+<section class="card">
+  <p>Mesin memakai kunci <b>berurutan</b>: Kunci 1 dulu. Bila kuotanya habis, kunci ditolak, atau kena batas laju,
+    mesin otomatis pindah ke kunci berikutnya yang aktif, menandai kunci yang gagal, dan melanjutkan render tanpa berhenti.
+    {% if env_key %}Setelah keempat kotak, variabel <code>XI_API_KEY</code> dipakai sebagai cadangan terakhir.{% endif %}</p>
+  <p class="muted small">Kunci tersimpan di <code>db/konten.db</code> di komputer ini, tidak ikut di-commit dan tidak ikut "Simpan ke JSON".
+    Yang tampil di layar hanya 4 huruf awal dan akhir.</p>
+  <p class="warn">Catatan aturan ElevenLabs: satu orang hanya boleh punya satu akun gratis. Membuat beberapa akun gratis untuk
+    menambah kuota bisa membuat penggunaan gratisnya dinonaktifkan. Kotak 2–4 sebaiknya diisi kunci akun berbayar / akun tim
+    (mis. kunci rekan satu tim) atau kunci cadangan yang sah. Suara dari paket gratis juga hanya untuk non-komersial dan wajib
+    atribusi (tampil "Suara: ElevenLabs" di penutup video). <a href="{{ policy }}" target="_blank" rel="noopener">Kebijakan ElevenLabs</a></p>
+</section>
+
+<form method="post" action="{{ url_for('kunci_simpan') }}" autocomplete="off">
+  <input type="hidden" name="_csrf" value="{{ csrf }}">
+  <div class="keygrid">
+  {% for i, r in slots %}
+    <fieldset class="card key {{ 'empty' if not r }}">
+      <legend>Kunci {{ i }} {% if r %}<span class="chip st-{{ r.status|replace(' ', '-') }}">{{ r.status }}</span>{% endif %}</legend>
+      <label>Nama <input name="label{{ i }}" value="{{ r.label if r else '' }}" placeholder="{{ 'Akun utama' if i==1 else 'Cadangan ' ~ (i-1) }}"></label>
+      <label>Kunci API
+        <input type="password" name="kunci{{ i }}" placeholder="{{ mask(r.kunci) ~ ' tersimpan — isi untuk mengganti' if r else 'tempel xi-api-key (sk_…)' }}" autocomplete="new-password" spellcheck="false"></label>
+      <label class="check"><input type="checkbox" name="aktif{{ i }}" {% if not r or r.aktif %}checked{% endif %}> aktif (ikut dipakai bergiliran)</label>
+      {% if r %}
+      <dl class="kv">
+        <dt>Sisa</dt><dd>{{ (r.sisa|angka ~ ' karakter') if r.sisa is not none else 'tidak diketahui' }}</dd>
+        <dt>Terakhir</dt><dd>{{ r.terakhir or '–' }}</dd>
+        {% if r.catatan %}<dt>Catatan</dt><dd class="small">{{ r.catatan }}</dd>{% endif %}
+      </dl>
+      <div class="btns">
+        <button class="sm" formaction="{{ url_for('kunci_tes', slot=i) }}">Tes</button>
+        <button class="sm danger ghost" formaction="{{ url_for('kunci_hapus', slot=i) }}" formnovalidate onclick="return confirm('Hapus Kunci {{ i }}?')">Hapus</button>
+      </div>
+      {% endif %}
+    </fieldset>
+  {% endfor %}
+  </div>
+  <div class="btns save">
+    <button class="primary">Simpan kunci</button>
+    <button formaction="{{ url_for('kunci_tes', slot=0) }}">Tes semua kunci aktif</button>
+  </div>
+</form>
+
+{% if lain %}
+<section class="card"><h2>Kunci lain (ditambah lewat baris perintah)</h2>
+  <ul class="plain">{% for r in lain %}<li>#{{ r.urutan }} {{ r.label }} <code>{{ mask(r.kunci) }}</code> <span class="chip st-{{ r.status|replace(' ', '-') }}">{{ r.status }}</span></li>{% endfor %}</ul>
+</section>
+{% endif %}
+
+<section class="card">
+  <h2>Status kunci</h2>
+  <table class="mini">
+    <tr><td><span class="chip st-ok">ok</span></td><td>valid; dipakai</td></tr>
+    <tr><td><span class="chip st-habis">habis</span></td><td>kuota karakter bulan ini habis → mesin langsung pindah ke kunci berikutnya (tekan Tes untuk cek ulang setelah kuota pulih)</td></tr>
+    <tr><td><span class="chip st-ditolak">ditolak</span></td><td>kunci salah, dicabut, atau tidak punya izin text-to-speech</td></tr>
+    <tr><td><span class="chip st-dibatasi">dibatasi</span></td><td>terlalu banyak permintaan sekaligus; dicoba lagi di render berikutnya</td></tr>
+  </table>
+  <p class="muted small">Kunci tetap dicoba lagi pada render berikutnya walaupun statusnya habis/ditolak; status hanya catatan. Matikan "aktif" untuk melewatinya.</p>
+</section>
+{% endblock %}

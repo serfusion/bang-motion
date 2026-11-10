@@ -22,16 +22,28 @@ TABLES = [("kategori", "kategori.json"), ("sumber", "sumber.json"), ("suara", "s
 JSON_COLS = {"pengaturan", "param", "param_en"}
 
 
+# columns added after the first release: (table, column, type) -> ALTER TABLE on older database files
+MIGRATE = [("tugas", "sampai", "TEXT")]
+
+
 def connect():
-    if not os.path.exists(DBFILE):
+    fresh = not os.path.exists(DBFILE)
+    if fresh:
         init_schema()
-    con = sqlite3.connect(DBFILE)
+    con = sqlite3.connect(DBFILE, timeout=15)
     con.row_factory = sqlite3.Row
     con.execute("PRAGMA foreign_keys = ON")
+    if not fresh:
+        for table, col, typ in MIGRATE:
+            have = cols(con, table)
+            if have and col not in have:
+                con.execute(f"ALTER TABLE {table} ADD COLUMN {col} {typ}")
+                con.commit()
     return con
 
 
 def init_schema():
+    """Create every table that does not exist yet (CREATE TABLE IF NOT EXISTS: safe on an existing file)."""
     con = sqlite3.connect(DBFILE)
     con.executescript(open(os.path.join(PROJ, "db", "schema.sql"), encoding="utf-8").read())
     con.commit()
@@ -49,14 +61,33 @@ def cols(con, table):
     return [c[1] for c in con.execute(f"PRAGMA table_info({table})")]
 
 
+def pkey(con, table):
+    return [c[1] for c in sorted(con.execute(f"PRAGMA table_info({table})"), key=lambda c: c[5]) if c[5]]
+
+
 def upsert(con, table, row):
+    """Insert or update in place. (Not INSERT OR REPLACE: that deletes the old row first, and with foreign keys on
+    the delete would cascade, e.g. wiping an episode's renders and queued tasks every time it is saved.)"""
     vals = {k: (json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v) for k, v in row.items() if k in cols(con, table)}
-    con.execute(f"INSERT OR REPLACE INTO {table} ({','.join(vals)}) VALUES ({','.join('?' * len(vals))})", list(vals.values()))
+    keys = pkey(con, table)
+    sql = f"INSERT INTO {table} ({','.join(vals)}) VALUES ({','.join('?' * len(vals))})"
+    upd = [k for k in vals if k not in keys]
+    if keys:
+        sql += f" ON CONFLICT({','.join(keys)}) DO " + ("UPDATE SET " + ",".join(f"{k}=excluded.{k}" for k in upd) if upd else "NOTHING")
+    con.execute(sql, list(vals.values()))
+
+
+def full_row(con, table, row, keep=("dibuat",)):
+    """Every column of the table: a key missing from the JSON clears the column (so JSON -> database is exact),
+    except columns in `keep` (e.g. the creation time, which the JSON never carries)."""
+    return {c: row.get(c) for c in cols(con, table) if c in row or c not in keep}
 
 
 def save_episode(con, ep):
     """Write one episode (same shape as db/data/episode/*.json) with its scenes and fact links."""
-    upsert(con, "episode", ep)
+    row = full_row(con, "episode", ep)
+    row["format"], row["status"] = row.get("format") or "tebakan", row.get("status") or "draf"
+    upsert(con, "episode", row)
     con.execute("DELETE FROM adegan WHERE episode_id=?", (ep["id"],))
     con.execute("DELETE FROM episode_fakta WHERE episode_id=?", (ep["id"],))
     for i, sc in enumerate(ep.get("adegan", [])):
@@ -71,7 +102,7 @@ def cmd_import():
     con = connect()
     for table, fname in TABLES:
         for row in load_json(os.path.join(DATA, fname)):
-            upsert(con, table, row)
+            upsert(con, table, full_row(con, table, row))
     n = 0
     for f in sorted(glob.glob(os.path.join(DATA, "episode", "*.json"))):
         save_episode(con, load_json(f))
@@ -98,7 +129,10 @@ def cmd_dump():
         ep = load_episode(con, r["id"], full=False)
         save_json(os.path.join(DATA, "episode", r["id"] + ".json"), ep)
         keep.add(r["id"] + ".json")
-    print(f"dumped {len(keep)} episodes to db/data (API keys are never written)")
+    gone = [f for f in glob.glob(os.path.join(DATA, "episode", "*.json")) if os.path.basename(f) not in keep]
+    for f in gone:                       # episodes deleted in the panel
+        os.remove(f)
+    print(f"dumped {len(keep)} episodes to db/data, removed {len(gone)} (API keys are never written)")
 
 
 def load_episode(con, eid, full=True):

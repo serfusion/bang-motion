@@ -54,16 +54,27 @@ def voice_for(ep, lang):
     return ep["suara_en"] if lang == "en" else ep["suara"]
 
 
-def tts(ep, lang="id"):
-    V, out, lines = voice_for(ep, lang), lang_dir(ep["id"], lang, "vo"), []
-    os.makedirs(out, exist_ok=True)
+def plan(ep, lang="id"):
+    """Per scene: (key, seed, tts text, words, hash, cached?). A scene is sent to the TTS service only when its text,
+    voice or settings changed since the last run, so re-rendering an edited episode costs only the edited scenes."""
+    V, out, rows = voice_for(ep, lang), lang_dir(ep["id"], lang, "vo"), []
     for k, sc in enumerate(ep["adegan"]):
         key, seed = f"s{k + 1}", 4200 + k
         text, words = parse_vo(script(sc, lang))
         h = hashlib.sha1(json.dumps([text, V["voice_id"], V["model"], V.get("pengaturan"), seed]).encode()).hexdigest()[:16]
         ap = os.path.join(out, key + ".align.json")
-        d = load_json(ap) if os.path.exists(ap) else None
-        if not d or d.get("hash") != h:
+        cached = os.path.exists(ap) and load_json(ap).get("hash") == h
+        rows.append((key, seed, text, words, h, cached))
+    return rows
+
+
+def tts(ep, lang="id"):
+    V, out, lines = voice_for(ep, lang), lang_dir(ep["id"], lang, "vo"), []
+    os.makedirs(out, exist_ok=True)
+    for key, seed, text, words, h, cached in plan(ep, lang):
+        ap = os.path.join(out, key + ".align.json")
+        d = load_json(ap) if cached else None
+        if not d:
             d = elevenlabs.tts_with_timestamps(V, text, seed)
             with open(os.path.join(out, key + ".mp3"), "wb") as f:
                 f.write(base64.b64decode(d.pop("audio_base64")))

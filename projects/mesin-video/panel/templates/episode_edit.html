@@ -1,0 +1,149 @@
+{% extends "base.html" %}{% block title %}{{ ep.judul }}{% endblock %}
+{% block body %}
+<div class="head">
+  <div>
+    <a class="muted small" href="{{ url_for('episode_daftar') }}">← Semua episode</a>
+    <h1>{{ ep.judul }}</h1>
+    <div class="muted"><code>{{ ep.id }}</code> · <span class="tag f-{{ ep.format }}">{{ FORMATS[ep.format].nama }}</span>
+      · <span class="chip st-{{ ep.status }}">{{ ep.status }}</span></div>
+  </div>
+  <div class="actions">
+    <button form="ep-form" class="primary" title="Ctrl+S">Simpan</button>
+    <details class="menu"><summary class="btn ghost">Lainnya ▾</summary>
+      <div class="menu-box">
+        <form method="post" action="{{ url_for('episode_duplikat', eid=ep.id) }}">
+          <input type="hidden" name="_csrf" value="{{ csrf }}">
+          <label>ID salinan <input name="id_baru" placeholder="{{ ep.id }}-2" pattern="[a-z0-9][a-z0-9\-]{1,60}"></label>
+          <button>Duplikat episode</button></form>
+        <form method="post" action="{{ url_for('episode_hapus', eid=ep.id) }}" onsubmit="return confirm('Hapus episode {{ ep.id }} dari database?')">
+          <input type="hidden" name="_csrf" value="{{ csrf }}"><button class="danger">Hapus episode</button></form>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="editor">
+<form id="ep-form" method="post" action="{{ url_for('episode_simpan', eid=ep.id) }}" class="ed-main">
+  <input type="hidden" name="_csrf" value="{{ csrf }}">
+  <input type="hidden" name="adegan" id="adegan-json">
+
+  <section class="card">
+    <h2>Info</h2>
+    <div class="row3">
+      <label>Judul (Indonesia) <input name="judul" value="{{ ep.judul }}" required></label>
+      <label>Judul (English) <input name="judul_en" value="{{ ep.judul_en or '' }}"></label>
+      <label>Kategori <select name="kategori_id"><option value="">–</option>{% for k in kategori %}<option value="{{ k.id }}" {% if k.id==ep.kategori_id %}selected{% endif %}>{{ k.nama }}</option>{% endfor %}</select></label>
+      <label>Format <select name="format" id="format">{% for k, F in FORMATS.items() %}<option value="{{ k }}" {% if k==ep.format %}selected{% endif %} title="{{ F.ket }}">{{ F.nama }}</option>{% endfor %}</select></label>
+      <label>Status <select name="status">{% for s in statuses %}<option {% if s==ep.status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+      <label>Musik <select name="musik_id"><option value="">–</option>{% for m in musik %}<option value="{{ m.id }}" {% if m.id==ep.musik_id %}selected{% endif %}>{{ m.judul or m.id }}{% if m.bpm %} · {{ '%.0f'|format(m.bpm) }} BPM{% endif %}</option>{% endfor %}</select></label>
+      <label>Suara Indonesia <select name="suara_id"><option value="">–</option>{% for s in suara %}<option value="{{ s.id }}" {% if s.id==ep.suara_id %}selected{% endif %}>{{ s.nama or s.id }} ({{ s.id }})</option>{% endfor %}</select></label>
+      <label>Suara English <select name="suara_en_id"><option value="">–</option>{% for s in suara %}<option value="{{ s.id }}" {% if s.id==ep.suara_en_id %}selected{% endif %}>{{ s.nama or s.id }} ({{ s.id }})</option>{% endfor %}</select></label>
+      <label>Tempo suara <input name="tempo" value="{{ ep.tempo if ep.tempo is not none else '' }}" placeholder="bawaan: tebakan 1,12 · fakta 1,0" inputmode="decimal"></label>
+    </div>
+    <label>Catatan <textarea name="catatan" rows="2">{{ ep.catatan or '' }}</textarea></label>
+    <p class="muted small" id="fmt-ket">{{ FORMATS[ep.format].ket }}</p>
+  </section>
+
+  <section class="card">
+    <div class="h2row"><h2>Adegan</h2>
+      <details class="syntax"><summary>Cara menulis naskah</summary>
+        <table class="mini">{% for k, v in syntax %}<tr><td><code>{{ k }}</code></td><td>{{ v }}</td></tr>{% endfor %}</table>
+        <p class="muted small">Naskah English memakai isyarat yang sama. Param English cukup berisi teks layar yang berbeda; sisanya diambil dari param Indonesia.</p>
+      </details>
+    </div>
+    <div id="adegan"></div>
+    <div class="add-row">
+      <select id="add-jenis"></select>
+      <button type="button" id="add-btn">+ Tambah adegan</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Fakta yang dipakai <span class="muted small">(sumbernya otomatis masuk kredit penutup)</span></h2>
+    <input class="filter-fakta" placeholder="Saring fakta…" onkeydown="if(event.key==='Enter')event.preventDefault()" oninput="for(const l of document.querySelectorAll('.fakta-list label'))l.hidden=!l.textContent.toLowerCase().includes(this.value.toLowerCase())">
+    <div class="fakta-list">
+      {% for f in fakta %}
+      <label class="{{ 'same' if f.kategori_id==ep.kategori_id }}"><input type="checkbox" name="fakta" value="{{ f.id }}" {% if f.id in ep.fakta %}checked{% endif %}>
+        <span><b>{{ f.klaim }}</b> <span class="chip st-{{ f.status }}">{{ f.status }}</span>
+        <span class="muted small">{{ f.kategori_id }} · {{ f.singkat or f.sumber_id or 'tanpa sumber' }}</span></span></label>
+      {% else %}<p class="muted">Belum ada fakta. <a href="{{ url_for('tabel_edit', t='fakta') }}">Tambah fakta</a></p>{% endfor %}
+    </div>
+  </section>
+</form>
+
+<aside class="ed-side">
+  <section class="card" id="render">
+    <h2>Render</h2>
+    {% for lang in ('id','en') %}
+    <div class="lang">
+      <div class="lang-h"><b>{{ BAHASA[lang] }}</b> <span class="muted small">suara + subtitle {{ BAHASA[lang] }}</span></div>
+      {% set p = tts.get(lang) %}
+      {% if lang == 'en' and not has_en %}
+        <p class="muted small">Isi naskah English di tiap adegan untuk membuat versi Inggris.</p>
+      {% elif p and p.galat %}
+        <p class="err small">{{ p.galat }}</p>
+      {% elif p %}
+        <p class="small">ElevenLabs: <b>{{ p.baru|angka }}</b> karakter baru{% if p.adegan_baru < p.n %} <span class="muted">({{ p.adegan_baru }}/{{ p.n }} adegan; sisanya dari cache)</span>{% endif %} · total naskah {{ p.total|angka }}</p>
+      {% endif %}
+      <div class="btns">
+        <form method="post" action="{{ url_for('episode_render', eid=ep.id) }}" class="rf"><input type="hidden" name="_csrf" value="{{ csrf }}">
+          <input type="hidden" name="bahasa" value="{{ lang }}"><input type="hidden" name="mode" value="pratinjau">
+          <button {% if lang=='en' and not has_en %}disabled{% endif %} title="Suara + halaman animasi + mix (±1 menit), tanpa MP4">Pratinjau</button></form>
+        <form method="post" action="{{ url_for('episode_render', eid=ep.id) }}" class="rf"><input type="hidden" name="_csrf" value="{{ csrf }}">
+          <input type="hidden" name="bahasa" value="{{ lang }}">
+          <button class="primary" {% if lang=='en' and not has_en %}disabled{% endif %}>Render MP4</button></form>
+      </div>
+      {% set h = hs[lang] %}
+      {% if h.mp4 %}
+        <video controls preload="metadata" src="{{ url_for('berkas', p=h.mp4) }}"></video>
+        <p class="small links">
+          <a href="{{ url_for('berkas', p=h.mp4, unduh=1) }}">MP4</a>
+          {% if h.nobgm %}· <a href="{{ url_for('berkas', p=h.nobgm, unduh=1) }}" title="suara + efek, tanpa musik (pakai musik platform)">tanpa musik</a>{% endif %}
+          {% if h.srt %}· <a href="{{ url_for('berkas', p=h.srt, unduh=1) }}">SRT</a>{% endif %}
+          {% if h.html %}· <a href="{{ url_for('berkas', p=h.html) }}?debug=1" target="_blank">halaman animasi</a>{% endif %}
+          <br><span class="muted">{{ h.waktu }}{% if h.durasi %} · {{ '%.1f'|format(h.durasi) }} dtk{% endif %}</span></p>
+      {% elif h.html %}
+        <p class="small"><a href="{{ url_for('berkas', p=h.html) }}?debug=1" target="_blank">Buka pratinjau animasi ↗</a>
+          {% if h.durasi %}<span class="muted"> · {{ '%.1f'|format(h.durasi) }} dtk</span>{% endif %}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <form method="post" action="{{ url_for('episode_render', eid=ep.id) }}" class="rf"><input type="hidden" name="_csrf" value="{{ csrf }}">
+      <input type="hidden" name="bahasa" value="id,en"><button class="wide" {% if not has_en %}disabled{% endif %}>Render keduanya (ID + EN)</button></form>
+    <p class="muted small">Render memakai versi yang tersimpan. Suara di-cache per adegan: hanya adegan yang naskahnya berubah yang memakai kuota ElevenLabs.</p>
+  </section>
+
+  <section class="card" id="validasi">
+    <h2>Validasi</h2>
+    {% if not errs and not warns %}<p class="ok">✓ Siap dirender.</p>{% endif %}
+    {% for e in errs %}<p class="err small">✗ {{ e }}</p>{% endfor %}
+    {% for w in warns %}<p class="warn small">! {{ w }}</p>{% endfor %}
+  </section>
+
+  {% if tugas %}
+  <section class="card">
+    <h2>Tugas terakhir</h2>
+    <table class="list">{% for t in tugas %}
+      <tr><td><span class="tag">{{ t.bahasa|upper }}</span>{% if t.sampai %} <span class="tag">pratinjau</span>{% endif %}</td>
+        <td><span class="chip st-{{ t.status }}">{{ t.status }}</span></td>
+        <td><div class="bar"><i style="width:{{ t.pct }}%"></i></div></td>
+        <td class="r"><a class="small" href="{{ url_for('antrean_log', tid=t.id) }}">log</a></td></tr>{% endfor %}
+    </table>
+  </section>
+  {% endif %}
+
+  <section class="card" id="ikon">
+    <h2>Cari ikon</h2>
+    <input id="ikon-q" placeholder="mis. brain, sleep, onion, clock…" autocomplete="off">
+    <div id="ikon-hasil" class="ikon-grid"></div>
+    <p class="muted small">Klik untuk menyalin nama. 3.181 ikon Fluent Emoji Flat (MIT) + aset unggahan. Foto unggahan dipakai dengan <code>"ilustrasi": {"gambar": "id-aset"}</code>.</p>
+  </section>
+</aside>
+</div>
+
+<script type="application/json" id="d-adegan">{{ data_adegan|safe }}</script>
+<script type="application/json" id="d-templat">{{ data_templat|safe }}</script>
+<script type="application/json" id="d-format">{{ data_format|safe }}</script>
+<script type="application/json" id="d-formats">{{ FORMATS|tojson }}</script>
+{% endblock %}
+{% block script %}<script src="{{ url_for('static', filename='editor.js') }}"></script>{% endblock %}

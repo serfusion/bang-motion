@@ -1,0 +1,34 @@
+{% extends "base.html" %}{% block title %}{{ T.judul }}{% endblock %}
+{% block body %}
+<div class="head"><h1>{{ T.judul }} <span class="muted">({{ rows|length }})</span></h1>
+  <div class="actions"><a class="btn primary" href="{{ url_for('tabel_edit', t=t) }}">+ Tambah</a></div></div>
+{% if t == 'fakta' %}<p class="muted">Setiap angka di video sebaiknya berasal dari fakta di sini, dengan sumber yang bisa dicek. Status: <b>fakta</b>, <b>mitos</b>, <b>sebagian</b> benar, atau <b>perkiraan</b> (hasil hitung).</p>{% endif %}
+{% if t == 'aset' %}<p class="muted">SVG dipakai sebagai ikon (nama = ID, sama seperti ikon Fluent Emoji). Foto PNG/JPG/WEBP dipakai sebagai ilustrasi besar di format fakta: <code>"ilustrasi": {"gambar": "ID"}</code>. Pastikan Anda berhak memakai gambarnya.</p>{% endif %}
+{% if t == 'musik' %}<p class="muted">Musik latar diedit otomatis di ketukan. Setelah mengunggah, BPM dan detik mulai dianalisis (butuh librosa). Gunakan lagu berlisensi bebas (mis. Mixkit, YouTube Audio Library).</p>{% endif %}
+{% if t == 'suara' %}<p class="muted">Satu baris = satu suara + bahasa. Voice ID dari ElevenLabs → Voices. Model <code>eleven_v3</code> mendukung tag intonasi [curious], [excited], dst.</p>{% endif %}
+<form class="filters" method="get">
+  <input name="q" value="{{ qq }}" placeholder="Cari…">
+  {% if t == 'fakta' %}<select name="kategori"><option value="">Semua kategori</option>{% for k in kategori %}<option value="{{ k.id }}" {% if k.id==kat %}selected{% endif %}>{{ k.nama }}</option>{% endfor %}</select>{% endif %}
+  <button>Saring</button>
+</form>
+<section class="card flush">
+<table class="list">
+  <thead><tr>{% if t=='aset' %}<th></th>{% endif %}{% for c in T.daftar %}<th>{{ c }}</th>{% endfor %}{% if pakai is not none and t in ('fakta','kategori','musik','suara') %}<th class="n">dipakai</th>{% endif %}<th></th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+  <tr>
+    {% if t=='aset' %}<td><img class="thumb" src="{{ url_for('ikon', name=r.id) }}" alt=""></td>{% endif %}
+    {% for c in T.daftar %}
+      <td>{% if loop.first %}<a href="{{ url_for('tabel_edit', t=t, rid=r.id) }}"><b>{{ r[c] }}</b></a>
+          {% elif c=='status' %}<span class="chip st-{{ r[c] }}">{{ r[c] }}</span>
+          {% elif c=='url' and r[c] %}<a href="{{ r[c] }}" target="_blank" rel="noopener">tautan</a>
+          {% else %}<span class="clip">{{ r[c] if r[c] is not none else '' }}</span>{% endif %}</td>
+    {% endfor %}
+    {% if t in ('fakta','kategori','musik','suara') %}<td class="n">{{ pakai.get(r.id, '') }}</td>{% endif %}
+    <td class="r nowrap"><a class="small" href="{{ url_for('tabel_edit', t=t, rid=r.id) }}">ubah</a></td>
+  </tr>
+  {% else %}<tr><td colspan="9" class="muted">Belum ada data.</td></tr>{% endfor %}
+  </tbody>
+</table>
+</section>
+{% endblock %}

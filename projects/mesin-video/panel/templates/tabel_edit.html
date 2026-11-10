@@ -1,0 +1,36 @@
+{% extends "base.html" %}{% block title %}{{ T.judul }}{% endblock %}
+{% block body %}
+<div class="head"><div><a class="muted small" href="{{ url_for('tabel_daftar', t=t) }}">← {{ T.judul }}</a>
+  <h1>{{ row.id if row else 'Tambah ' ~ T.judul|lower }}</h1></div>
+  {% if row %}<div class="actions">
+    <form method="post" action="{{ url_for('tabel_hapus', t=t, rid=row.id) }}" onsubmit="return confirm('Hapus {{ row.id }}?')">
+      <input type="hidden" name="_csrf" value="{{ csrf }}"><button class="danger ghost">Hapus</button></form></div>{% endif %}
+</div>
+<section class="card">
+<form method="post" action="{{ url_for('tabel_simpan', t=t) }}" enctype="multipart/form-data" class="form">
+  <input type="hidden" name="_csrf" value="{{ csrf }}">
+  <input type="hidden" name="_lama" value="{{ row.id if row else '' }}">
+  {% for c, label, typ in T.kolom %}
+    {% set v = row[c] if row and row[c] is not none else '' %}
+    <label>{{ label }}
+    {% if c == 'id' %}
+      <input name="id" value="{{ v }}" {% if row %}disabled{% else %}required pattern="[a-z0-9][a-z0-9\-]{1,60}" placeholder="huruf-kecil-dan-tanda-hubung"{% endif %}>
+    {% elif typ == 'textarea' %}<textarea name="{{ c }}" rows="3">{{ v }}</textarea>
+    {% elif typ == 'json' %}<textarea name="{{ c }}" rows="5" class="mono">{{ v }}</textarea>
+    {% elif typ == 'number' %}<input name="{{ c }}" value="{{ v }}" inputmode="decimal">
+    {% elif typ == 'date' %}<input type="date" name="{{ c }}" value="{{ v }}">
+    {% elif typ == 'url' %}<input type="url" name="{{ c }}" value="{{ v }}" placeholder="https://">
+    {% elif typ.startswith('ref:') %}
+      <select name="{{ c }}"><option value="">–</option>{% for o in refs[typ[4:]] %}<option value="{{ o.id }}" {% if o.id==v %}selected{% endif %}>{{ o.label }} ({{ o.id }})</option>{% endfor %}</select>
+    {% elif typ.startswith('pilih:') %}
+      <select name="{{ c }}">{% for o in typ[6:].split(',') %}<option {% if o==v %}selected{% endif %}>{{ o }}</option>{% endfor %}</select>
+    {% elif typ.startswith('file:') %}
+      {% if v %}<span class="muted small">Sekarang: <code>{{ v }}</code>{% if t=='aset' %} <img class="thumb" src="{{ url_for('ikon', name=row.id) }}" alt="">{% endif %} — unggah untuk mengganti</span>{% endif %}
+      <input type="file" name="{{ c }}" accept="{{ '.svg,.png,.jpg,.jpeg,.webp' if t=='aset' else '.mp3,.m4a,.wav,.ogg' }}" {% if not v %}required{% endif %}>
+    {% else %}<input name="{{ c }}" value="{{ v }}">{% endif %}
+    </label>
+  {% endfor %}
+  <button class="primary">Simpan</button>
+</form>
+</section>
+{% endblock %}

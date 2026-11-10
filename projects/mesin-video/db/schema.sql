@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS tugas (
   episode_id TEXT REFERENCES episode(id) ON DELETE CASCADE,
   bahasa     TEXT NOT NULL,                -- 'id' atau 'en'
   status     TEXT NOT NULL DEFAULT 'antre' CHECK (status IN ('antre','jalan','selesai','gagal','batal')),
+  sampai     TEXT,                         -- langkah terakhir: kosong = sampai MP4, 'mix' = pratinjau halaman + suara
   langkah    TEXT,                         -- langkah pipeline yang sedang berjalan
   log        TEXT,                         -- path log
   dibuat     TEXT DEFAULT CURRENT_TIMESTAMP,

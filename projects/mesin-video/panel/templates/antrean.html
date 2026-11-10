@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% block title %}Antrean{% endblock %}
+{% block body %}
+<div class="head"><h1>Antrean render</h1></div>
+<p class="muted">Tugas dijalankan satu per satu di latar belakang (<code>tools/make_video.py</code>). Render penuh ±5–10 menit per bahasa;
+  pratinjau (suara + halaman animasi + mix) ±1 menit. Halaman ini memuat ulang sendiri selama ada tugas berjalan.</p>
+<section class="card flush">
+<table class="list">
+  <thead><tr><th>#</th><th>Episode</th><th>Bahasa</th><th>Status</th><th style="width:30%">Langkah</th><th>Waktu</th><th></th></tr></thead>
+  <tbody>
+  {% for t in rows %}
+  <tr>
+    <td class="muted">{{ t.id }}</td>
+    <td><a href="{{ url_for('episode_edit', eid=t.episode_id) }}">{{ t.judul or t.episode_id }}</a>{% if t.sampai %} <span class="tag">pratinjau</span>{% endif %}</td>
+    <td><span class="tag">{{ t.bahasa|upper }}</span></td>
+    <td><span class="chip st-{{ t.status }}">{{ t.status }}</span></td>
+    <td><div class="bar"><i style="width:{{ t.pct }}%"></i></div><span class="small muted">{{ t.langkah or '' }}{% if t.status=='jalan' %} · {{ t.pct }}%{% endif %}</span></td>
+    <td class="small muted">{{ t.mulai or t.dibuat }}{% if t.selesai %}<br>→ {{ t.selesai }}{% endif %}</td>
+    <td class="r nowrap">
+      {% if t.log %}<a class="small" href="{{ url_for('antrean_log', tid=t.id) }}">log</a>{% endif %}
+      {% if t.status in ('antre','jalan') %}
+      <form method="post" action="{{ url_for('antrean_batal', tid=t.id) }}" class="inline"><input type="hidden" name="_csrf" value="{{ csrf }}"><button class="sm ghost danger">Batal</button></form>
+      {% elif t.status in ('gagal','batal') %}
+      <form method="post" action="{{ url_for('antrean_ulangi', tid=t.id) }}" class="inline"><input type="hidden" name="_csrf" value="{{ csrf }}"><button class="sm ghost">Ulangi</button></form>
+      {% endif %}
+    </td>
+  </tr>
+  {% else %}<tr><td colspan="7" class="muted">Belum ada tugas. Buka episode lalu tekan Render.</td></tr>{% endfor %}
+  </tbody>
+</table>
+</section>
+{% endblock %}

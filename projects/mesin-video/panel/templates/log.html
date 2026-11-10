@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Log #{{ r.id }}{% endblock %}
+{% block body %}
+<div class="head"><div><a class="muted small" href="{{ url_for('antrean') }}">← Antrean</a>
+  <h1>Tugas #{{ r.id }} · {{ r.judul or r.episode_id }} <span class="tag">{{ r.bahasa|upper }}</span></h1>
+  <span class="chip st-{{ r.status }}">{{ r.status }}</span> <span class="muted">{{ r.langkah or '' }}</span></div></div>
+<div class="bar big"><i style="width:{{ r.pct }}%"></i></div>
+<pre class="log">{{ text or '(log kosong)' }}</pre>
+{% if r.status == 'selesai' %}<p><a class="btn primary" href="{{ url_for('episode_edit', eid=r.episode_id) }}#render">Lihat hasil →</a></p>{% endif %}
+{% endblock %}

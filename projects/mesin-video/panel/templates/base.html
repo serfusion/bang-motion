@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Panel{% endblock %} · Mesin Video</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='panel.css') }}">
+{% if refresh %}<meta http-equiv="refresh" content="3">{% endif %}
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ url_for('dasbor') }}"><span class="logo">▶</span> Mesin Video</a>
+  <nav>
+    <a href="{{ url_for('dasbor') }}" class="{{ 'on' if nav=='dasbor' }}">Dasbor</a>
+    <a href="{{ url_for('episode_daftar') }}" class="{{ 'on' if nav=='episode' }}">Episode</a>
+    <span class="sep"></span>
+    <a href="{{ url_for('tabel_daftar', t='fakta') }}" class="{{ 'on' if nav=='fakta' }}">Fakta</a>
+    <a href="{{ url_for('tabel_daftar', t='kategori') }}" class="{{ 'on' if nav=='kategori' }}">Kategori</a>
+    <a href="{{ url_for('tabel_daftar', t='sumber') }}" class="{{ 'on' if nav=='sumber' }}">Sumber</a>
+    <a href="{{ url_for('tabel_daftar', t='aset') }}" class="{{ 'on' if nav=='aset' }}">Aset</a>
+    <a href="{{ url_for('tabel_daftar', t='musik') }}" class="{{ 'on' if nav=='musik' }}">Musik</a>
+    <a href="{{ url_for('tabel_daftar', t='suara') }}" class="{{ 'on' if nav=='suara' }}">Suara</a>
+    <span class="sep"></span>
+    <a href="{{ url_for('kunci') }}" class="{{ 'on' if nav=='kunci' }}">Kunci API</a>
+    <a href="{{ url_for('antrean') }}" class="{{ 'on' if nav=='antrean' }}">Antrean{% if antre_n %} <b class="badge">{{ antre_n }}</b>{% endif %}</a>
+  </nav>
+</header>
+<main>
+  {% with msgs = get_flashed_messages(with_categories=true) %}{% if msgs %}
+  <div class="flash">{% for cat, m in msgs %}<p class="{{ cat }}">{{ m }}</p>{% endfor %}</div>
+  {% endif %}{% endwith %}
+  {% block body %}{% endblock %}
+</main>
+{% block script %}{% endblock %}
+</body>
+</html>

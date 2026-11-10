@@ -1,0 +1,61 @@
+{% extends "base.html" %}{% block title %}Episode{% endblock %}
+{% block script %}<script>function bukaBaru(){if(location.hash==='#baru'){const d=document.getElementById('baru');d.open=true;d.querySelector('input[name=id]').focus();}}bukaBaru();addEventListener('hashchange',bukaBaru);</script>{% endblock %}
+{% block body %}
+<div class="head"><h1>Episode</h1></div>
+
+<details class="card new" id="baru" {% if not rows or f.kategori %}open{% endif %}>
+  <summary><b>+ Episode baru</b> <span class="muted">— pilih format, kerangka adegan dibuat otomatis</span></summary>
+  <form method="post" action="{{ url_for('episode_baru') }}" class="form">
+    <input type="hidden" name="_csrf" value="{{ csrf }}">
+    <div class="fmts">
+      {% for k, F in FORMATS.items() %}
+      <label class="fmt"><input type="radio" name="format" value="{{ k }}" {% if loop.first %}checked{% endif %}>
+        <b>{{ F.nama }}</b><span>{{ F.ket }}</span></label>
+      {% endfor %}
+    </div>
+    <div class="row3">
+      <label>ID (nama folder) <input name="id" required pattern="[a-z0-9][a-z0-9\-]{1,60}" placeholder="sains-petir"></label>
+      <label>Judul <input name="judul" required placeholder="Kenapa petir bercabang?"></label>
+      <label>Judul English <input name="judul_en" placeholder="Why does lightning branch?"></label>
+      <label>Kategori <select name="kategori_id">{% for k in kategori %}<option value="{{ k.id }}" {% if k.id==f.kategori %}selected{% endif %}>{{ k.nama }}</option>{% endfor %}</select></label>
+    </div>
+    <button class="primary">Buat episode</button>
+  </form>
+</details>
+
+<form class="filters" method="get">
+  <input name="q" value="{{ f.q }}" placeholder="Cari judul / ID">
+  <select name="kategori"><option value="">Semua kategori</option>{% for k in kategori %}<option value="{{ k.id }}" {% if k.id==f.kategori %}selected{% endif %}>{{ k.nama }}</option>{% endfor %}</select>
+  <select name="format"><option value="">Semua format</option>{% for k, F in FORMATS.items() %}<option value="{{ k }}" {% if k==f.format %}selected{% endif %}>{{ F.nama }}</option>{% endfor %}</select>
+  <select name="status"><option value="">Semua status</option>{% for s in statuses %}<option {% if s==f.status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+  <button>Saring</button>
+</form>
+
+<section class="card flush">
+<table class="list">
+  <thead><tr><th>Judul</th><th>Kategori</th><th>Format</th><th>Status</th><th class="n">Adegan</th><th>Video</th><th class="r">Render</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+  <tr>
+    <td><a href="{{ url_for('episode_edit', eid=r.id) }}"><b>{{ r.judul }}</b></a>
+      <div class="muted small">{{ r.id }}{% if r.judul_en %} · {{ r.judul_en }}{% endif %}</div></td>
+    <td>{{ r.kat or '–' }}</td>
+    <td><span class="tag f-{{ r.format }}">{{ FORMATS[r.format].nama }}</span></td>
+    <td><span class="chip st-{{ r.status }}">{{ r.status }}</span></td>
+    <td class="n">{{ r.n }}{% if r.n_en < r.n %} <span class="muted small" title="adegan dengan naskah English">({{ r.n_en }} EN)</span>{% endif %}</td>
+    <td>{% for lang in ('id','en') %}{% set h = hs[r.id][lang] %}{% if h.mp4 %}<a class="tag ok" href="{{ url_for('berkas', p=h.mp4) }}" target="_blank" title="{{ h.waktu }}">▶ {{ lang|upper }}</a> {% endif %}{% endfor %}</td>
+    <td class="r nowrap">
+      {% for lang in ('id','en') %}
+      <form method="post" action="{{ url_for('episode_render', eid=r.id) }}" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf }}"><input type="hidden" name="bahasa" value="{{ lang }}">
+        <button class="sm" {% if lang=='en' and not r.n_en %}disabled title="naskah English belum diisi"{% endif %}>{{ lang|upper }}</button></form>
+      {% endfor %}
+    </td>
+  </tr>
+  {% else %}
+  <tr><td colspan="7" class="muted">Belum ada episode yang cocok.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</section>
+{% endblock %}

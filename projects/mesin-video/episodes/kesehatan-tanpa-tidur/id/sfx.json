@@ -1,0 +1,317 @@
+[
+ {
+  "t": 0,
+  "src": "impact/hit-weak",
+  "vol": 0.22,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "baris pembuka 1"
+ },
+ {
+  "t": 0.1,
+  "src": "paper/paper-slide",
+  "vol": 0.16,
+  "max": 0.5,
+  "al": "on",
+  "rv": 0,
+  "note": "kicker"
+ },
+ {
+  "t": 1.278,
+  "src": "transition/swoosh-quick",
+  "vol": 0.22,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "baris pembuka 2"
+ },
+ {
+  "t": 4.331,
+  "src": "impact/hit-blow",
+  "vol": 0.3,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "angka sorotan"
+ },
+ {
+  "t": 8.235,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s2"
+ },
+ {
+  "t": 8.785,
+  "src": "light/sparkle-touch",
+  "vol": 0.1,
+  "max": 0.7,
+  "al": "on",
+  "rv": 0,
+  "note": "ilustrasi"
+ },
+ {
+  "t": 9.203,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 1"
+ },
+ {
+  "t": 12.95,
+  "src": "paper/paper-move-quick",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 2"
+ },
+ {
+  "t": 16.73,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 3"
+ },
+ {
+  "t": 18.452,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s3"
+ },
+ {
+  "t": 19.002,
+  "src": "light/sparkle-touch",
+  "vol": 0.1,
+  "max": 0.7,
+  "al": "on",
+  "rv": 0,
+  "note": "ilustrasi"
+ },
+ {
+  "t": 20.157,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 1"
+ },
+ {
+  "t": 22.817,
+  "src": "paper/paper-move-quick",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 2"
+ },
+ {
+  "t": 28.34,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 3"
+ },
+ {
+  "t": 30.201,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s4"
+ },
+ {
+  "t": 30.751,
+  "src": "light/sparkle-touch",
+  "vol": 0.1,
+  "max": 0.7,
+  "al": "on",
+  "rv": 0,
+  "note": "ilustrasi"
+ },
+ {
+  "t": 31.681,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 1"
+ },
+ {
+  "t": 37.008,
+  "src": "paper/paper-move-quick",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 2"
+ },
+ {
+  "t": 41.161,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 3"
+ },
+ {
+  "t": 42.973,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s5"
+ },
+ {
+  "t": 43.573,
+  "src": "paper/paper-page-turn",
+  "vol": 0.26,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "kutipan analogi"
+ },
+ {
+  "t": 49.583,
+  "src": "paper/paper-slice-quick",
+  "vol": 0.2,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "catatan 1"
+ },
+ {
+  "t": 51.663,
+  "src": "paper/paper-slice-quick",
+  "vol": 0.2,
+  "max": null,
+  "al": "pk",
+  "rv": 0,
+  "note": "catatan 2"
+ },
+ {
+  "t": 53.701,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s6"
+ },
+ {
+  "t": 54.251,
+  "src": "light/sparkle-touch",
+  "vol": 0.1,
+  "max": 0.7,
+  "al": "on",
+  "rv": 0,
+  "note": "ilustrasi"
+ },
+ {
+  "t": 55.421,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 1"
+ },
+ {
+  "t": 60.141,
+  "src": "paper/paper-move-quick",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 2"
+ },
+ {
+  "t": 63.631,
+  "src": "paper/paper-slide",
+  "vol": 0.22,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 3"
+ },
+ {
+  "t": 64.429,
+  "src": "transition/air-woosh-quick",
+  "vol": 0.14,
+  "max": 0.9,
+  "al": "on",
+  "rv": 0,
+  "note": "geser ke adegan s7"
+ },
+ {
+  "t": 65.059,
+  "src": "paper/paper-slide",
+  "vol": 0.2,
+  "max": 0.6,
+  "al": "on",
+  "rv": 0,
+  "note": "kartu 1"
+ },
+ {
+  "t": 68.816,
+  "src": "transition/swoosh-quick",
+  "vol": 0.24,
+  "max": null,
+  "al": "on",
+  "rv": 0,
+  "note": "pertanyaan"
+ },
+ {
+  "t": 71.186,
+  "src": "ui/switch-click-quick",
+  "vol": 0.32,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "pilihan 1"
+ },
+ {
+  "t": 71.406,
+  "src": "ui/switch-tap",
+  "vol": 0.32,
+  "max": 0.25,
+  "al": "on",
+  "rv": 0,
+  "note": "pilihan 2"
+ },
+ {
+  "t": 72.346,
+  "src": "light/sparkle-touch",
+  "vol": 0.18,
+  "max": 1,
+  "al": "on",
+  "rv": 0,
+  "note": "ajakan komentar"
+ },
+ {
+  "t": 73.446,
+  "src": "light/sparkle-wand",
+  "vol": 0.24,
+  "max": 2,
+  "al": "on",
+  "rv": 0,
+  "note": "penutup"
+ }
+]

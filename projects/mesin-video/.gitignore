@@ -2,7 +2,10 @@ node_modules
 __pycache__/
 db/konten.db
 db/konten.db-journal
-panel/uploads/
+panel/log/
+panel/.rahasia
+db/konten.db-wal
+db/konten.db-shm
 episodes/*/*/build/
 episodes/*/*/out/*.mp4
 episodes/*/*/vo/*.edit.wav

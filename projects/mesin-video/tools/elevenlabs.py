@@ -13,6 +13,7 @@ import json, os, sqlite3, time, urllib.error, urllib.request
 API = "https://api.elevenlabs.io"
 DBFILE = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "db", "konten.db"))
 SWITCH = {401, 402, 403, 429}          # refusals that move on to the next key
+_SKIP = set()                          # keys refused earlier in this process (one render = one process): not retried
 
 
 def _db():
@@ -75,18 +76,24 @@ def tts_with_timestamps(voice, text, seed):
     path = f"/v1/text-to-speech/{voice['voice_id']}/with-timestamps?output_format=mp3_44100_128"
     tried = []
     for kid, label, key in keys():
-        try:
-            d = _request(path, key, body)
-            mark(kid, "ok")
-            return d
-        except urllib.error.HTTPError as e:
-            code, msg = _reason(e)
-            tried.append(f"{label}: {e.code} {code} {msg[:120]}")
-            if e.code in SWITCH:
-                mark(kid, "habis" if "quota" in (code + msg).lower() else "ditolak" if e.code in (401, 403) else "dibatasi", msg)
-                time.sleep(0.5)
-                continue
-            raise
+        if (kid, key) in _SKIP:
+            continue
+        for attempt in range(3):
+            try:
+                d = _request(path, key, body)
+                mark(kid, "ok")
+                return d
+            except urllib.error.HTTPError as e:
+                code, msg = _reason(e)
+                if e.code == 429 and "quota" not in (code + msg).lower() and attempt < 2:
+                    time.sleep(2 + 3 * attempt)          # rate limited: wait a moment, same key
+                    continue
+                tried.append(f"{label}: {e.code} {code} {msg[:120]}")
+                if e.code in SWITCH:
+                    mark(kid, "habis" if "quota" in (code + msg).lower() else "ditolak" if e.code in (401, 403) else "dibatasi", msg)
+                    _SKIP.add((kid, key))
+                    break
+                raise
     raise RuntimeError("Semua kunci ElevenLabs ditolak:\n  " + "\n  ".join(tried))
 
 
