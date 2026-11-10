@@ -47,16 +47,18 @@ function render(t){
   /* progress bar */
   if(PROG.length){const o=Math.min(clamp((t-PROG.on)/.3),clamp((PROG.off-t)/.3));$('#prog').style.opacity=o.toFixed(3);
     PROG.forEach((s,i)=>{$('#pg'+i).style.width=f1(clamp((t-s.cut)/(s.end-s.cut))*100)+'%';});}
+  /* denyut ketukan */
+  {const on=new Set();for(const p of PULSES){if(t<p.t0||t>p.t1)continue;const ph=(t/T)%1;on.add(p.el);p.el.style.scale=(1+p.amp*Math.exp(-ph*5)).toFixed(4);}
+    for(const p of PULSES)if(!on.has(p.el)&&p.el.style.scale)p.el.style.scale='';}
   renderMascot(t);
   /* subtitle per kata: muncul 120 ms sebelum kata pertama, halaman berikut mengganti teks di kotak yang sama */
-  const SL=.12;
+  const SL=.08;
   for(let i=0;i<PAGES.length;i++){const q=PAGES[i],p=q.p,nx=PAGES[i+1],pv=PAGES[i-1],a0=p.t-SL,cutNext=!!nx&&nx.p.t-SL<=p.out+.12,end=cutNext?nx.p.t-SL:p.out,
       swap=!!pv&&a0<=pv.p.out+.12;
     if(t<a0||t>=end){if(q.v){q.el.style.visibility='hidden';q.v=false;}continue;}
     q.v=true;const e=swap?1:E.outB(clamp((t-a0)/.16),2.2),fo=cutNext?1:clamp((end-t)/.08),fi=swap?1:Math.min(1,(t-a0)/.07);q.el.style.visibility='visible';q.el.style.opacity=(fi*fo).toFixed(3);
     q.el.style.transform=`translate(-50%,-50%) translateY(${f1((1-e)*20)}px) scale(${(.93+.07*e).toFixed(4)})`;
-    q.spans.forEach((sp,j)=>{const w=q.ws[j],on=t>=w.t-.03,n2=q.ws[j+1],cur=on&&(n2?t<n2.t-.03:t<w.e+.3);const c='sw'+(on?' on':'')+(cur?' cur':'');if(sp.className!==c)sp.className=c;
-      const sc=cur?(1+.06*Math.max(0,1-(t-w.t)/.18)).toFixed(3):'1';if(sp.style.scale!==sc)sp.style.scale=sc;});}
+    q.spans.forEach((sp,j)=>{const w=q.ws[j],on=t>=w.t-.03,n2=q.ws[j+1],cur=on&&(n2?t<n2.t-.03:t<w.e+.3);const c='sw'+(on?' on':'')+(cur?' cur':'');if(sp.className!==c)sp.className=c;});}
 }
 
 /* ============================== kontrol: autoplay + loop; ?debug=1 scrub; ?clean=1 export; ?lang=en ============================== */

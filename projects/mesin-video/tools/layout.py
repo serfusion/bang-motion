@@ -3,7 +3,7 @@ subtitle pages (ID + EN), mascot mouth envelope, credits.
 
 Rules: the first word is spoken at 0.06 s; every next scene is cut on the first beat after the previous line;
 a reveal (jawaban) leaves 1.25 s for the countdown; a twist leaves a short breath after the record scratch;
-the video ends 1.3 s after the last word.
+the video ends 2 s after the last word (time to read the credits).
 
   python3 tools/layout.py ID     -> episodes/ID/timeline.json
 """
@@ -11,7 +11,7 @@ import math, os, subprocess, sys
 import numpy as np
 from common import ep_dir, load_json, save_json, parse_vo, pages_en
 
-GAP, LEAD, COUNTDOWN, TWIST_PAUSE, END_HOLD = 0.06, 0.03, 1.25, 0.32, 1.3
+GAP, LEAD, COUNTDOWN, TWIST_PAUSE, END_HOLD = 0.06, 0.03, 1.25, 0.32, 2.0
 
 
 def main(eid):

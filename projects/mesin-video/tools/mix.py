@@ -2,8 +2,8 @@
 
 Music edit (all derived from the timeline, nothing per episode):
   0 .. countdown            song from its first full beat ('mulai'), full band
-  countdown .. reveal       music drops out (ticks + roulette clicks in the clear)
-  reveal beat .. twist      song restarts from 'mulai' on the first beat at the answer word (cut grid unchanged)
+  countdown .. reveal       music drops to a muffled low-pass bed (-13 dB) under the ticks and roulette clicks
+  answer word .. twist      full band slams back ON the answer word, song positioned so its beats stay on the cut grid
   twist                     stops on the record scratch, continues low-passed under the twist
   next scene (CTA) .. end   full band again, 1 s fade at the end
 Levels: music -24 LUFS where nobody speaks, -10 dB under the voice (hold 0.45 s, release 0.5 s; kept big for
@@ -34,6 +34,16 @@ def lufs(x, tmp):
     write_wav(tmp, x)
     out = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", tmp, "-af", "ebur128", "-f", "null", "-"], capture_output=True, text=True).stderr
     return float([l for l in out.splitlines() if l.strip().startswith("I:")][-1].split()[1])
+
+
+def reverb(x, dur=0.38, wet=0.45):
+    """Small synthetic room so a 70 ms tick rings instead of stopping dead."""
+    n = int(dur * SR)
+    ir = np.random.default_rng(7).standard_normal(n).astype(np.float32) * np.exp(-np.arange(n) / SR / 0.1).astype(np.float32)
+    y = np.convolve(x, ir)
+    y *= (np.max(np.abs(x)) / (np.max(np.abs(y)) + 1e-9)) * wet
+    out = np.zeros(len(x) + n, np.float32); out[:len(x)] += x; out[:len(y)] += y[:len(out)]
+    return out
 
 
 def place(bus, sig, start):
@@ -76,7 +86,9 @@ def main(eid):
             cache[path] = (x, int(np.argmax(np.abs(x))), int(np.argmax(np.abs(x) > 0.1)))
         x, ipk, on = cache[path]; mx = p.get("max")
         if p["al"] == "pkwin":
-            pre = min(ipk, int(0.012 * SR)); place(fx, fade(x[ipk - pre: ipk + int((mx or .08) * SR)], .003, .03) * p["vol"], p["t"] - pre / SR); continue
+            pre = min(ipk, int(0.012 * SR)); seg = fade(x[ipk - pre: ipk + int((mx or .08) * SR)], .003, .03)
+            if p.get("rv"): seg = reverb(seg)
+            place(fx, seg * p["vol"], p["t"] - pre / SR); continue
         if p["al"] == "tail" and mx:
             seg = fade(x[max(0, ipk - int(mx * SR)):ipk], 0.25, 0.02); place(fx, seg * p["vol"], p["t"] + mx - len(seg) / SR); continue
         if mx: x = fade(x[:int(mx * SR)], 0, min(0.06, mx / 4))
@@ -94,9 +106,13 @@ def main(eid):
     if j:
         q = S[S.index(j) - 1]
         cd0, R = q["speechEnd"] + 0.02, j["cues"].get("jawab", j["speechStart"] + .8)
-        back = math.ceil((R - 0.02) / T - 1e-6) * T
-        seg_list.append((0.0, cd0 + 0.12, start, False, 0.12))
-        v, s0 = back, start
+        back = math.ceil((R - 0.02) / T - 1e-6) * T                     # first beat at/after the answer (grid anchor)
+        S2 = start + 16 * T                                              # a downbeat four bars in: full band
+        seg_list.append((0.0, cd0 + 0.12, start, False, 0.12))           # full band until the countdown
+        seg_list.append((cd0, R + 0.02, start + cd0, "bed", 0.04))       # muffled bed under 3-2-1: no dead air
+        r0 = R - 0.03                                                    # full band again ON the answer word,
+        v, s0 = r0, S2 - (back - r0)                                     # positioned so its beats stay on the cut grid
+        back = r0
     if tw:
         i = S.index(tw); after = S[i + 1]["cut"] if i + 1 < len(S) else dur
         seg_list.append((v, tw["cut"] + 0.05, s0, False, 0.05))
@@ -106,9 +122,10 @@ def main(eid):
     else:
         seg_list.append((v, dur, s0, False, 0.0))
     for v0, v1, ss, lp, fo in seg_list:
-        a = load(song, 2, ss, v1 - v0, af="lowpass=f=700,lowpass=f=700" if lp else None)
-        if lp: a *= 10 ** (-3 / 20)
-        place(bgm, fade(a, 0.35 if lp else (0.004 if v0 > 0 else 0.0), fo), v0)
+        bed = lp == "bed"
+        a = load(song, 2, ss, v1 - v0, af=("lowpass=f=420,lowpass=f=420" if bed else "lowpass=f=700,lowpass=f=700") if lp else None)
+        if lp: a *= 10 ** ((-13 if bed else -3) / 20)
+        place(bgm, fade(a, 0.12 if bed else 0.35 if lp else (0.004 if v0 > 0 else 0.0), fo), v0)
     bgm = fade(bgm, 0.0, 1.0)
     m0 = lufs(bgm, tmp); bgm *= 10 ** ((-24.0 - m0) / 20)
     env = np.sqrt(np.convolve(vo[:, 0] ** 2, np.ones(int(0.05 * SR)) / (0.05 * SR), "same"))

@@ -62,8 +62,13 @@ const TAGMAP={curious:['think','think'],excited:['excited','excited'],whispers:[
   warm:['happy','wave'],sad:['sad','sad'],happy:['happy','idle'],sighs:['sad','idle']};
 function mascotFromTags(){SCN.forEach(s=>{let last=null;s.words.forEach(w=>{if(w.tag&&w.tag!==last){const m=TAGMAP[w.tag];if(m)mexp(w.t-.08,m[0],m[1]);}last=w.tag;});});}
 
+/* denyut mengikuti ketukan musik (render): elemen yang sedang dibicarakan "bernapas" di tiap ketukan */
+const PULSES=[];const pulse=(el,t0,t1,amp=.05)=>{if(el&&t1>t0+.2)PULSES.push({el,t0,t1,amp});};
+/* spasi tak-putus antara angka dan satuan ("±30 menit" tidak terpotong) */
+const nb=s=>String(s).replace(/±\s+/g,'±').replace(/(\d[\d.,]*)\s+(menit|detik|jam|g|kg|mg|µg|ml|liter|kkal|kalori|°C|sdm|sdt|cm|potong|butir)(?![a-z])/gi,'$1\u00a0$2');
+
 /* ============================== SFX: tabel pin (detik video) ============================== */
 const SFX=[];
 const PK=new Set(['counter/clock-tick-single','impact/hit-blow','impact/impact-zoom-quick','impact/impact-cine-big','paper/paper-staple',
   'paper/paper-slice-quick','fluid/water-drop-cave','fluid/water-splash','camera/click-camera','text/pen-click-twice']);
-const sfx=(t,src,vol,o={})=>SFX.push({t:+t.toFixed(3),src,vol,max:o.max||null,al:o.al||(PK.has(src)?'pk':'on'),note:o.note||''});
+const sfx=(t,src,vol,o={})=>SFX.push({t:+t.toFixed(3),src,vol,max:o.max||null,al:o.al||(PK.has(src)?'pk':'on'),rv:o.rv||0,note:o.note||''});

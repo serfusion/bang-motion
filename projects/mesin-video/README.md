@@ -9,9 +9,9 @@ Contoh yang sudah jadi (dibangkitkan dari `db/data/episode/*.json`):
 
 | Episode | Kategori | Durasi | Adegan |
 |---|---|---|---|
-| `mitos-air-es` — Minum air es bikin gendut? | Mitos vs Fakta | 44 dtk | kuis MITOS/FAKTA → jawaban + open loop → langkah (4 °C → 37 °C → ±16 kkal) → twist "pelakunya gula" → CTA |
-| `gizi-tempe-telur` — Tempe vs telur | Makanan & Gizi | 46 dtk | kuis A/B → jawaban + angka → rantai "rahasia tempe" → banding "jebakan angka" per porsi → CTA |
-| `sains-bawang` — Kenapa motong bawang bikin nangis? | Sains | 54 dtk | kuis 3 pilihan → jawaban → rantai 4 langkah kimia → tips → twist kejutan (Nature 2002) → CTA |
+| `mitos-air-es` — Minum air es bikin gendut? | Mitos vs Fakta | 43 dtk | kuis MITOS/FAKTA → jawaban + open loop → langkah (4 °C → 37 °C → ±16 kkal) → twist "pelakunya gula" → CTA |
+| `gizi-tempe-telur` — Tempe vs telur | Makanan & Gizi | 45 dtk | kuis A/B → jawaban + angka → rantai "rahasia tempe" → banding "jebakan angka" per porsi → CTA |
+| `sains-bawang` — Kenapa motong bawang bikin nangis? | Sains | 52 dtk | kuis 3 pilihan → jawaban → rantai 4 langkah kimia → tips → twist kejutan (Nature 2002) → CTA |
 
 Hasil ada di `episodes/<id>/out/` (MP4 + SRT); `episodes/<id>/index.html` bisa dibuka langsung di browser
 (`?debug=1` untuk menggeser waktu, `?lang=en` untuk subtitle Inggris).
@@ -92,11 +92,14 @@ Isyarat yang tidak ditulis diisi merata sepanjang ucapan adegan (validasi member
 Ikon: nama dari [Fluent Emoji Flat](https://icon-sets.iconify.design/fluent-emoji-flat/) (MIT, 3.181 ikon,
 mis. `onion`, `egg`, `ice`, `thermometer`) atau `id` dari tabel `aset` untuk SVG kustom.
 
-Yang otomatis dikerjakan mesin untuk setiap episode: hitung mundur 3-2-1 dan rolet sorotan sebelum jawaban,
-musik berhenti saat hitung mundur lalu masuk lagi di ketukan jawaban, crash zoom ke kartu jawaban, konfeti,
+Yang otomatis dikerjakan mesin untuk setiap episode: kartu pilihan "menghantam" tepat saat disebut, hitung mundur
+3-2-1 (tik bergema di atas musik yang diredam) dan rolet sorotan sebelum jawaban, musik penuh masuk lagi tepat di
+kata jawaban (ketukannya tetap di grid potongan), crash zoom ke kartu jawaban, konfeti, stempel di pojok kartu,
 open loop (layar meredup + kartu "di akhir video!"), progress bar (hijau per adegan isi, merah untuk twist),
-transisi antar-area (menembus kartu, whip, tinta merembes, daun melintas lensa), maskot (posisi, ekspresi dari tag,
-mulut mengikuti suara), subtitle per kata, kredit sumber + suara di penutup.
+item yang sedang dibicarakan berdenyut di setiap ketukan musik, grafik batang tampil kosong lalu terisi di kata
+angkanya, kliping twist dengan judul ditutup stiker "???" yang dirobek di kata kuncinya, transisi antar-area
+(menembus kartu, whip, tinta merembes, daun melintas lensa), maskot (posisi, ekspresi dari tag, mulut mengikuti
+suara), subtitle per kata yang awal katanya dicocokkan ke suara sebenarnya, kredit sumber + suara di penutup.
 
 ## Menambah episode
 

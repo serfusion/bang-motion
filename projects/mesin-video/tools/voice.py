@@ -87,13 +87,33 @@ def tts(ep):
     return lines
 
 
+def refine(words, env):
+    """TTS alignment often starts a word inside the silence before it (and ends it late). Snap each word's start
+    to the first 10 ms frame above -30 dB (re the clip's loud speech) and its end to the last such frame."""
+    ref = np.percentile(env[env > 1e-5], 95) if np.any(env > 1e-5) else 1.0
+    loud = 20 * np.log10(env / ref + 1e-9) > -30
+    out = []
+    for w in words:
+        a, b = int(w["t"] * 100), max(int(w["t"] * 100) + 1, int(w["e"] * 100))
+        idx = np.nonzero(loud[a:b])[0]
+        t, e = w["t"], w["e"]
+        if len(idx):
+            t = max(t, (a + idx[0]) * 0.01 - 0.02)
+            e = min(e, (a + idx[-1] + 1) * 0.01 + 0.02)
+        if e - t < 0.08:
+            t, e = w["t"], w["e"]
+        out.append({**w, "t": round(t, 3), "e": round(e, 3)})
+    return out
+
+
 def edit(ep, lines):
     tempo, out_lines = float(ep["suara"].get("tempo") or 1.12), []
     for L in lines:
-        key, ws = L["key"], L["words"]
+        key = L["key"]
         x = load(ep_dir(ep["id"], L["file"]))
         hop = int(0.01 * SR)
         env = np.sqrt(np.convolve(x ** 2, np.ones(hop) / hop, "same"))[::hop]
+        ws = refine(L["words"], env)
         quiet = lambda t0, t1: (t0 + 0.01 * int(np.argmin(env[int(t0 * 100):max(int(t0 * 100) + 1, int(t1 * 100))]))) if t1 > t0 else t0
         seg_start, pieces, new_words, cur = max(0.0, ws[0]["t"] - 0.20), [], [], 0.0
         for i, w in enumerate(ws):
