@@ -75,7 +75,7 @@ SCENES.kuis={
     sfx(c+.12,'paper/paper-slide',.3,{max:.5,note:'stiker KUIS'});sfx(c+.35,'transition/wind-swoosh-short',.18,{note:'maskot muncul'});
     if(S$(s,'hero'))sfx(c+.1,'light/sparkle-touch',.22,{max:.8,note:'ikon utama'});
     P.pilihan.forEach((o,k)=>{const t=cue(s,'p'+k,null);if(t!=null)sfx(t,k%2?'transition/swoosh-quick':'paper/paper-move-quick',.2-k*.02,{max:.5,note:'pilihan '+'ABC'[k]});});
-    if(s.cd)[0,1,2].forEach(i=>sfx(s.cd.t0+i*(s.cd.t1-s.cd.t0)/3,'counter/clock-tick-single',.6+i*.06,{al:'pkwin',max:.07,rv:1,note:'hitung mundur '+(3-i)}));
+    if(s.cd)[0,1,2].forEach(i=>sfx(s.cd.t0+i*(s.cd.t1-s.cd.t0)/3,'counter/clock-tick-single',.5+i*.05,{al:'pkwin',max:.07,rv:1,note:'hitung mundur '+(3-i)}));
   },
   render(s,t){
     const R=s.roul,n=s.param.pilihan.length;
@@ -182,7 +182,7 @@ SCENES.langkah={
         s.items.push({x:left?190:890,y,left});});
       for(let k=0;k+1<n;k++){const a=s.items[k],b=s.items[k+1],x0=a.x,y0=a.y+116,x1=b.x,y1=b.y-120;
         const hd=`M${x1-26} ${y1-30}L${x1} ${y1}L${x1+26} ${y1-30}`;
-        arr+=`<path id="${sid(s,'ar'+k)}" d="M${x0} ${y0}C${x0} ${y0+130} ${x1} ${y1-150} ${x1} ${y1}" stroke="${PAL.ink}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1" opacity="0"/>`+
+        arr+=`<path id="${sid(s,'ar'+k)}" d="M${x0} ${y0}C${x0} ${y0+130} ${x1} ${y1-150} ${x1} ${y1}" stroke="${PAL.ink}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="1 2" stroke-dashoffset="1" pathLength="1" opacity="0"/>`+
              `<path id="${sid(s,'ah'+k)}" d="${hd}" stroke="${PAL.ink}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>`;}
       put(A,`<svg width="1080" height="1920" viewBox="0 0 1080 1920" style="overflow:visible">${arr}</svg>`,{x:0,y:0,cls:'ab',z:2});}
   },
