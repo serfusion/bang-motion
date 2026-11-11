@@ -1,8 +1,9 @@
 # Portofolio superfal-dev.com
 
 Situs statis satu halaman: `index.html`, folder `assets/`, dan `cv-naufal-aufa-afaf.pdf`.
-Tidak butuh build, database, atau server aplikasi. Tema terang/gelap mengikuti perangkat dan bisa
-diganti lewat tombol di pojok kanan atas.
+Tidak butuh build, database, atau server aplikasi. Kartu profil + menu di kiri, isi per tab di kanan
+(Tentang, Pengalaman, Proyek, Alat, Kontak). Tiap tab punya alamat sendiri, mis. `superfal-dev.com/#alat`.
+Tema terang/gelap mengikuti perangkat dan bisa diganti lewat tombol bulan di kartu profil.
 
 ## Memasang di VPS (Nginx)
 
@@ -32,8 +33,9 @@ di `index.html` (tag `canonical` dan `og:`), `robots.txt`, dan `sitemap.xml`.
 
 | Bagian | Tempat |
 |---|---|
-| Teks, pengalaman, proyek, keahlian, kontak | `index.html` (teks biasa, cari judul bagiannya) |
-| Foto | `assets/foto.webp` (persegi), `assets/foto-kecil.jpg` (bilah atas) |
+| Teks tiap tab | `index.html`, cari `data-tab="tentang"`, `"pengalaman"`, `"proyek"`, `"alat"`, `"kontak"` |
+| Alat baru / alat yang sudah jadi | tab `alat`: salin satu kotak `<div class="tool">`; ganti label "Segera hadir" dengan tautan ke alatnya |
+| Foto | `assets/foto.webp` (persegi) |
 | Gambar proyek | `assets/proyek-*.webp`, rasio 16:10 (mis. 1200 × 750) |
 | CV PDF | sumber `sumber/cv.html`: buka di Chrome, Cetak → Simpan sebagai PDF, kertas A4, lalu ganti `cv-naufal-aufa-afaf.pdf` |
 | Gambar pratinjau tautan (WhatsApp / LinkedIn) | `assets/og.jpg` 1200 × 630, sumbernya `sumber/og.html` |
