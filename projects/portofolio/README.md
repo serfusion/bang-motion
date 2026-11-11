@@ -2,11 +2,13 @@
 
 Situs statis satu halaman: `index.html`, folder `assets/`, dan `cv-naufal-aufa-afaf.pdf`.
 Tidak butuh build, database, atau server aplikasi. Kartu profil + menu di kiri, isi per tab di kanan
-(Tentang, Pengalaman, Proyek, Alat, Kontak). Tiap tab punya alamat sendiri, mis. `superfal-dev.com/#alat`.
+(Tentang, Pengalaman, Proyek, Innovation, Kontak). Tiap tab punya alamat sendiri, mis. `superfal-dev.com/#innovation`
+(alamat lama `#alat` otomatis diarahkan ke Innovation).
 
 Gaya: permukaan netral ala shadcn, gerak pegas ala Arc UI (smooth, snappy, morph), transisi blur halus.
 - **Dynamic Island** di atas: diam = "Open to Work", ganti tab = nama tab sesaat, diklik = kontak cepat.
-- **Tumpukan kartu** di tab Proyek: geser atau lempar kartu, tombol Kembali dan Berikutnya, panah kiri/kanan.
+- **Deretan berjalan**: logo "Pernah bekerja & berkolaborasi" di Tentang dan galeri proyek di Proyek (berhenti saat disentuh/disorot).
+- **Daftar** semua proyek dan semua Innovation (berlambang), tanpa perlu klik berulang.
 - **Tombol morph**: Unduh CV dan Salin email berubah label dengan lebar memegas.
 - Tema terang/gelap lewat tombol matahari/bulan (sapuan melingkar di browser yang mendukung).
 
@@ -39,8 +41,9 @@ di `index.html` (tag `canonical` dan `og:`), `robots.txt`, dan `sitemap.xml`.
 | Bagian | Tempat |
 |---|---|
 | Teks tiap tab | `index.html`, cari `data-tab="tentang"`, `"pengalaman"`, `"proyek"`, `"alat"`, `"kontak"` |
-| Proyek baru | tab `proyek`: salin satu `<article class="card">` (gambar 16:10 di `assets/`) |
-| Alat baru / alat yang sudah jadi | tab `alat`: salin satu `<article class="tool">`; ganti label "Segera hadir" dengan tautan |
+| Proyek baru | tab `proyek`: tambah satu `<figure class="shot">` di galeri dan satu `<li class="prow">` di daftar (gambar 16:10 di `assets/`) |
+| Innovation baru / yang sudah jadi | tab `innovation`: salin satu `<li class="irow">`; ganti label "Segera hadir" dengan tautan |
+| Logo organisasi | deretan `marquee logos` di tab Tentang (`assets/logo-*.webp`, tinggi 96 px) |
 | Foto | `assets/foto.webp` (persegi) |
 | Gambar proyek | `assets/proyek-*.webp`, rasio 16:10 (mis. 1200 × 750) |
 | CV PDF | sumber `sumber/cv.html`: buka di Chrome, Cetak → Simpan sebagai PDF, kertas A4, lalu ganti `cv-naufal-aufa-afaf.pdf` |

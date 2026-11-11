@@ -228,48 +228,58 @@ b,strong{font-weight:500}
 .rose{background:var(--rose-subtle);border-color:var(--rose-line)}
 .rose h3,.rose .ic{color:var(--rose)}
 
-/* tumpukan kartu proyek */
-.deck-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
-.deck{position:relative;width:min(100%,470px);height:var(--deck-h,420px);touch-action:pan-y;user-select:none;-webkit-user-select:none;border-radius:var(--r-surface)}
-.card{position:absolute;left:0;right:0;top:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-panel);overflow:hidden;
-  transform-origin:50% 100%;will-change:transform;cursor:grab;
-  transform:translate3d(var(--tx,0px),calc(var(--p,0) * 18px + var(--ty,0px)),0) rotate(var(--rot,0deg)) scale(calc(1 - var(--p,0) * .05));
-  opacity:var(--op,1);z-index:calc(10 - var(--p,0));
-  transition:transform var(--d-morph) var(--ease-morph),opacity var(--d-std) var(--ease-standard),box-shadow var(--d-std)}
-.card[data-p="0"]{box-shadow:0 1px 2px rgba(17,17,19,.04)}
-.card[data-p="1"],.card[data-p="2"]{border-color:var(--border-strong)}
-.card.drag{transition:none;cursor:grabbing}
-.card.toss{transition:transform .42s var(--ease-exit),opacity .3s var(--ease-exit)}
-.card.jump{transition:none}
-.card img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-bottom:1px solid var(--border-subtle);pointer-events:none}
-.card-b{padding:16px 18px 18px}
-.card-b h3{font:500 18px var(--font-body)}
-.card-b p{font-size:14.5px;color:var(--text-secondary);margin-top:2px}
-.card-b a{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;font-weight:500;color:var(--accent);text-decoration:none}
-.card-b a:hover{text-decoration:underline}
-.card-b a .ic{width:15px;height:15px}
-.stamp{position:absolute;top:18px;font:500 13px var(--font-body);padding:4px 10px;border-radius:99px;background:var(--primary);color:var(--on-primary);opacity:0;transition:opacity var(--d-fast)}
-.stamp.l{left:18px}.stamp.r{right:18px}
-.deck-ctl{display:flex;align-items:center;gap:10px}
-.count{min-width:54px;text-align:center;font-size:14px;color:var(--text-secondary);font-variant-numeric:tabular-nums}
-.jumps{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
-.jumps button{height:30px;padding:0 12px;border-radius:99px;border:1px solid var(--border);background:none;font-size:13px;color:var(--text-secondary);cursor:pointer;
-  transition:background-color var(--d-fast),color var(--d-fast),border-color var(--d-fast)}
-.jumps button:hover{background:var(--surface-muted);color:var(--foreground)}
-.jumps button[aria-current="true"]{background:var(--accent-subtle);border-color:transparent;color:var(--accent-strong)}
+/* penjelasan singkat */
+.note{display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;padding:14px 16px;border-radius:var(--r-panel);background:var(--accent-subtle);max-width:66ch}
+.note>.ic{color:var(--accent);margin-top:2px}
+.note b{display:block;margin-bottom:2px;font-size:15px}
+.note p{font-size:14.5px;color:var(--text-secondary)}
+abbr[title]{text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
 
-/* alat */
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.tool{border:1px solid var(--border);border-radius:var(--r-panel);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;
-  transition:transform var(--d-snappy) var(--ease-snappy),background-color var(--d-fast),border-color var(--d-fast)}
-.tool:hover{transform:translateY(-3px);background:var(--surface-muted);border-color:var(--border-strong)}
-.tool-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.tool-h .ic{width:22px;height:22px;color:var(--foreground)}
-.badge{font-size:12px;font-weight:500;padding:2px 9px;border-radius:99px;background:var(--accent-subtle);color:var(--accent-strong)}
-.tool b{font-weight:500}
-.tool span.d{font-size:14px;color:var(--text-secondary);line-height:1.5}
-.tool.more{border-style:dashed;align-items:center;justify-content:center;text-align:center;color:var(--text-muted)}
-.tool.more:hover{transform:none;background:none}
+/* deretan berjalan (marquee) */
+.marquee{overflow-x:auto;scrollbar-width:none}
+.marquee::-webkit-scrollbar{display:none}
+.mq-track{display:flex;gap:var(--mq-gap,16px);width:max-content}
+.marquee.mq-on{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marquee.mq-on .mq-track{animation:mq var(--mq-dur,40s) linear infinite}
+.marquee.mq-on:hover .mq-track,.marquee.mq-on:focus-within .mq-track,.marquee.mq-on:active .mq-track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(calc(-50% - var(--mq-gap,16px) / 2))}}
+.logos{--mq-gap:12px;padding:2px 0}
+.logo{display:flex;align-items:center;gap:12px;height:64px;padding:0 20px 0 14px;border-radius:18px;background:#FFFFFF;border:1px solid var(--border);
+  color:#1A1A1E;white-space:nowrap;font-size:14px;font-weight:500}
+.logo img{height:40px;width:auto}
+.logo.wide{padding:0 16px}.logo.wide img{height:44px}
+.logo.txt{padding:0 22px;font-size:15px;letter-spacing:-.02em;color:#3A3A42}
+.gallery{--mq-gap:16px;margin:2px -32px 0}
+.shot{flex:none;width:340px;margin:0}
+.shot img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-radius:var(--r-panel);border:1px solid var(--border)}
+.shot figcaption{font-size:13px;color:var(--text-secondary);margin:8px 0 0 4px}
+
+/* daftar proyek */
+.plist{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px}
+.prow{display:grid;grid-template-columns:168px minmax(0,1fr);gap:16px;align-items:start;padding:12px;border:1px solid var(--border);border-radius:var(--r-panel);
+  transition:background-color var(--d-fast),border-color var(--d-fast)}
+.prow:hover{background:var(--surface-muted);border-color:var(--border-strong)}
+.prow>img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-radius:10px;border:1px solid var(--border-subtle)}
+.ptop{display:flex;justify-content:space-between;align-items:baseline;gap:2px 12px;flex-wrap:wrap}
+.ptop b{font-size:16px}
+.ptop a{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:500;color:var(--accent);text-decoration:none;white-space:nowrap}
+.ptop a:hover{text-decoration:underline}
+.ptop a .ic{width:14px;height:14px}
+.prow p{font-size:14.5px;color:var(--text-secondary);margin-top:4px}
+.ptags{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.ptags li{font-size:12.5px;padding:2px 10px;border-radius:99px;background:var(--surface-muted);color:var(--text-secondary)}
+
+/* innovation: daftar berlambang */
+.ilist{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:var(--r-panel);overflow:hidden}
+.irow{display:flex;align-items:center;gap:14px;padding:14px 16px;transition:background-color var(--d-fast)}
+.irow+.irow{border-top:1px solid var(--border-subtle)}
+.irow:hover{background:var(--surface-muted)}
+.irow>.ic{width:22px;height:22px}
+.irow div{flex:1;min-width:0}
+.irow p{font-size:14px;color:var(--text-secondary)}
+.irow.more{color:var(--text-muted)}
+.badge{flex:none;font-size:12px;font-weight:500;padding:2px 9px;border-radius:99px;background:var(--accent-subtle);color:var(--accent-strong);white-space:nowrap}
+.c-rose{color:var(--rose)}.c-orange{color:#E8890C}.c-teal{color:#0E9F8E}.c-violet{color:var(--violet)}.c-blue{color:var(--accent)}
 
 /* kontak */
 .rows{border:1px solid var(--border);border-radius:var(--r-panel);overflow:hidden}
@@ -300,20 +310,29 @@ b,strong{font-weight:500}
   .side .made{display:none}
   .made-m{display:block;grid-column:1/-1;margin-top:6px}
   .panel{min-height:0;padding:24px 18px 26px}
-  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gallery{margin-inline:-18px}
+  .shot{width:260px}
+  .prow{grid-template-columns:120px minmax(0,1fr);gap:12px;padding:10px}
 }
 @media (max-width:560px){
   .facts,.duo{grid-template-columns:1fr}
   .facts>div:nth-child(odd){border-right:0}
   .facts>div:not(:last-child){border-bottom:1px solid var(--border-subtle)}
-  .tools{gap:10px}
-  .tool{padding:14px}
   .crow{padding-left:12px;gap:12px}
+  .crow a,.crow strong{font-size:14px}
+  .crow a[href^="mailto"]{font-size:13.5px;white-space:nowrap}
+  .crow .mbtn{padding:0 10px}
+  .crow .mbtn .t{display:none}
+  .facts dd.mail{font-size:13.5px;white-space:nowrap}
+  .irow{padding:12px 14px;gap:12px}
+  .logo{height:56px}.logo img{height:34px}.logo.wide img{height:38px}
 }
-@media (max-width:380px){.tools{grid-template-columns:1fr}}
+@media (max-width:420px){.prow{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
   .pane.enter,.pane.leave{transform:none;filter:none}
+  .marquee.mq-on{overflow-x:auto}
+  .mq-dup{display:none}
 }
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 </style>
@@ -353,7 +372,7 @@ b,strong{font-weight:500}
       <div class="ava"><img src="assets/foto.webp" width="118" height="118" alt="Foto Naufal Aufa Afaf"><span class="tag"><span class="live"></span>Open to Work</span></div>
       <div class="who">
         <h1>Naufal Aufa Afaf</h1>
-        <p class="role">Kasubag PDDikti FISIP<br>Universitas Muhammadiyah Tangerang</p>
+        <p class="role">Kepala Subbagian <abbr title="Pangkalan Data Pendidikan Tinggi">PDDikti</abbr> FISIP<br>Universitas Muhammadiyah Tangerang</p>
         <p class="loc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg>Tangerang - Indonesia</p>
       </div>
     </div>
@@ -363,7 +382,7 @@ b,strong{font-weight:500}
       <a href="#tentang" data-k="tentang" aria-current="page"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g></svg><span>Tentang</span></a>
       <a href="#pengalaman" data-k="pengalaman"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></g></svg><span>Pengalaman</span></a>
       <a href="#proyek" data-k="proyek"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="m6 14l1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg><span>Proyek</span></a>
-      <a href="#alat" data-k="alat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg><span>Alat</span></a>
+      <a href="#innovation" data-k="innovation"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 14c.2-1 .7-1.7 1.5-2.5c1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5c.7.7 1.3 1.5 1.5 2.5m0 4h6m-5 4h4"/></svg><span>Innovation</span></a>
       <a href="#kontak" data-k="kontak"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><span>Kontak</span></a>
     </nav>
 
@@ -372,20 +391,36 @@ b,strong{font-weight:500}
       <span class="mb-l" data-s="busy"><span class="spin"></span>Membuka CV</span>
       <span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>CV dibuka di tab baru</span></span></a>
 
-    <p class="made">Made with <span class="heart">♥</span> by Me</p>
+    <p class="made">Made with <span class="heart">♥</span> by me - Superfal-Dev</p>
   </aside>
 
   <main class="panel" id="panel">
     <div class="panes" id="panes">
       <section class="pane" data-tab="tentang" aria-labelledby="h-tentang">
         <h2 id="h-tentang">Tentang</h2>
-        <p class="lead">Halo, saya Naufal. Saya bekerja di Universitas Muhammadiyah Tangerang sejak 2023, dan sejak April 2026 menjabat Kepala Subbagian PDDikti di Fakultas Ilmu Sosial dan Ilmu Politik.</p>
+        <p class="lead">Halo, saya Naufal. Saya bekerja di Universitas Muhammadiyah Tangerang sejak 2023, dan sejak April 2026 menjabat Kepala Subbagian PDDikti (Pangkalan Data Pendidikan Tinggi) di Fakultas Ilmu Sosial dan Ilmu Politik.</p>
         <p class="txt">Sehari-hari saya mengelola data dosen dan mahasiswa: memeriksa, merapikan, lalu melaporkannya ke PDDikti setiap semester. Di luar itu saya senang membuat website dan alat bantu yang mempermudah layanan akademik.</p>
+        <div class="note"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></svg><div><b>Apa itu PDDikti?</b>
+          <p>PDDikti (Pangkalan Data Pendidikan Tinggi) adalah pusat data nasional yang mencatat mahasiswa, dosen, program studi, dan perkuliahan dari seluruh perguruan tinggi di Indonesia. Datanya menjadi rujukan resmi, misalnya untuk akreditasi dan untuk mengecek apakah seseorang terdaftar sebagai mahasiswa atau lulusan.</p></div></div>
         <div class="facts">
           <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg><dl><dt>Lokasi</dt><dd>Tangerang - Indonesia</dd></dl></div>
-          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0zM22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></svg><dl><dt>Pendidikan</dt><dd>S1 Universitas Muhammadiyah Tangerang</dd></dl></div>
-          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><dl><dt>Email</dt><dd>naufalserfusion@gmail.com</dd></dl></div>
+          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0zM22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></svg><dl><dt>Pendidikan</dt><dd>S1 Ilmu Komunikasi, UMT</dd></dl></div>
+          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><dl><dt>Email</dt><dd class="mail">naufalserfusion@gmail.com</dd></dl></div>
           <div><span class="live"></span><dl><dt>Status</dt><dd class="ok">Open to Work</dd></dl></div>
+        </div>
+        <h3 class="h">Pernah bekerja &amp; berkolaborasi</h3>
+        <div class="marquee logos" aria-label="Organisasi tempat saya bekerja dan berkolaborasi">
+          <div class="mq-track">
+            <span class="logo"><img src="assets/logo-umt.webp" alt="" width="40" height="40">Universitas Muhammadiyah Tangerang</span>
+            <span class="logo wide"><img src="assets/logo-aipptm.webp" alt="AIPPTM" width="82" height="44"></span>
+            <span class="logo"><img src="assets/logo-accb.webp" alt="" width="30" height="40">PT Lembaga ACCB Inst</span>
+            <span class="logo"><img src="assets/logo-ralindo.webp" alt="" width="34" height="40">PT Ralindo Solusi Pratama</span>
+            <span class="logo txt">ParagonCorp</span>
+            <span class="logo txt">PT Mayora Indah Tbk</span>
+            <span class="logo txt">Al Qolam</span>
+            <span class="logo txt">BSSN</span>
+            <span class="logo txt">KPU RI</span>
+          </div>
         </div>
         <h3 class="h">Keahlian</h3>
         <ul class="skills">
@@ -406,7 +441,7 @@ b,strong{font-weight:500}
         <h2 id="h-pengalaman">Pengalaman</h2>
         <ol class="tl">
           <li><span class="dot"></span><div><div class="row1"><b>Kepala Subbagian PDDikti</b><time>Apr 2026 – sekarang</time></div>
-            <p class="org">FISIP, Universitas Muhammadiyah Tangerang</p><p class="ds">Mengelola data dosen dan mahasiswa, validasi dan sinkronisasi ke PDDikti.</p></div></li>
+            <p class="org">FISIP, Universitas Muhammadiyah Tangerang</p><p class="ds">Mengelola data dosen dan mahasiswa di PDDikti (Pangkalan Data Pendidikan Tinggi): validasi dan sinkronisasi setiap semester.</p></div></li>
           <li><span class="dot"></span><div><div class="row1"><b>Academic Data &amp; System Officer</b><time>Sep 2023 – sekarang</time></div>
             <p class="org">Universitas Muhammadiyah Tangerang</p><p class="ds">Database mahasiswa, laporan akademik semester, koordinasi dengan prodi.</p></div></li>
           <li class="lama"><span class="dot"></span><div><div class="row1"><b>Production Operator</b><time>Nov 2021 – Okt 2022</time></div><p class="org">ParagonCorp</p></div></li>
@@ -416,7 +451,7 @@ b,strong{font-weight:500}
         <div class="duo">
           <section class="tint violet" aria-label="Pendidikan">
             <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0zM22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></svg>Pendidikan</h3>
-            <b>S1 Computer and Information Sciences</b>
+            <b>S1 Ilmu Komunikasi</b><p>Communication Science</p>
             <p>Universitas Muhammadiyah Tangerang</p>
             <p class="meta"><span>2015 – 2019</span><span class="pill">IPK 3,53</span></p>
           </section>
@@ -432,55 +467,46 @@ b,strong{font-weight:500}
 
       <section class="pane" data-tab="proyek" aria-labelledby="h-proyek" hidden>
         <h2 id="h-proyek">Proyek</h2>
-        <p class="sub">Website yang saya buat dan masih dipakai. Geser kartu, atau pakai tombol di bawahnya.</p>
-        <div class="deck-wrap">
-          <div class="deck" id="deck" tabindex="0" role="group" aria-roledescription="tumpukan kartu" aria-label="Proyek" aria-describedby="deck-hint">
-            <article class="card" data-name="SiPaling FISIP"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
-              <img src="assets/proyek-sipaling.webp" alt="Tampilan SiPaling FISIP" width="1200" height="750" draggable="false">
-              <div class="card-b"><h3>SiPaling FISIP</h3><p>Layanan akademik FISIP: tugas akhir, transkrip, dan ujian online.</p>
-                <a href="https://sipalingfisip.web.id/" target="_blank" rel="noopener">sipalingfisip.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
-            <article class="card" data-name="AIPPTM"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
-              <img src="assets/proyek-aipptm.webp" alt="Tampilan situs AIPPTM" width="1200" height="750" draggable="false">
-              <div class="card-b"><h3>AIPPTM</h3><p>Website asosiasi dan jurnal ilmiah (WordPress dan OJS).</p>
-                <a href="https://www.aipptm.org/" target="_blank" rel="noopener">aipptm.org<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
-            <article class="card" data-name="PT Lembaga ACCB Inst"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
-              <img src="assets/proyek-accb.webp" alt="Tampilan situs PT Lembaga ACCB Inst" width="1200" height="750" draggable="false">
-              <div class="card-b"><h3>PT Lembaga ACCB Inst</h3><p>Website penerbit buku akademik.</p>
-                <a href="https://accbinstitute.web.id/" target="_blank" rel="noopener">accbinstitute.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
-            <article class="card" data-name="PT Ralindo Solusi Pratama"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
-              <img src="assets/proyek-ralindo.webp" alt="Tampilan situs PT Ralindo Solusi Pratama" width="1200" height="750" draggable="false">
-              <div class="card-b"><h3>PT Ralindo Solusi Pratama</h3><p>Website perusahaan alat industri.</p>
-                <a href="https://www.ralindosolutama.com/" target="_blank" rel="noopener">ralindosolutama.com<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
+        <p class="sub">Website yang saya buat dan masih dipakai sampai sekarang.</p>
+        <div class="marquee gallery" aria-label="Galeri proyek">
+          <div class="mq-track">
+            <figure class="shot"><img src="assets/proyek-sipaling.webp" alt="Tampilan SiPaling FISIP" width="1200" height="750" loading="lazy"><figcaption>SiPaling FISIP</figcaption></figure>
+            <figure class="shot"><img src="assets/proyek-aipptm.webp" alt="Tampilan situs AIPPTM" width="1200" height="750" loading="lazy"><figcaption>AIPPTM</figcaption></figure>
+            <figure class="shot"><img src="assets/proyek-accb.webp" alt="Tampilan situs PT Lembaga ACCB Inst" width="1200" height="750" loading="lazy"><figcaption>PT Lembaga ACCB Inst</figcaption></figure>
+            <figure class="shot"><img src="assets/proyek-ralindo.webp" alt="Tampilan situs PT Ralindo Solusi Pratama" width="1200" height="750" loading="lazy"><figcaption>PT Ralindo Solusi Pratama</figcaption></figure>
           </div>
-          <p class="sr-only" id="deck-hint">Geser kartu ke kiri atau kanan, atau tekan panah kiri dan kanan. Tekan Backspace untuk kartu sebelumnya.</p>
-          <div class="deck-ctl">
-            <button class="mbtn" id="deck-back" type="button" data-morph><span class="mb-stack">
-              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></g></svg>Kembali</span></span></button>
-            <span class="count" id="deck-count" aria-hidden="true">1 / 4</span>
-            <button class="mbtn primary" id="deck-next" type="button" data-morph><span class="mb-stack">
-              <span class="mb-l on" data-s="idle">Berikutnya<svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14m-7-7l7 7l-7 7"/></svg></span></span></button>
-          </div>
-          <div class="jumps" id="jumps"></div>
-          <p class="sr-only" aria-live="polite" id="deck-live"></p>
         </div>
+        <ul class="plist">
+          <li class="prow"><img src="assets/proyek-sipaling.webp" alt="" width="1200" height="750" loading="lazy">
+            <div><div class="ptop"><b>SiPaling FISIP</b><a href="https://sipalingfisip.web.id/" target="_blank" rel="noopener">sipalingfisip.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
+              <p>Portal layanan akademik FISIP: tugas akhir, transkrip dwibahasa otomatis, ujian online, dan template kelulusan untuk PDDikti.</p>
+              <ul class="ptags"><li>Next.js</li><li>Supabase</li><li>AI</li></ul></div></li>
+          <li class="prow"><img src="assets/proyek-aipptm.webp" alt="" width="1200" height="750" loading="lazy">
+            <div><div class="ptop"><b>AIPPTM</b><a href="https://www.aipptm.org/" target="_blank" rel="noopener">aipptm.org<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
+              <p>Website Asosiasi Ilmu Pemerintahan Perguruan Tinggi Muhammadiyah beserta jurnal ilmiahnya.</p>
+              <ul class="ptags"><li>WordPress</li><li>OJS</li><li>Google Cloud</li></ul></div></li>
+          <li class="prow"><img src="assets/proyek-accb.webp" alt="" width="1200" height="750" loading="lazy">
+            <div><div class="ptop"><b>PT Lembaga ACCB Inst</b><a href="https://accbinstitute.web.id/" target="_blank" rel="noopener">accbinstitute.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
+              <p>Website penerbit buku akademik: katalog, rak buku 3D, dan pengajuan naskah.</p>
+              <ul class="ptags"><li>HTML</li><li>Supabase</li><li>Vercel</li></ul></div></li>
+          <li class="prow"><img src="assets/proyek-ralindo.webp" alt="" width="1200" height="750" loading="lazy">
+            <div><div class="ptop"><b>PT Ralindo Solusi Pratama</b><a href="https://www.ralindosolutama.com/" target="_blank" rel="noopener">ralindosolutama.com<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div>
+              <p>Website perusahaan alat industri, lengkap dengan halaman iklan per kota.</p>
+              <ul class="ptags"><li>HTML</li><li>SEO</li></ul></div></li>
+        </ul>
       </section>
 
-      <section class="pane" data-tab="alat" aria-labelledby="h-alat" hidden>
-        <h2 id="h-alat">Alat</h2>
-        <p class="sub">Kumpulan alat yang sedang saya siapkan.</p>
-        <div class="tools">
-          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="m12.296 3.464l3.02 3.956M20.2 6L3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3zM3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3.18-5.724l3.1 3.899"/></svg><span class="badge">Segera hadir</span></div>
-            <b>Video Generator</b><span class="d">Video edukasi pendek dari naskah, otomatis.</span></article>
-          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5m-8 10v-6m-3 3l3 3l3-3"/></g></svg><span class="badge">Segera hadir</span></div>
-            <b>Kompres PDF</b><span class="d">Perkecil ukuran file PDF.</span></article>
-          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></g></svg><span class="badge">Segera hadir</span></div>
-            <b>Resize Foto</b><span class="d">Ubah ukuran dan kompres foto.</span></article>
-          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m17 2l-5 5l-5-5"/><rect width="20" height="15" x="2" y="7" rx="2"/></g></svg><span class="badge">Segera hadir</span></div>
-            <b>Nonton Drama</b><span class="d">Tonton drama favorit.</span></article>
-          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M16 14v2.2l1.6 1M16 2v3m5 2.338V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2.338M3 9h5.859M8 2v3"/><circle cx="16" cy="16" r="6"/></g></svg><span class="badge">Segera hadir</span></div>
-            <b>Auto Post Facebook</b><span class="d">Gambar dan caption terjadwal untuk halaman Facebook.</span></article>
-          <article class="tool more"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14m-7-7v14"/></svg><span class="d">Alat lain menyusul</span></article>
-        </div>
+      <section class="pane" data-tab="innovation" aria-labelledby="h-innovation" hidden>
+        <h2 id="h-innovation">Innovation</h2>
+        <p class="sub">Alat dan ide yang sedang saya kembangkan. Daftarnya akan terus bertambah.</p>
+        <ul class="ilist">
+          <li class="irow"><svg class="ic c-rose" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="m12.296 3.464l3.02 3.956M20.2 6L3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3zM3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3.18-5.724l3.1 3.899"/></svg><div><b>Video Generator</b><p>Video edukasi pendek dari naskah, otomatis.</p></div><span class="badge">Segera hadir</span></li>
+          <li class="irow"><svg class="ic c-orange" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5m-8 10v-6m-3 3l3 3l3-3"/></g></svg><div><b>Kompres PDF</b><p>Perkecil ukuran file PDF.</p></div><span class="badge">Segera hadir</span></li>
+          <li class="irow"><svg class="ic c-teal" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></g></svg><div><b>Resize Foto</b><p>Ubah ukuran dan kompres foto.</p></div><span class="badge">Segera hadir</span></li>
+          <li class="irow"><svg class="ic c-violet" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m17 2l-5 5l-5-5"/><rect width="20" height="15" x="2" y="7" rx="2"/></g></svg><div><b>Nonton Drama</b><p>Tonton drama favorit.</p></div><span class="badge">Segera hadir</span></li>
+          <li class="irow"><svg class="ic c-blue" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M16 14v2.2l1.6 1M16 2v3m5 2.338V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2.338M3 9h5.859M8 2v3"/><circle cx="16" cy="16" r="6"/></g></svg><div><b>Auto Post Facebook</b><p>Gambar dan caption terjadwal untuk halaman Facebook.</p></div><span class="badge">Segera hadir</span></li>
+          <li class="irow more"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14m-7-7v14"/></svg><div><b>Inovasi lain menyusul</b></div></li>
+        </ul>
       </section>
 
       <section class="pane" data-tab="kontak" aria-labelledby="h-kontak" hidden>
@@ -488,11 +514,11 @@ b,strong{font-weight:500}
         <p class="sub">Paling cepat lewat email atau LinkedIn.</p>
         <div class="rows">
           <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><div><small>Email</small><a href="mailto:naufalserfusion@gmail.com">naufalserfusion@gmail.com</a></div>
-            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@gmail.com"><span class="mb-stack">
-              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>Salin</span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>Tersalin</span></span></button></div>
+            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@gmail.com" aria-label="Salin email"><span class="mb-stack">
+              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg><span class="t">Salin</span></span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg><span class="t">Tersalin</span></span></span></button></div>
           <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M14 21v-3a2 2 0 0 0-4 0v3m8-16.067V21M4 6l7.106-3.79a2 2 0 0 1 1.788 0L20 6"/><path d="m6 11l-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11M6 4.933V21"/><circle cx="12" cy="9" r="2"/></g></svg><div><small>Email kampus</small><a href="mailto:naufalserfusion@umt.ac.id">naufalserfusion@umt.ac.id</a></div>
-            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@umt.ac.id"><span class="mb-stack">
-              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>Salin</span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>Tersalin</span></span></button></div>
+            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@umt.ac.id" aria-label="Salin email kampus"><span class="mb-stack">
+              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg><span class="t">Salin</span></span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg><span class="t">Tersalin</span></span></span></button></div>
           <div class="crow"><svg class="ic" viewBox="0 0 256 256" aria-hidden="true"><path fill="#0a66c2" d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4c-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.91 39.91 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186zM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009s9.851-22.014 22.008-22.016c12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97zM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"/></svg><div><small>LinkedIn</small><a href="https://www.linkedin.com/in/naufal-aufa-afaf-364544198/" target="_blank" rel="noopener">naufal-aufa-afaf</a></div><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></div>
           <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></g></svg><div><small>GitHub</small><a href="https://github.com/serfusion" target="_blank" rel="noopener">serfusion</a></div><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></div>
           <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg><div><small>Lokasi</small><strong>Tangerang - Indonesia</strong></div></div>
@@ -504,14 +530,16 @@ b,strong{font-weight:500}
       </section>
     </div>
   </main>
-  <p class="made made-m">Made with <span class="heart">♥</span> by Me</p>
+  <p class="made made-m">Made with <span class="heart">♥</span> by me - Superfal-Dev</p>
 </div>
 
 <script>
 (() => {
   const root = document.documentElement, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const TABS = { tentang: 'Tentang', pengalaman: 'Pengalaman', proyek: 'Proyek', alat: 'Alat', kontak: 'Kontak' };
+  const TABS = { tentang: 'Tentang', pengalaman: 'Pengalaman', proyek: 'Proyek', innovation: 'Innovation', kontak: 'Kontak' };
+  const ALIAS = { alat: 'innovation' };
+  const tabFromHash = () => { const k = location.hash.slice(1); return TABS[ALIAS[k] || k] ? (ALIAS[k] || k) : 'tentang'; };
 
   /* ---------- tombol morph: lebar memegas mengikuti label aktif ---------- */
   const morphs = new Map();
@@ -615,9 +643,9 @@ b,strong{font-weight:500}
       busy = setTimeout(() => { panes.style.height = ''; panes.classList.remove('sizing'); }, 560);
     }, 150);
   };
-  const afterShow = k => { if (k === 'proyek') deckLayout(); resetMorphs(); };
+  const afterShow = k => { resetMorphs(); mqSpeed(); };
   addEventListener('hashchange', () => {
-    const k = location.hash.slice(1); show(k, true); notify(TABS[k] ? k : 'tentang');
+    const k = tabFromHash(); show(k, true); notify(k);
     if (innerWidth <= 860) $('#panel').scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
   });
 
@@ -633,93 +661,23 @@ b,strong{font-weight:500}
       { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
   });
 
-  /* ---------- tumpukan kartu proyek: lempar, kembali, geser ---------- */
-  const deck = $('#deck'), cards = $$('.card', deck), N = cards.length, live = $('#deck-live'), count = $('#deck-count'), jumps = $('#jumps');
-  let order = cards.map((_, i) => i), hist = [];
-  cards.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = c.dataset.name; b.addEventListener('click', () => jumpTo(i)); jumps.appendChild(b); });
-  const deckLayout = () => {
-    order.forEach((ci, p) => {
-      const c = cards[ci];
-      c.dataset.p = p; c.style.setProperty('--p', p); c.style.setProperty('--op', p < 3 ? 1 - p * .12 : 0);
-      c.style.setProperty('--tx', '0px'); c.style.setProperty('--ty', '0px'); c.style.setProperty('--rot', '0deg');
-      c.setAttribute('aria-label', `${c.dataset.name}, ${ci + 1} dari ${N}`);
-      c.setAttribute('aria-hidden', p ? 'true' : 'false');
-      $$('a', c).forEach(a => a.tabIndex = p ? -1 : 0);
-      $$('.stamp', c).forEach(s => s.style.opacity = 0);
-    });
-    const top = cards[order[0]];
-    deck.style.setProperty('--deck-h', (top.offsetHeight + 2 * 18) + 'px');
-    count.textContent = `${order[0] + 1} / ${N}`;
-    $$('button', jumps).forEach((b, i) => b.setAttribute('aria-current', i === order[0]));
-  };
-  const say = () => { live.textContent = `${cards[order[0]].dataset.name}, ${order[0] + 1} dari ${N}`; };
-  const toss = (dir = 1) => {
-    const ci = order[0], c = cards[ci];
-    hist.push({ ci, dir }); if (hist.length > 20) hist.shift();
-    if (reduce.matches) { order.push(order.shift()); deckLayout(); say(); return; }
-    c.classList.remove('drag'); c.classList.add('toss');
-    c.style.setProperty('--tx', `${dir * 125}%`); c.style.setProperty('--rot', `${dir * 16}deg`); c.style.setProperty('--op', 0);
-    order.push(order.shift());
-    order.forEach((cj, p) => { if (cj !== ci) { const o = cards[cj]; o.dataset.p = p; o.style.setProperty('--p', p); o.style.setProperty('--op', p < 3 ? 1 - p * .12 : 0); } });
-    count.textContent = `${order[0] + 1} / ${N}`; $$('button', jumps).forEach((b, i) => b.setAttribute('aria-current', i === order[0]));
-    setTimeout(() => {
-      c.classList.remove('toss'); c.classList.add('jump');
-      c.style.setProperty('--tx', '0px'); c.style.setProperty('--rot', '0deg');
-      c.offsetWidth; c.classList.remove('jump'); deckLayout();
-    }, 380);
-    say();
-  };
-  const back = () => {
-    const h = hist.pop();
-    let ci, dir;
-    if (h) { ci = h.ci; dir = h.dir; } else { ci = order[N - 1]; dir = -1; }
-    const c = cards[ci];
-    order = [ci, ...order.filter(x => x !== ci)];
-    if (reduce.matches) { deckLayout(); say(); return; }
-    c.classList.add('jump');
-    c.style.setProperty('--tx', `${dir * 125}%`); c.style.setProperty('--rot', `${dir * 16}deg`); c.style.setProperty('--op', 0); c.style.setProperty('--p', 0); c.dataset.p = 0;
-    c.offsetWidth; c.classList.remove('jump');
-    deckLayout(); say();
-  };
-  const jumpTo = i => { if (order[0] === i) return; hist = []; order = [i, ...order.filter(x => x !== i)]; deckLayout(); say(); };
-  $('#deck-next').addEventListener('click', () => toss(1));
-  $('#deck-back').addEventListener('click', back);
-  deck.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); toss(1); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); toss(-1); }
-    else if (e.key === 'Backspace' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z')) { e.preventDefault(); back(); }
+  /* ---------- deretan berjalan: isi digandakan supaya berputar tanpa sambungan ---------- */
+  const marquees = $$('.marquee');
+  marquees.forEach(m => {
+    const t = $('.mq-track', m);
+    [...t.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); d.classList.add('mq-dup'); $$('a,button', d).forEach(x => x.tabIndex = -1); t.appendChild(d); });
+    m.classList.add('mq-on');
   });
-  let drag = null;
-  deck.addEventListener('pointerdown', e => {
-    const c = e.target.closest('.card'); if (!c || c.dataset.p !== '0' || e.target.closest('a') || e.button > 0) return;
-    drag = { c, x0: e.clientX, y0: e.clientY, t0: performance.now(), id: e.pointerId, moved: false, lock: null };
-  });
-  deck.addEventListener('pointermove', e => {
-    if (!drag || e.pointerId !== drag.id) return;
-    const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
-    if (!drag.lock) { if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; drag.lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-      if (drag.lock === 'y') { drag = null; return; } deck.setPointerCapture(e.pointerId); drag.c.classList.add('drag'); }
-    drag.moved = true; drag.dx = dx;
-    drag.c.style.setProperty('--tx', dx + 'px'); drag.c.style.setProperty('--ty', dy * .15 + 'px'); drag.c.style.setProperty('--rot', dx * .06 + 'deg');
-    const s = $(dx < 0 ? '.stamp.l' : '.stamp.r', drag.c); $$('.stamp', drag.c).forEach(x => x.style.opacity = x === s ? Math.min(1, Math.abs(dx) / 90) : 0);
-  });
-  const endDrag = e => {
-    if (!drag || e.pointerId !== drag.id) return;
-    const d = drag; drag = null;
-    if (!d.moved) return;
-    const v = Math.abs(d.dx) / Math.max(1, performance.now() - d.t0);
-    d.c.classList.remove('drag');
-    if (Math.abs(d.dx) > 90 || v > .6) toss(Math.sign(d.dx) || 1); else deckLayout();
-  };
-  deck.addEventListener('pointerup', endDrag); deck.addEventListener('pointercancel', endDrag);
+  function mqSpeed() {
+    marquees.forEach(m => { const t = $('.mq-track', m), w = t.scrollWidth / 2; if (w > 0) t.style.setProperty('--mq-dur', (w / (m.classList.contains('logos') ? 34 : 42)).toFixed(1) + 's'); });
+  }
 
   /* ---------- tinggi panel = tinggi kartu profil (desktop) ---------- */
   const side = $('#side');
   const sync = () => {
     $('#panel').style.setProperty('--side-h', side.offsetHeight + 'px');
     place(hlAct, activeLink());
-    if (current === 'proyek') deckLayout();
-    resetMorphs(); setIsland(islState);
+    resetMorphs(); mqSpeed(); setIsland(islState);
   };
   new ResizeObserver(sync).observe(side);
   addEventListener('resize', sync);
@@ -727,9 +685,8 @@ b,strong{font-weight:500}
   /* ---------- awal ---------- */
   const start = () => {
     menu.classList.add('instant');
-    const k = location.hash.slice(1);
-    show(TABS[k] ? k : 'tentang', false);
-    sync(); deckLayout();
+    show(tabFromHash(), false);
+    sync();
     menu.offsetWidth; menu.classList.remove('instant');
   };
   start();
