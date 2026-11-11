@@ -7,286 +7,733 @@
 <link rel="canonical" href="https://superfal-dev.com/">
 <meta name="description" content="Naufal Aufa Afaf, Kepala Subbagian PDDikti FISIP Universitas Muhammadiyah Tangerang.">
 <meta property="og:title" content="Naufal Aufa Afaf">
-<meta property="og:description" content="Kepala Subbagian PDDikti FISIP Universitas Muhammadiyah Tangerang.">
+<meta property="og:description" content="Kepala Subbagian PDDikti FISIP Universitas Muhammadiyah Tangerang. Open to Work.">
 <meta property="og:image" content="https://superfal-dev.com/assets/og.jpg">
 <meta property="og:url" content="https://superfal-dev.com/">
 <meta property="og:type" content="profile">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563EB'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial' font-weight='700' font-size='34' fill='white'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23111113'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-weight='500' font-size='32' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap">
 <script>try{const t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
 <style>
-/* Dua kartu: profil + menu di kiri, isi tab di kanan (pola tajul.my.id). Tema terang & gelap. */
+/* Profil + menu di kiri, satu panel isi di kanan. Permukaan netral (shadcn), gerak pegas (Arc), transisi halus (beUI). */
 :root{
-  --bg:#EEF2F7; --card:#FFFFFF; --ink:#1A1F26; --ink-2:#3B434E; --muted:#6B7480; --line:#E4E9EF; --soft:#F4F7FB;
-  --accent:#2563EB; --on-accent:#FFFFFF; --ok:#1F9254; --badge:#FEF3C7; --on-badge:#8A5A00;
-  --shadow:0 8px 28px rgba(28,44,66,.08); --font:"Poppins","Segoe UI",system-ui,sans-serif;
+  --background:#F6F6F7; --surface:#FFFFFF; --surface-muted:#F1F1F3; --foreground:#111113; --text-secondary:#5C5C66; --text-muted:#8B8B95;
+  --border:#E6E6E9; --border-subtle:#EEEEF1; --border-strong:#D5D5DA;
+  --accent:#2F6FEB; --accent-strong:#1E5AD6; --accent-subtle:#EBF1FE; --success:#16A05A; --success-subtle:#E7F6EE;
+  --violet:#6E46E5; --violet-subtle:#F3EFFF; --violet-line:#DCD2FB; --rose:#DE3B57; --rose-subtle:#FFF0F2; --rose-line:#FAD1D8;
+  --primary:#111113; --on-primary:#FFFFFF; --island:#000000; --island-line:transparent;
+  --shadow-floating:0 18px 40px rgba(17,17,19,.14),0 3px 8px rgba(17,17,19,.07);
+  --font-display:"Geist","Inter",system-ui,sans-serif; --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r-control:14px; --r-panel:22px; --r-surface:30px;
+  --ease-standard:cubic-bezier(.2,0,0,1); --ease-exit:cubic-bezier(.4,0,1,1); --ease-enter:cubic-bezier(0,0,.2,1);
+  --ease-morph:cubic-bezier(.3,1.15,.5,1); --ease-snappy:cubic-bezier(.3,1.1,.5,1); --ease-smooth:cubic-bezier(.2,.8,.2,1); --ease-island:cubic-bezier(.3,1.3,.5,1);
+  --d-morph:.62s; --d-snappy:.42s; --d-smooth:.5s; --d-island:.7s; --d-fast:.16s; --d-std:.24s;
   color-scheme:light;
 }
+@supports (transition-timing-function:linear(0,1)){:root{
+  --ease-morph:linear(0, 0.0285, 0.0987, 0.1923, 0.2961, 0.401, 0.5011, 0.5926, 0.6738, 0.7439, 0.803, 0.852, 0.8916, 0.9232, 0.9478, 0.9665, 0.9805, 0.9906, 0.9977, 1.0024, 1.0053, 1.0069, 1.0076, 1.0077, 1.0073, 1.0067, 1.0059, 1.0051, 1.0043, 1.0035, 1.0029, 1.0023, 1.0018, 1.0013, 1.001, 1.0007, 1.0005, 1.0003, 1.0002, 1.0001, 1);
+  --ease-snappy:linear(0, 0.0281, 0.0969, 0.1881, 0.2887, 0.3901, 0.4866, 0.5751, 0.6537, 0.722, 0.7801, 0.8286, 0.8686, 0.9009, 0.9267, 0.947, 0.9627, 0.9747, 0.9837, 0.9902, 0.9949, 0.9982, 1.0004, 1.0017, 1.0025, 1.0029, 1.003, 1.0029, 1.0026, 1.0024, 1.0021, 1.0018, 1.0015, 1.0012, 1.001, 1.0008, 1.0006, 1.0005, 1.0004, 1.0003, 1);
+  --ease-smooth:linear(0, 0.0308, 0.1036, 0.1965, 0.2959, 0.3935, 0.4845, 0.5665, 0.6387, 0.701, 0.7542, 0.7989, 0.8363, 0.8673, 0.8928, 0.9137, 0.9307, 0.9445, 0.9556, 0.9646, 0.9719, 0.9776, 0.9823, 0.986, 0.9889, 0.9912, 0.9931, 0.9946, 0.9957, 0.9966, 0.9974, 0.9979, 0.9984, 0.9987, 0.999, 0.9992, 0.9994, 0.9995, 0.9996, 0.9997, 1);
+  --ease-island:linear(0, 0.0382, 0.1316, 0.2543, 0.3875, 0.5179, 0.6373, 0.741, 0.8271, 0.8955, 0.9476, 0.9853, 1.0109, 1.0268, 1.0353, 1.0383, 1.0375, 1.0344, 1.0299, 1.0248, 1.0197, 1.015, 1.0109, 1.0074, 1.0046, 1.0024, 1.0009, 0.9998, 0.9991, 0.9987, 0.9985, 0.9985, 0.9986, 0.9988, 0.999, 0.9992, 0.9994, 0.9995, 0.9997, 0.9998, 1);
+}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0E1217; --card:#161B22; --ink:#E6EAEE; --ink-2:#C4CBD4; --muted:#8E98A4; --line:#262D36; --soft:#1C232C;
-  --accent:#3B82F6; --on-accent:#FFFFFF; --ok:#41B97B; --badge:#3A2F14; --on-badge:#F2CF74;
-  --shadow:0 8px 28px rgba(0,0,0,.35); color-scheme:dark}}
+  --background:#0A0A0C; --surface:#121215; --surface-muted:#1A1A1E; --foreground:#EDEDEF; --text-secondary:#A4A4AD; --text-muted:#787882;
+  --border:#25252B; --border-subtle:#1D1D22; --border-strong:#33333A;
+  --accent:#6D9EFF; --accent-strong:#8FB4FF; --accent-subtle:rgba(109,158,255,.14); --success:#3DD68C; --success-subtle:rgba(61,214,140,.13);
+  --violet:#A98CFF; --violet-subtle:rgba(169,140,255,.12); --violet-line:rgba(169,140,255,.3); --rose:#FF7A90; --rose-subtle:rgba(255,122,144,.11); --rose-line:rgba(255,122,144,.3);
+  --primary:#EDEDEF; --on-primary:#111113; --island:#000000; --island-line:rgba(255,255,255,.12);
+  --shadow-floating:0 18px 44px rgba(0,0,0,.6),0 3px 8px rgba(0,0,0,.4); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1217; --card:#161B22; --ink:#E6EAEE; --ink-2:#C4CBD4; --muted:#8E98A4; --line:#262D36; --soft:#1C232C;
-  --accent:#3B82F6; --on-accent:#FFFFFF; --ok:#41B97B; --badge:#3A2F14; --on-badge:#F2CF74;
-  --shadow:0 8px 28px rgba(0,0,0,.35); color-scheme:dark}
+  --background:#0A0A0C; --surface:#121215; --surface-muted:#1A1A1E; --foreground:#EDEDEF; --text-secondary:#A4A4AD; --text-muted:#787882;
+  --border:#25252B; --border-subtle:#1D1D22; --border-strong:#33333A;
+  --accent:#6D9EFF; --accent-strong:#8FB4FF; --accent-subtle:rgba(109,158,255,.14); --success:#3DD68C; --success-subtle:rgba(61,214,140,.13);
+  --violet:#A98CFF; --violet-subtle:rgba(169,140,255,.12); --violet-line:rgba(169,140,255,.3); --rose:#FF7A90; --rose-subtle:rgba(255,122,144,.11); --rose-line:rgba(255,122,144,.3);
+  --primary:#EDEDEF; --on-primary:#111113; --island:#000000; --island-line:rgba(255,255,255,.12);
+  --shadow-floating:0 18px 44px rgba(0,0,0,.6),0 3px 8px rgba(0,0,0,.4); color-scheme:dark}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.7 var(--font);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px}
-a{color:var(--accent)}
+body{margin:0;background:var(--background);color:var(--foreground);font:400 16px/1.6 var(--font-body);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(env(safe-area-inset-top,0px) + 76px) 40px}
+a{color:inherit}
 img{max-width:100%;display:block}
-svg{flex:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,p{margin:0}
+b,strong{font-weight:500}
+.ic{width:18px;height:18px;flex:none}
+.ic-sm{width:16px;height:16px;flex:none}
+.ic-lg{width:20px;height:20px;flex:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus{outline:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.page{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
-.card{background:var(--card);border-radius:10px;box-shadow:var(--shadow)}
+.live{position:relative;width:8px;height:8px;border-radius:50%;background:var(--success);flex:none}
+.live::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--success);animation:ping 2.4s var(--ease-exit) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(2.6);opacity:0}}
 
-/* kartu profil */
-.side{position:sticky;top:24px;padding:26px 20px 18px;text-align:center}
-.toggle{position:absolute;top:12px;right:12px;width:36px;height:36px;border:0;border-radius:8px;background:none;color:var(--ink);cursor:pointer;display:grid;place-items:center}
-.toggle:hover{background:var(--soft)}
-.toggle svg{width:22px;height:22px}
-.toggle .sun{display:none}
-:root[data-theme="dark"] .toggle .sun{display:block}:root[data-theme="dark"] .toggle .moon{display:none}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .toggle .sun{display:block}:root:not([data-theme="light"]) .toggle .moon{display:none}}
-.photo{width:124px;height:124px;border-radius:50%;object-fit:cover;border:3px solid var(--line);margin:0 auto 14px}
-.side h1{font-size:18px;font-weight:700;line-height:1.35;margin:0}
-.side .role{font-size:13.5px;color:var(--ink-2);margin:2px 0 0;line-height:1.5}
-.side hr{border:0;border-top:1px solid var(--line);margin:18px 0 10px}
-.menu{display:grid;gap:4px}
-.menu a{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:7px;text-decoration:none;color:var(--ink);
-  font-size:13.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.menu a:hover{background:var(--soft)}
-.menu a[aria-current="page"]{background:var(--accent);color:var(--on-accent);font-weight:600}
-.menu svg{width:16px;height:16px}
-.side .foot{font-size:12px;color:var(--muted);margin:16px 0 0}
+/* ---------- Dynamic Island ---------- */
+.island{position:fixed;z-index:40;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;
+  width:var(--iw,156px);height:var(--ih,38px);border-radius:var(--ir,19px);transform:translateX(-50%);
+  background:var(--island);color:#F4F4F6;box-shadow:var(--shadow-floating),inset 0 0 0 1px var(--island-line);overflow:hidden;
+  transition:width var(--d-island) var(--ease-island),height var(--d-island) var(--ease-island),border-radius var(--d-island) var(--ease-island)}
+.isl-hit{position:absolute;inset:0;border:0;background:none;padding:0;cursor:pointer;border-radius:inherit;display:block;color:inherit}
+.isl-row{position:absolute;left:0;right:0;top:0;height:38px;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;
+  font:500 13.5px var(--font-body);letter-spacing:-.005em;transition:opacity var(--d-std) var(--ease-standard),transform var(--d-morph) var(--ease-morph),filter var(--d-std) var(--ease-standard)}
+.isl-row .ic{width:16px;height:16px}
+.isl-note{opacity:0;transform:scale(.9);filter:blur(4px)}
+.island[data-state="note"] .isl-idle,.island[data-state="open"] .isl-idle{opacity:0;transform:scale(.92);filter:blur(4px)}
+.island[data-state="note"] .isl-note{opacity:1;transform:none;filter:none}
+.island[data-state="open"] .isl-hit{pointer-events:none}
+.isl-card{position:absolute;top:0;left:0;width:var(--iw-open,360px);padding:16px;opacity:0;transform:scale(.96);filter:blur(6px);transform-origin:top center;
+  transition:opacity var(--d-std) var(--ease-standard),transform var(--d-morph) var(--ease-morph),filter var(--d-std) var(--ease-standard)}
+.island[data-state="open"] .isl-card{opacity:1;transform:none;filter:none;transition-delay:.06s}
+.isl-head{display:flex;align-items:center;gap:12px;padding-right:34px}
+.isl-head img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.isl-head b{display:block;font-weight:500;font-size:15px}
+.isl-head span{display:flex;align-items:center;gap:5px;font-size:13px;color:#A9A9B2}
+.isl-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:grid;place-items:center}
+.isl-close:hover{background:rgba(255,255,255,.18)}
+.isl-status{display:flex;align-items:center;gap:8px;margin:14px 0 12px;font-size:13px;color:#D5F5E3}
+.isl-actions{display:flex;gap:8px;flex-wrap:wrap}
+.isl-actions .mbtn{background:rgba(255,255,255,.1);color:#fff;border-color:transparent}
+.isl-actions .mbtn:hover{background:rgba(255,255,255,.17)}
+.isl-actions .mbtn.light{background:#fff;color:#111113}
+.isl-actions .mbtn.light:hover{background:#E9E9EC}
 
-/* isi */
-.content{padding:24px 28px 30px;min-height:600px;min-width:0}
-.content h2{font-size:20px;font-weight:600;margin:0 0 18px;padding-bottom:12px;border-bottom:2px solid var(--line)}
-.content h3{font-size:15.5px;font-weight:600;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
-.content h3 svg{width:18px;height:18px;color:var(--accent)}
-.content p{margin:0 0 12px;color:var(--ink-2)}
-.muted{color:var(--muted)!important}
-.info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;margin:20px 0 0}
-.info div{min-width:0}
-.info dt{font-size:12px;color:var(--muted)}
-.info dd{margin:0;font-weight:500;overflow-wrap:anywhere}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:6px;vertical-align:1px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-.chips li{font-size:13px;padding:4px 12px;border-radius:99px;background:var(--soft);border:1px solid var(--line);color:var(--ink-2)}
+/* ---------- Tombol morph (label berganti, lebar memegas) ---------- */
+.mbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 14px;border-radius:var(--r-control);
+  border:1px solid var(--border);background:var(--surface);color:var(--foreground);font:500 14px var(--font-body);text-decoration:none;cursor:pointer;
+  white-space:nowrap;overflow:hidden;gap:8px;-webkit-tap-highlight-color:transparent;
+  transition:width var(--d-morph) var(--ease-morph),background-color var(--d-fast) var(--ease-standard),color var(--d-fast) var(--ease-standard),border-color var(--d-fast),transform var(--d-snappy) var(--ease-snappy)}
+.mbtn:hover{background:var(--surface-muted)}
+.mbtn:active{transform:scale(.97)}
+.mbtn.primary{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.mbtn.primary:hover{background:var(--primary);opacity:.9}
+.mbtn.block{width:100%;height:44px}
+.mbtn.lg{height:44px;padding:0 18px}
+.mbtn.ok{background:var(--success-subtle);color:var(--success);border-color:transparent}
+.mb-stack{display:grid;grid-template-columns:minmax(0,1fr);width:100%;align-items:center;justify-items:center}
+.mb-l{grid-area:1/1;display:inline-flex;align-items:center;gap:8px;opacity:0;transform:translateY(7px);filter:blur(4px);pointer-events:none;
+  transition:opacity var(--d-std) var(--ease-standard),transform var(--d-morph) var(--ease-morph),filter var(--d-std) var(--ease-standard)}
+.mb-l.on{opacity:1;transform:none;filter:none}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- Tata letak ---------- */
+.page{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:304px minmax(0,1fr);gap:16px;align-items:start}
+.side,.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-surface)}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);padding:24px 20px 18px;display:flex;flex-direction:column;gap:18px}
+.side-top{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ibtn{width:36px;height:36px;border-radius:12px;border:1px solid transparent;background:none;cursor:pointer;display:grid;place-items:center;color:var(--text-secondary);
+  transition:background-color var(--d-fast) var(--ease-standard),color var(--d-fast),transform var(--d-snappy) var(--ease-snappy)}
+.ibtn:hover{background:var(--surface-muted);color:var(--foreground)}
+.ibtn:active{transform:scale(.94)}
+.theme{position:absolute;top:-8px;right:-6px}
+.sunmoon{width:20px;height:20px;overflow:visible}
+.sm-core{transform-box:fill-box;transform-origin:center;transition:transform var(--d-morph) var(--ease-morph)}
+.sm-cut{transition:transform var(--d-morph) var(--ease-morph)}
+.sm-rays{transform-box:fill-box;transform-origin:center;transition:transform var(--d-morph) var(--ease-morph),opacity var(--d-std) var(--ease-standard)}
+/* terang: tampil bulan (klik = gelap) */
+.sm-core{transform:scale(1.55)}.sm-cut{transform:translate(0,0)}.sm-rays{transform:rotate(-40deg) scale(.4);opacity:0}
+:root[data-theme="dark"] .sm-core{transform:scale(1)}:root[data-theme="dark"] .sm-cut{transform:translate(9px,-9px)}:root[data-theme="dark"] .sm-rays{transform:none;opacity:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sm-core{transform:scale(1)}:root:not([data-theme="light"]) .sm-cut{transform:translate(9px,-9px)}:root:not([data-theme="light"]) .sm-rays{transform:none;opacity:1}}
+.ava{position:relative;width:118px;height:118px;border-radius:50%;padding:4px;background:conic-gradient(from 200deg,var(--success) 0 62%,var(--border) 62% 100%);margin-bottom:14px}
+.ava img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--surface)}
+.ava .tag{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;white-space:nowrap;
+  font:500 12px var(--font-body);color:#fff;background:var(--success);padding:3px 10px 3px 8px;border-radius:99px;border:2px solid var(--surface)}
+.ava .tag .live{background:#fff}.ava .tag .live::after{background:#fff}
+.who h1{font:500 19px/1.3 var(--font-body);letter-spacing:-.015em;margin-top:8px}
+.role{font-size:14px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+.loc{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--text-secondary);margin-top:8px}
+.loc .ic{width:15px;height:15px;color:var(--rose)}
+
+/* menu: satu sorotan yang meluncur (morph) + sorotan hover */
+.menu{position:relative;display:flex;flex-direction:column;gap:2px;padding:4px;margin:0 -4px;border-radius:var(--r-panel)}
+.menu a{position:relative;z-index:1;display:flex;align-items:center;gap:12px;height:42px;padding:0 14px;border-radius:calc(var(--r-panel) - 4px);
+  text-decoration:none;color:var(--text-secondary);font-weight:500;font-size:15px;transition:color var(--d-fast) var(--ease-standard);-webkit-tap-highlight-color:transparent}
+.menu a:hover{color:var(--foreground)}
+.menu a[aria-current="page"]{color:var(--accent-strong)}
+.menu .ic{width:18px;height:18px}
+.hl{position:absolute;left:0;top:0;width:0;height:0;border-radius:calc(var(--r-panel) - 4px);pointer-events:none;z-index:0;
+  transform:translate(var(--hx,0),var(--hy,0));width:var(--hw,0);height:var(--hh,0);
+  transition:transform var(--d-morph) var(--ease-morph),width var(--d-morph) var(--ease-morph),height var(--d-morph) var(--ease-morph),opacity var(--d-fast) var(--ease-standard)}
+.hl-act{background:var(--accent-subtle)}
+.hl-hov{background:var(--surface-muted);opacity:0}
+.menu.hovering .hl-hov{opacity:1}
+.menu.instant .hl{transition:none}
+.made{font-size:13px;color:var(--text-muted);text-align:center}
+.heart{display:inline-block;color:var(--rose);transition:transform var(--d-snappy) var(--ease-snappy)}
+.made:hover .heart{animation:beat 1s var(--ease-standard) infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.28)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+.made-m{display:none}
+
+/* panel isi */
+.panel{min-height:var(--side-h,600px);padding:30px 32px 34px;min-width:0}
+.panes{position:relative}
+.panes.sizing{overflow:hidden;transition:height var(--d-smooth) var(--ease-smooth)}
+.pane{transition:opacity var(--d-std) var(--ease-enter),transform var(--d-morph) var(--ease-morph),filter var(--d-std) var(--ease-standard)}
+.pane.leave{opacity:0;transform:translateY(-6px);filter:blur(3px);transition-duration:var(--d-fast),var(--d-fast),var(--d-fast);transition-timing-function:var(--ease-exit)}
+.pane.enter{opacity:0;transform:translateY(10px);filter:blur(5px);transition:none}
+.pane h2{display:flex;align-items:center;gap:10px;font:500 28px/1.15 var(--font-display);letter-spacing:-.03em;margin-bottom:6px}
+.pane h2 .ic{width:22px;height:22px;color:var(--accent)}
+.sub{color:var(--text-secondary);font-size:15px;margin-bottom:22px}
+.pane p.lead{font-size:17px;color:var(--foreground);margin:14px 0 10px;max-width:62ch}
+.pane p.txt{color:var(--text-secondary);max-width:62ch}
+.pane h3.h{font:500 17px var(--font-body);margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+
+/* fakta singkat: satu grup bergaris tipis */
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--border);border-radius:var(--r-panel);margin:24px 0 0;overflow:hidden}
+.facts>div{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;min-width:0}
+.facts>div:nth-child(odd){border-right:1px solid var(--border-subtle)}
+.facts>div:nth-child(-n+2){border-bottom:1px solid var(--border-subtle)}
+.facts .ic{color:var(--text-secondary);margin-top:2px}
+.facts .live{margin:7px 5px 0 5px}
+.facts dl{margin:0;min-width:0}
+.facts dt{font-size:12.5px;color:var(--text-muted)}
+.facts dd{margin:0;font-size:14.5px;font-weight:500;overflow-wrap:anywhere}
+.facts dd.ok{color:var(--success)}
+
+/* keahlian berlambang */
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.skills li{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 13px 0 10px;border:1px solid var(--border);border-radius:99px;font-size:14px;
+  background:var(--surface);transition:transform var(--d-snappy) var(--ease-snappy),border-color var(--d-fast),background-color var(--d-fast)}
+.skills li:hover{transform:translateY(-2px);border-color:var(--border-strong);background:var(--surface-muted)}
+.skills .ic{width:18px;height:18px}
+.sk-blue{color:var(--accent)}.sk-green{color:var(--success)}.sk-amber{color:#E8890C}.sk-teal{color:#0E9F8E}
 
 /* pengalaman */
-.tl{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line)}
-.tl li{position:relative;padding:0 0 18px}
-.tl li:last-child{padding-bottom:4px}
-.tl li::before{content:"";position:absolute;left:-24px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--accent)}
-.tl .h{display:flex;justify-content:space-between;gap:4px 14px;flex-wrap:wrap}
-.tl b{font-weight:600}
-.tl time{font-size:13px;color:var(--muted);white-space:nowrap}
-.tl .org{font-size:14px;color:var(--ink-2);margin:0}
-.tl .desc{font-size:14px;color:var(--muted);margin:2px 0 0}
+.tl{list-style:none;margin:10px 0 0;padding:0}
+.tl li{position:relative;display:grid;grid-template-columns:22px minmax(0,1fr);gap:0 12px;padding-bottom:20px}
+.tl li::before{content:"";position:absolute;left:10px;top:24px;bottom:2px;width:2px;background:var(--border)}
+.tl li:last-child::before{display:none}
+.tl .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--accent-subtle);margin-top:1px}
+.tl .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.tl li.lama .dot{background:var(--surface-muted)}.tl li.lama .dot::after{background:var(--text-muted)}
+.tl .row1{display:flex;justify-content:space-between;gap:4px 14px;flex-wrap:wrap}
+.tl b{font-weight:500}
+.tl time{font-size:13.5px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tl .org{font-size:14.5px;color:var(--text-secondary)}
+.tl .ds{font-size:14px;color:var(--text-muted);margin-top:2px}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:10px}
+.tint{border-radius:var(--r-panel);padding:18px 18px 16px;border:1px solid}
+.tint h3{display:flex;align-items:center;gap:8px;font:500 15px var(--font-body);margin-bottom:12px}
+.tint b{font-weight:500;display:block}
+.tint p{font-size:14px;color:var(--text-secondary)}
+.tint .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;color:var(--text-muted)}
+.tint .pill{font-size:12.5px;font-weight:500;padding:2px 10px;border-radius:99px}
+.tint ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.violet{background:var(--violet-subtle);border-color:var(--violet-line)}
+.violet h3,.violet .ic{color:var(--violet)}.violet .pill{background:var(--violet);color:#fff}
+.rose{background:var(--rose-subtle);border-color:var(--rose-line)}
+.rose h3,.rose .ic{color:var(--rose)}
 
-/* proyek */
-.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.proj{border:1px solid var(--line);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
-.proj img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-bottom:1px solid var(--line)}
-.proj .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:2px;flex:1}
-.proj b{font-weight:600;font-size:15px}
-.proj span{font-size:13.5px;color:var(--muted);line-height:1.55}
-.proj a{margin-top:auto;padding-top:8px;font-size:13.5px;font-weight:500;text-decoration:none}
-.proj a:hover{text-decoration:underline}
+/* tumpukan kartu proyek */
+.deck-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+.deck{position:relative;width:min(100%,470px);height:var(--deck-h,420px);touch-action:pan-y;user-select:none;-webkit-user-select:none;border-radius:var(--r-surface)}
+.card{position:absolute;left:0;right:0;top:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-panel);overflow:hidden;
+  transform-origin:50% 100%;will-change:transform;cursor:grab;
+  transform:translate3d(var(--tx,0px),calc(var(--p,0) * 18px + var(--ty,0px)),0) rotate(var(--rot,0deg)) scale(calc(1 - var(--p,0) * .05));
+  opacity:var(--op,1);z-index:calc(10 - var(--p,0));
+  transition:transform var(--d-morph) var(--ease-morph),opacity var(--d-std) var(--ease-standard),box-shadow var(--d-std)}
+.card[data-p="0"]{box-shadow:0 1px 2px rgba(17,17,19,.04)}
+.card[data-p="1"],.card[data-p="2"]{border-color:var(--border-strong)}
+.card.drag{transition:none;cursor:grabbing}
+.card.toss{transition:transform .42s var(--ease-exit),opacity .3s var(--ease-exit)}
+.card.jump{transition:none}
+.card img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-bottom:1px solid var(--border-subtle);pointer-events:none}
+.card-b{padding:16px 18px 18px}
+.card-b h3{font:500 18px var(--font-body)}
+.card-b p{font-size:14.5px;color:var(--text-secondary);margin-top:2px}
+.card-b a{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;font-weight:500;color:var(--accent);text-decoration:none}
+.card-b a:hover{text-decoration:underline}
+.card-b a .ic{width:15px;height:15px}
+.stamp{position:absolute;top:18px;font:500 13px var(--font-body);padding:4px 10px;border-radius:99px;background:var(--primary);color:var(--on-primary);opacity:0;transition:opacity var(--d-fast)}
+.stamp.l{left:18px}.stamp.r{right:18px}
+.deck-ctl{display:flex;align-items:center;gap:10px}
+.count{min-width:54px;text-align:center;font-size:14px;color:var(--text-secondary);font-variant-numeric:tabular-nums}
+.jumps{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.jumps button{height:30px;padding:0 12px;border-radius:99px;border:1px solid var(--border);background:none;font-size:13px;color:var(--text-secondary);cursor:pointer;
+  transition:background-color var(--d-fast),color var(--d-fast),border-color var(--d-fast)}
+.jumps button:hover{background:var(--surface-muted);color:var(--foreground)}
+.jumps button[aria-current="true"]{background:var(--accent-subtle);border-color:transparent;color:var(--accent-strong)}
 
 /* alat */
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.tool{border:1px solid var(--line);border-radius:9px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
-.tool .ic{width:40px;height:40px;border-radius:9px;background:var(--soft);color:var(--accent);display:grid;place-items:center;margin-bottom:8px}
-.tool .ic svg{width:21px;height:21px}
-.tool b{font-weight:600;font-size:15px}
-.tool span{font-size:13.5px;color:var(--muted);line-height:1.55}
-.tool em{align-self:flex-start;margin-top:10px;font-style:normal;font-size:12px;font-weight:600;padding:2px 10px;border-radius:99px;background:var(--badge);color:var(--on-badge)}
-.tool.more{border-style:dashed;justify-content:center;align-items:center;text-align:center;color:var(--muted)}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tool{border:1px solid var(--border);border-radius:var(--r-panel);padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0;
+  transition:transform var(--d-snappy) var(--ease-snappy),background-color var(--d-fast),border-color var(--d-fast)}
+.tool:hover{transform:translateY(-3px);background:var(--surface-muted);border-color:var(--border-strong)}
+.tool-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tool-h .ic{width:22px;height:22px;color:var(--foreground)}
+.badge{font-size:12px;font-weight:500;padding:2px 9px;border-radius:99px;background:var(--accent-subtle);color:var(--accent-strong)}
+.tool b{font-weight:500}
+.tool span.d{font-size:14px;color:var(--text-secondary);line-height:1.5}
+.tool.more{border-style:dashed;align-items:center;justify-content:center;text-align:center;color:var(--text-muted)}
+.tool.more:hover{transform:none;background:none}
 
 /* kontak */
-.contacts{display:grid;gap:10px}
-.ct{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;min-width:0}
-.ct .ic{width:36px;height:36px;border-radius:8px;background:var(--soft);color:var(--accent);display:grid;place-items:center}
-.ct .ic svg{width:18px;height:18px}
-.ct div{min-width:0}
-.ct small{display:block;font-size:12px;color:var(--muted)}
-.ct a,.ct strong{font-weight:500;text-decoration:none;color:var(--ink);overflow-wrap:anywhere}
-.ct a:hover{color:var(--accent)}
-.ct button{margin-left:auto;font:500 12.5px var(--font);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;padding:5px 11px;cursor:pointer}
-.ct button:hover{background:var(--soft)}
+.rows{border:1px solid var(--border);border-radius:var(--r-panel);overflow:hidden}
+.crow{display:flex;align-items:center;gap:14px;padding:12px 12px 12px 16px;min-width:0}
+.crow+.crow{border-top:1px solid var(--border-subtle)}
+.crow>.ic{color:var(--text-secondary)}
+.crow div{min-width:0;flex:1}
+.crow small{display:block;font-size:12.5px;color:var(--text-muted)}
+.crow a,.crow strong{font-weight:500;font-size:15px;text-decoration:none;overflow-wrap:anywhere}
+.crow a:hover{color:var(--accent)}
+.crow .ic-sm{color:var(--text-muted)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 
 @media (max-width:860px){
-  body{padding-block:16px}
+  body{padding-block:calc(env(safe-area-inset-top,0px) + 66px) 28px}
   .page{grid-template-columns:1fr}
-  .side{position:relative;top:auto;display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:0 14px;text-align:left;padding:16px 16px 14px}
-  .photo{width:72px;height:72px;margin:0;grid-row:span 2;border-width:2px}
-  .side h1{align-self:end;padding-right:40px}.side .role{align-self:start}
-  .side hr,.side .foot{display:none}
-  .menu{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:14px;gap:6px}
-  .menu a{padding:8px 4px;font-size:11.5px;letter-spacing:.04em;background:var(--soft)}
-  .content{padding:20px 18px 24px;min-height:0}
+  .side{position:relative;top:auto;padding:18px;gap:16px}
+  .side-top{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:0 16px;text-align:left}
+  .ava{width:84px;height:84px;padding:3px;margin:0;grid-row:span 4}
+  .ava img{border-width:2px}
+  .ava .tag{font-size:10.5px;padding:2px 7px 2px 6px;bottom:-8px}
+  .who h1{margin-top:0;padding-right:36px;font-size:18px}
+  .theme{top:-4px;right:-4px}
+  .menu{flex-direction:row;margin:0;gap:0;background:var(--surface-muted);padding:4px}
+  .menu a{flex:1;flex-direction:column;justify-content:center;gap:2px;height:56px;padding:0 2px;font-size:12px;text-align:center;border-radius:calc(var(--r-panel) - 4px)}
+  .hl-act{background:var(--surface);box-shadow:0 1px 2px rgba(17,17,19,.08)}
+  .hl-hov{display:none}
+  .side .made{display:none}
+  .made-m{display:block;grid-column:1/-1;margin-top:6px}
+  .panel{min-height:0;padding:24px 18px 26px}
   .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (max-width:520px){
-  .projects,.info{grid-template-columns:1fr}
-  .tools{grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){
+  .facts,.duo{grid-template-columns:1fr}
+  .facts>div:nth-child(odd){border-right:0}
+  .facts>div:not(:last-child){border-bottom:1px solid var(--border-subtle)}
+  .tools{gap:10px}
   .tool{padding:14px}
-  .ct .ic{display:none}
-  .ct a,.ct strong{font-size:14px}
+  .crow{padding-left:12px;gap:12px}
 }
+@media (max-width:380px){.tools{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
+  .pane.enter,.pane.leave{transform:none;filter:none}
+}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 </style>
 </head>
 <body>
+<div class="island" id="island" data-state="idle">
+  <button class="isl-hit" id="isl-btn" type="button" aria-expanded="false" aria-controls="isl-card">
+    <span class="isl-row isl-idle"><span class="live"></span><span>Open to Work</span></span>
+    <span class="isl-row isl-note" aria-hidden="true"><span id="isl-ic"></span><span id="isl-txt">Tentang</span></span>
+    <span class="sr-only">Status: Open to Work. Buka kontak cepat</span>
+  </button>
+  <div class="isl-card" id="isl-card" role="region" aria-label="Kontak cepat" inert>
+    <div class="isl-head"><img src="assets/foto.webp" alt="" width="44" height="44">
+      <div><b>Naufal Aufa Afaf</b><span><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg>Tangerang - Indonesia</span></div></div>
+    <button class="isl-close" id="isl-close" type="button" aria-label="Tutup"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <p class="isl-status"><span class="live"></span>Open to Work · siap bergabung</p>
+    <div class="isl-actions">
+      <button class="mbtn light" type="button" data-morph data-salin="naufalserfusion@gmail.com"><span class="mb-stack">
+        <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>Salin email</span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>Tersalin</span></span></button>
+      <a class="mbtn" href="https://www.linkedin.com/in/naufal-aufa-afaf-364544198/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="mbtn" href="cv-naufal-aufa-afaf.pdf" target="_blank" rel="noopener">Unduh CV</a>
+    </div>
+  </div>
+</div>
+
 <div class="page">
-  <aside class="card side">
-    <button class="toggle" id="tema" type="button" aria-label="Ganti tema terang atau gelap" title="Ganti tema">
-      <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-    </button>
-    <img class="photo" src="assets/foto.webp" width="124" height="124" alt="Foto Naufal Aufa Afaf">
-    <h1>Naufal Aufa Afaf</h1>
-    <p class="role">Kasubag PDDikti FISIP<br>Universitas Muhammadiyah Tangerang</p>
-    <hr>
-    <nav class="menu" aria-label="Menu">
-      <a href="#tentang" aria-current="page">Tentang</a>
-      <a href="#pengalaman">Pengalaman</a>
-      <a href="#proyek">Proyek</a>
-      <a href="#alat">Alat</a>
-      <a href="#kontak">Kontak</a>
-      <a href="cv-naufal-aufa-afaf.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>Unduh CV</a>
+  <aside class="side" id="side" aria-label="Profil">
+    <div class="side-top">
+      <button class="ibtn theme" id="tema" type="button" aria-label="Ganti tema terang atau gelap" title="Ganti tema">
+        <svg class="sunmoon" viewBox="0 0 24 24" aria-hidden="true">
+          <mask id="bulan"><rect x="-4" y="-4" width="32" height="32" fill="#fff"/><circle class="sm-cut" cx="16.5" cy="7.5" r="6.2" fill="#000"/></mask>
+          <circle class="sm-core" cx="12" cy="12" r="5" fill="currentColor" mask="url(#bulan)"/>
+          <g class="sm-rays" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+            <path d="M12 1.8v2.1M12 20.1v2.1M4.8 4.8l1.5 1.5M17.7 17.7l1.5 1.5M1.8 12h2.1M20.1 12h2.1M4.8 19.2l1.5-1.5M17.7 6.3l1.5-1.5"/></g>
+        </svg>
+      </button>
+      <div class="ava"><img src="assets/foto.webp" width="118" height="118" alt="Foto Naufal Aufa Afaf"><span class="tag"><span class="live"></span>Open to Work</span></div>
+      <div class="who">
+        <h1>Naufal Aufa Afaf</h1>
+        <p class="role">Kasubag PDDikti FISIP<br>Universitas Muhammadiyah Tangerang</p>
+        <p class="loc"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg>Tangerang - Indonesia</p>
+      </div>
+    </div>
+
+    <nav class="menu" id="menu" aria-label="Menu">
+      <span class="hl hl-hov" aria-hidden="true"></span><span class="hl hl-act" aria-hidden="true"></span>
+      <a href="#tentang" data-k="tentang" aria-current="page"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g></svg><span>Tentang</span></a>
+      <a href="#pengalaman" data-k="pengalaman"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></g></svg><span>Pengalaman</span></a>
+      <a href="#proyek" data-k="proyek"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="m6 14l1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg><span>Proyek</span></a>
+      <a href="#alat" data-k="alat"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg><span>Alat</span></a>
+      <a href="#kontak" data-k="kontak"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><span>Kontak</span></a>
     </nav>
-    <p class="foot">© 2026 Naufal Aufa Afaf</p>
+
+    <a class="mbtn primary block" id="cv" href="cv-naufal-aufa-afaf.pdf" target="_blank" rel="noopener" data-morph="cv"><span class="mb-stack">
+      <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M12 15V3m9 12v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10l5 5l5-5"/></g></svg>Unduh CV</span>
+      <span class="mb-l" data-s="busy"><span class="spin"></span>Membuka CV</span>
+      <span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>CV dibuka di tab baru</span></span></a>
+
+    <p class="made">Made with <span class="heart">♥</span> by Me</p>
   </aside>
 
-  <main class="card content">
-    <section data-tab="tentang">
-      <h2>Tentang</h2>
-      <p>Halo, saya Naufal. Saya bekerja di Universitas Muhammadiyah Tangerang sejak 2023, dan sejak April 2026 menjabat Kepala Subbagian PDDikti di Fakultas Ilmu Sosial dan Ilmu Politik.</p>
-      <p>Sehari-hari saya mengelola data dosen dan mahasiswa: memeriksa, merapikan, lalu melaporkannya ke PDDikti setiap semester. Di luar itu saya senang membuat website dan alat bantu yang mempermudah layanan akademik.</p>
-      <dl class="info">
-        <div><dt>Lokasi</dt><dd>Kota Tangerang, Banten</dd></div>
-        <div><dt>Pendidikan</dt><dd>S1 Universitas Muhammadiyah Tangerang</dd></div>
-        <div><dt>Email</dt><dd>naufalserfusion@gmail.com</dd></div>
-        <div><dt>Status</dt><dd><span class="dot"></span>Terbuka untuk peluang baru</dd></div>
-      </dl>
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Keahlian</h3>
-      <ul class="chips">
-        <li>PDDikti Feeder</li><li>Validasi data akademik</li><li>Pelaporan semester</li><li>Excel</li><li>SQL</li>
-        <li>Next.js</li><li>WordPress</li><li>OJS</li><li>Photoshop</li><li>Premiere Pro</li>
-      </ul>
-    </section>
+  <main class="panel" id="panel">
+    <div class="panes" id="panes">
+      <section class="pane" data-tab="tentang" aria-labelledby="h-tentang">
+        <h2 id="h-tentang">Tentang</h2>
+        <p class="lead">Halo, saya Naufal. Saya bekerja di Universitas Muhammadiyah Tangerang sejak 2023, dan sejak April 2026 menjabat Kepala Subbagian PDDikti di Fakultas Ilmu Sosial dan Ilmu Politik.</p>
+        <p class="txt">Sehari-hari saya mengelola data dosen dan mahasiswa: memeriksa, merapikan, lalu melaporkannya ke PDDikti setiap semester. Di luar itu saya senang membuat website dan alat bantu yang mempermudah layanan akademik.</p>
+        <div class="facts">
+          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg><dl><dt>Lokasi</dt><dd>Tangerang - Indonesia</dd></dl></div>
+          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0zM22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></svg><dl><dt>Pendidikan</dt><dd>S1 Universitas Muhammadiyah Tangerang</dd></dl></div>
+          <div><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><dl><dt>Email</dt><dd>naufalserfusion@gmail.com</dd></dl></div>
+          <div><span class="live"></span><dl><dt>Status</dt><dd class="ok">Open to Work</dd></dl></div>
+        </div>
+        <h3 class="h">Keahlian</h3>
+        <ul class="skills">
+          <li><svg class="ic sk-blue" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></g></svg>PDDikti Feeder</li>
+          <li><svg class="ic sk-green" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12l2 2l4-4"/></g></svg>Validasi data akademik</li>
+          <li><svg class="ic sk-amber" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5M8 18v-1m4 1v-6m4 6v-3"/></g></svg>Pelaporan semester</li>
+          <li><svg class="ic" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="filetypeexSVGSuUii0pt" x1="4.494" x2="13.832" y1="-2092.086" y2="-2075.914" gradientTransform="translate(0 2100)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#18884f"/><stop offset=".5" stop-color="#117e43"/><stop offset="1" stop-color="#0b6631"/></linearGradient></defs><path fill="#185c37" d="M19.581 15.35L8.512 13.4v14.409A1.19 1.19 0 0 0 9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5Z"/><path fill="#21a366" d="M19.581 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5L19.581 16l5.861 1.95L30 16V9.5Z"/><path fill="#107c41" d="M8.512 9.5h11.069V16H8.512Z"/><path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2" opacity=".1"/><path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity=".2"/><path d="M15.783 8.85H8.512V23.8h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity=".2"/><path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191" opacity=".2"/><path fill="url(#filetypeexSVGSuUii0pt)" d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"/><path fill="#fff" d="m5.7 19.873l2.511-3.884l-2.3-3.862h1.847L9.013 14.6c.116.234.2.408.238.524h.017q.123-.281.26-.546l1.342-2.447h1.7l-2.359 3.84l2.419 3.905h-1.809l-1.45-2.711A2.4 2.4 0 0 1 9.2 16.8h-.024a1.7 1.7 0 0 1-.168.351l-1.493 2.722Z"/><path fill="#33c481" d="M28.806 3h-9.225v6.5H30V4.191A1.19 1.19 0 0 0 28.806 3"/><path fill="#107c41" d="M19.581 16H30v6.5H19.581Z"/></svg>Excel</li>
+          <li><svg class="ic" viewBox="0 0 256 264" aria-hidden="true"><path d="M255.008 158.086c-1.535-4.649-5.556-7.887-10.756-8.664c-2.452-.366-5.26-.21-8.583.475c-5.792 1.195-10.089 1.65-13.225 1.738c11.837-19.985 21.462-42.775 27.003-64.228c8.96-34.689 4.172-50.492-1.423-57.64C233.217 10.847 211.614.683 185.552.372c-13.903-.17-26.108 2.575-32.475 4.549c-5.928-1.046-12.302-1.63-18.99-1.738c-12.537-.2-23.614 2.533-33.079 8.15c-5.24-1.772-13.65-4.27-23.362-5.864c-22.842-3.75-41.252-.828-54.718 8.685C6.622 25.672-.937 45.684.461 73.634c.444 8.874 5.408 35.874 13.224 61.48c4.492 14.718 9.282 26.94 14.237 36.33c7.027 13.315 14.546 21.156 22.987 23.972c4.731 1.576 13.327 2.68 22.368-4.85c1.146 1.388 2.675 2.767 4.704 4.048c2.577 1.625 5.728 2.953 8.875 3.74c11.341 2.835 21.964 2.126 31.027-1.848c.056 1.612.099 3.152.135 4.482c.06 2.157.12 4.272.199 6.25c.537 13.374 1.447 23.773 4.143 31.049c.148.4.347 1.01.557 1.657c1.345 4.118 3.594 11.012 9.316 16.411c5.925 5.593 13.092 7.308 19.656 7.308c3.292 0 6.433-.432 9.188-1.022c9.82-2.105 20.973-5.311 29.041-16.799c7.628-10.86 11.336-27.217 12.007-52.99q.13-1.094.244-2.088l.16-1.362l1.797.158l.463.031c10.002.456 22.232-1.665 29.743-5.154c5.935-2.754 24.954-12.795 20.476-26.351"/><path fill="#336791" d="M237.906 160.722c-29.74 6.135-31.785-3.934-31.785-3.934c31.4-46.593 44.527-105.736 33.2-120.211c-30.904-39.485-84.399-20.811-85.292-20.327l-.287.052c-5.876-1.22-12.451-1.946-19.842-2.067c-13.456-.22-23.664 3.528-31.41 9.402c0 0-95.43-39.314-90.991 49.444c.944 18.882 27.064 142.873 58.218 105.422c11.387-13.695 22.39-25.274 22.39-25.274c5.464 3.63 12.006 5.482 18.864 4.817l.533-.452c-.166 1.7-.09 3.363.213 5.332c-8.026 8.967-5.667 10.541-21.711 13.844c-16.235 3.346-6.698 9.302-.471 10.86c7.549 1.887 25.013 4.561 36.813-11.958l-.47 1.885c3.144 2.519 5.352 16.383 4.982 28.952c-.37 12.568-.617 21.197 1.86 27.937c2.479 6.74 4.948 21.905 26.04 17.386c17.623-3.777 26.756-13.564 28.027-29.89c.901-11.606 2.942-9.89 3.07-20.267l1.637-4.912c1.887-15.733.3-20.809 11.157-18.448l2.64.232c7.99.363 18.45-1.286 24.589-4.139c13.218-6.134 21.058-16.377 8.024-13.686z"/><path fill="#fff" d="M108.076 81.525c-2.68-.373-5.107-.028-6.335.902c-.69.523-.904 1.129-.962 1.546c-.154 1.105.62 2.327 1.096 2.957c1.346 1.784 3.312 3.01 5.258 3.28q.423.059.842.058c3.245 0 6.196-2.527 6.456-4.392c.325-2.336-3.066-3.893-6.355-4.35m88.784.073c-.256-1.831-3.514-2.353-6.606-1.923c-3.088.43-6.082 1.824-5.832 3.659c.2 1.427 2.777 3.863 5.827 3.863q.387 0 .78-.054c2.036-.282 3.53-1.575 4.24-2.32c1.08-1.136 1.706-2.402 1.591-3.225"/><path fill="#fff" d="M247.802 160.025c-1.134-3.429-4.784-4.532-10.848-3.28c-18.005 3.716-24.453 1.142-26.57-.417c13.995-21.32 25.508-47.092 31.719-71.137c2.942-11.39 4.567-21.968 4.7-30.59c.147-9.463-1.465-16.417-4.789-20.665c-13.402-17.125-33.072-26.311-56.882-26.563c-16.369-.184-30.199 4.005-32.88 5.183c-5.646-1.404-11.801-2.266-18.502-2.376c-12.288-.199-22.91 2.743-31.704 8.74c-3.82-1.422-13.692-4.811-25.765-6.756c-20.872-3.36-37.458-.814-49.294 7.571c-14.123 10.006-20.643 27.892-19.38 53.16c.425 8.501 5.269 34.653 12.913 59.698c10.062 32.964 21 51.625 32.508 55.464c1.347.449 2.9.763 4.613.763c4.198 0 9.345-1.892 14.7-8.33a530 530 0 0 1 20.261-22.926c4.524 2.428 9.494 3.784 14.577 3.92q.016.2.035.398a118 118 0 0 0-2.57 3.175c-3.522 4.471-4.255 5.402-15.592 7.736c-3.225.666-11.79 2.431-11.916 8.435c-.136 6.56 10.125 9.315 11.294 9.607c4.074 1.02 7.999 1.523 11.742 1.523c9.103 0 17.114-2.992 23.516-8.781c-.197 23.386.778 46.43 3.586 53.451c2.3 5.748 7.918 19.795 25.664 19.794c2.604 0 5.47-.303 8.623-.979c18.521-3.97 26.564-12.156 29.675-30.203c1.665-9.645 4.522-32.676 5.866-45.03c2.836.885 6.487 1.29 10.434 1.289c8.232 0 17.731-1.749 23.688-4.514c6.692-3.108 18.768-10.734 16.578-17.36m-44.106-83.48c-.061 3.647-.563 6.958-1.095 10.414c-.573 3.717-1.165 7.56-1.314 12.225c-.147 4.54.42 9.26.968 13.825c1.108 9.22 2.245 18.712-2.156 28.078a37 37 0 0 1-1.95-4.009c-.547-1.326-1.735-3.456-3.38-6.404c-6.399-11.476-21.384-38.35-13.713-49.316c2.285-3.264 8.084-6.62 22.64-4.813m-17.644-61.787c21.334.471 38.21 8.452 50.158 23.72c9.164 11.711-.927 64.998-30.14 110.969a171 171 0 0 0-.886-1.117l-.37-.462c7.549-12.467 6.073-24.802 4.759-35.738c-.54-4.488-1.05-8.727-.92-12.709c.134-4.22.692-7.84 1.232-11.34c.663-4.313 1.338-8.776 1.152-14.037c.139-.552.195-1.204.122-1.978c-.475-5.045-6.235-20.144-17.975-33.81c-6.422-7.475-15.787-15.84-28.574-21.482c5.5-1.14 13.021-2.203 21.442-2.016M66.674 175.778c-5.9 7.094-9.974 5.734-11.314 5.288c-8.73-2.912-18.86-21.364-27.791-50.624c-7.728-25.318-12.244-50.777-12.602-57.916c-1.128-22.578 4.345-38.313 16.268-46.769c19.404-13.76 51.306-5.524 64.125-1.347c-.184.182-.376.352-.558.537c-21.036 21.244-20.537 57.54-20.485 59.759c-.002.856.07 2.068.168 3.735c.362 6.105 1.036 17.467-.764 30.334c-1.672 11.957 2.014 23.66 10.111 32.109a36 36 0 0 0 2.617 2.468c-3.604 3.86-11.437 12.396-19.775 22.426m22.479-29.993c-6.526-6.81-9.49-16.282-8.133-25.99c1.9-13.592 1.199-25.43.822-31.79c-.053-.89-.1-1.67-.127-2.285c3.073-2.725 17.314-10.355 27.47-8.028c4.634 1.061 7.458 4.217 8.632 9.645c6.076 28.103.804 39.816-3.432 49.229c-.873 1.939-1.698 3.772-2.402 5.668l-.546 1.466c-1.382 3.706-2.668 7.152-3.465 10.424c-6.938-.02-13.687-2.984-18.819-8.34m1.065 37.9c-2.026-.506-3.848-1.385-4.917-2.114c.893-.42 2.482-.992 5.238-1.56c13.337-2.745 15.397-4.683 19.895-10.394c1.031-1.31 2.2-2.794 3.819-4.602l.002-.002c2.411-2.7 3.514-2.242 5.514-1.412c1.621.67 3.2 2.702 3.84 4.938c.303 1.056.643 3.06-.47 4.62c-9.396 13.156-23.088 12.987-32.921 10.526m69.799 64.952c-16.316 3.496-22.093-4.829-25.9-14.346c-2.457-6.144-3.665-33.85-2.808-64.447c.011-.407-.047-.8-.159-1.17a15.4 15.4 0 0 0-.456-2.162c-1.274-4.452-4.379-8.176-8.104-9.72c-1.48-.613-4.196-1.738-7.46-.903c.696-2.868 1.903-6.107 3.212-9.614l.549-1.475c.618-1.663 1.394-3.386 2.214-5.21c4.433-9.848 10.504-23.337 3.915-53.81c-2.468-11.414-10.71-16.988-23.204-15.693c-7.49.775-14.343 3.797-17.761 5.53c-.735.372-1.407.732-2.035 1.082c.954-11.5 4.558-32.992 18.04-46.59c8.489-8.56 19.794-12.788 33.568-12.56c27.14.444 44.544 14.372 54.366 25.979c8.464 10.001 13.047 20.076 14.876 25.51c-13.755-1.399-23.11 1.316-27.852 8.096c-10.317 14.748 5.644 43.372 13.315 57.129c1.407 2.521 2.621 4.7 3.003 5.626c2.498 6.054 5.732 10.096 8.093 13.046c.724.904 1.426 1.781 1.96 2.547c-4.166 1.201-11.649 3.976-10.967 17.847c-.55 6.96-4.461 39.546-6.448 51.059c-2.623 15.21-8.22 20.875-23.957 24.25m68.104-77.936c-4.26 1.977-11.389 3.46-18.161 3.779c-7.48.35-11.288-.838-12.184-1.569c-.42-8.644 2.797-9.547 6.202-10.503c.535-.15 1.057-.297 1.561-.473q.469.383 1.032.756c6.012 3.968 16.735 4.396 31.874 1.271l.166-.033c-2.042 1.909-5.536 4.471-10.49 6.772"/></svg>SQL</li>
+          <li><svg class="ic" viewBox="0 0 256 256" aria-hidden="true"><defs><linearGradient id="nextjsiconSVGrDou6dwg" x1="55.633%" x2="83.228%" y1="56.385%" y2="96.08%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="nextjsiconSVG9onTObtB" x1="50%" x2="49.953%" y1="0%" y2="73.438%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient><circle id="nextjsiconSVGN5eQqeMK" cx="128" cy="128" r="128"/></defs><mask id="nextjsiconSVGMX2wGdvm" fill="#fff"><use href="#nextjsiconSVGN5eQqeMK"/></mask><g mask="url(#nextjsiconSVGMX2wGdvm)"><circle cx="128" cy="128" r="128"/><path fill="url(#nextjsiconSVGrDou6dwg)" d="M212.634 224.028L98.335 76.8H76.8v102.357h17.228V98.68L199.11 234.446a128 128 0 0 0 13.524-10.418"/><path fill="url(#nextjsiconSVG9onTObtB)" d="M163.556 76.8h17.067v102.4h-17.067z"/></g></svg>Next.js</li>
+          <li><svg class="ic" viewBox="0 0 256 255" aria-hidden="true"><path fill="#464342" d="M18.124 127.5c0 43.296 25.16 80.711 61.646 98.442L27.594 82.986a109 109 0 0 0-9.47 44.514m183.221-5.52c0-13.517-4.856-22.879-9.02-30.165c-5.545-9.01-10.742-16.64-10.742-25.65c0-10.055 7.626-19.415 18.368-19.415c.485 0 .944.06 1.417.088c-19.46-17.829-45.387-28.714-73.863-28.714c-38.213 0-71.832 19.606-91.39 49.302c2.566.077 4.984.13 7.039.13c11.44 0 29.15-1.387 29.15-1.387c5.897-.348 6.592 8.312.702 9.01c0 0-5.926.697-12.52 1.042L100.32 194.7l23.937-71.79l-17.042-46.692c-5.89-.345-11.47-1.042-11.47-1.042c-5.894-.346-5.203-9.358.691-9.01c0 0 18.064 1.388 28.811 1.388c11.44 0 29.151-1.388 29.151-1.388c5.9-.348 6.594 8.312.702 9.01c0 0-5.938.697-12.52 1.042l39.529 117.581l10.91-36.458c4.728-15.129 8.327-25.995 8.327-35.36m-71.921 15.088l-32.818 95.363a109.4 109.4 0 0 0 30.899 4.456c12.737 0 24.952-2.202 36.323-6.2a9.6 9.6 0 0 1-.779-1.507zm94.058-62.045a84 84 0 0 1 .737 11.247c0 11.1-2.073 23.577-8.317 39.178l-33.411 96.6c32.518-18.963 54.39-54.193 54.39-94.545c.002-19.017-4.856-36.9-13.4-52.48M127.505 0C57.2 0 0 57.196 0 127.5c0 70.313 57.2 127.507 127.505 127.507c70.302 0 127.51-57.194 127.51-127.507C255.014 57.196 197.808 0 127.506 0m0 249.163c-67.08 0-121.659-54.578-121.659-121.663c0-67.08 54.576-121.654 121.659-121.654c67.078 0 121.652 54.574 121.652 121.654c0 67.085-54.574 121.663-121.652 121.663"/></svg>WordPress</li>
+          <li><svg class="ic sk-teal" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 5v16m4-8h2m-2-4h2m2.001 10A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2zM6 13h2M6 9h2"/></svg>OJS</li>
+          <li><svg class="ic" viewBox="0 0 256 250" aria-hidden="true"><rect width="256" height="249.6" fill="#001e36" rx="42.5"/><path fill="#31a8ff" d="M57.644 175.035V65.297q0-1.201 1.031-1.202l1.087-.003l1.858-.02l2.582-.051l8.65-.183l9.275-.172q4.893-.085 9.702-.086q13.05 0 21.982 3.263a38.1 38.1 0 0 1 14.34 8.758a33.6 33.6 0 0 1 7.814 12.108a40.2 40.2 0 0 1 2.405 13.824q0 13.741-6.355 22.669a35.9 35.9 0 0 1-16.6 12.756l-.573.21c-6.973 2.601-14.695 3.541-23.164 3.6l-1.316.004l-1.953-.01l-.985-.014l-1.098-.026l-.662-.026l-.402-.021l-.989-.036l-1.209-.025l-1.82-.013l-.405-.001v34.263a1.366 1.366 0 0 1-1.546 1.546H58.847q-1.204.001-1.203-1.374M80.84 84.703v35.792q2.23.173 4.12.172h5.668a40.3 40.3 0 0 0 11.533-1.727l.746-.233a18.5 18.5 0 0 0 8.759-5.668q3.228-3.807 3.344-10.492l.005-.499c.09-3.322-.774-6.6-2.491-9.445a16 16 0 0 0-7.47-6.097a31.8 31.8 0 0 0-12.537-2.146l-2.178.006l-1.374.012l-1.311.017l-1.85.036l-1.35.038l-.701.026l-.937.044l-.798.049l-.455.036l-.393.038l-.173.02zm123.93 29.284a40.2 40.2 0 0 0-9.458-3.442l-.76-.164a54.3 54.3 0 0 0-11.009-1.363l-.926-.011a22.2 22.2 0 0 0-6.44.773a5.8 5.8 0 0 0-3.35 2.146a5.4 5.4 0 0 0-.858 2.92a4.56 4.56 0 0 0 1.03 2.747a11.7 11.7 0 0 0 3.235 2.637l.372.197a72 72 0 0 0 7.556 3.52a75 75 0 0 1 16.4 7.814a24.94 24.94 0 0 1 8.416 8.845a23.6 23.6 0 0 1 2.49 10.99a24.7 24.7 0 0 1-4.122 14.169a27.1 27.1 0 0 1-11.936 9.53q-7.556 3.32-18.557 3.432l-.762.004a70 70 0 0 1-13.556-1.188l-.956-.186a46.3 46.3 0 0 1-10.905-3.435a2.22 2.22 0 0 1-1.202-1.89v-18.718a1.01 1.01 0 0 1 .43-.945a.83.83 0 0 1 .944.086a45.9 45.9 0 0 0 13.223 5.238a54.5 54.5 0 0 0 12.537 1.632q6.009 0 8.844-1.546a4.86 4.86 0 0 0 2.834-4.465q0-2.23-2.576-4.293q-1.08-.864-3.097-1.88l-.643-.316l-.686-.323l-.36-.164l-.754-.334l-.393-.17l-.82-.344l-.427-.175l-.886-.355l-.46-.18l-.953-.367l-.997-.373a63 63 0 0 1-15.199-7.728a26.2 26.2 0 0 1-8.071-9.016a23.7 23.7 0 0 1-2.49-10.905a24.6 24.6 0 0 1 3.606-12.88c2.7-4.27 6.576-7.67 11.163-9.788q7.555-3.776 18.89-3.779a83.6 83.6 0 0 1 13.224.945a34.7 34.7 0 0 1 9.206 2.49c.473.136.854.485 1.03.945c.117.419.174.852.172 1.288v17.345c.025.41-.172.803-.515 1.03a1.66 1.66 0 0 1-1.478 0"/></svg>Photoshop</li>
+          <li><svg class="ic" viewBox="0 0 256 250" aria-hidden="true"><path fill="#00005b" d="M45.333 0h165.334C235.733 0 256 20.267 256 45.333v158.934c0 25.066-20.267 45.333-45.333 45.333H45.333C20.267 249.6 0 229.333 0 204.267V45.333C0 20.267 20.267 0 45.333 0"/><path fill="#99f" d="M60.8 175.04V65.28c0-.747.32-1.173 1.067-1.173l1.548-.003l1.198-.01l.845-.016l.9-.023l.967-.034l.515-.021c.96-.04 1.935-.065 2.93-.086l3.055-.064q.521-.012 1.051-.028l1.07-.035q1.44-.052 2.952-.08l3.093-.055l2.141-.047l1.095-.032c2.204-.07 4.361-.094 6.502-.102l3.204-.004c8.747 0 16 1.066 21.974 3.306A38.1 38.1 0 0 1 131.2 75.52a34 34 0 0 1 7.787 12.16c1.6 4.48 2.453 9.067 2.453 13.867q0 13.76-6.4 22.72c-4.267 5.973-10.24 10.453-17.173 13.013c-7.012 2.578-14.721 3.56-23.128 3.623H91.69l-1.187-.012l-.761-.018l-.448-.019l-.402-.024l-.359-.03a16 16 0 0 0-.692-.052l-.52-.023l-.57-.015l-.951-.013l-1.853-.004v34.24c.106.747-.427 1.387-1.174 1.494H62.08c-.853 0-1.28-.427-1.28-1.387m23.253-90.347v35.84l1.254.09a43 43 0 0 0 2.906.124h5.654c4.16 0 8.32-.64 12.266-1.92c3.414-.96 6.4-2.987 8.747-5.654c2.24-2.666 3.307-6.293 3.307-10.986a17.56 17.56 0 0 0-2.454-9.494c-1.737-2.657-4.161-4.727-7.082-5.928l-.384-.152c-3.947-1.6-8.214-2.24-12.587-2.133l-2.466.003l-1.159.007l-1.107.015l-1.051.024q-.769.02-1.47.058a37 37 0 0 0-.688-.028l-.639-.014l-.3-.002l-.566.003l-.514.014l-.238.01l-.437.025l-.384.03l-.173.016l-.303.035zm72.32 6.187h18.667c1.007 0 1.825.666 2.182 1.549l.058.158c.32.853.533 1.706.64 2.666c.213 1.067.427 2.24.533 3.307l.09 1.032c.07.881.124 1.818.124 2.808a39.7 39.7 0 0 1 10.82-8.849l.593-.324c4.907-2.774 10.56-4.16 16.213-4.16c.747-.107 1.387.426 1.494 1.173v21.227c0 .853-.534 1.173-1.707 1.173c-3.584-.1-7.26.173-10.77.903l-.75.164q-4.64.96-8.96 2.88c-2.027.96-3.947 2.24-5.44 3.946v54.4c0 1.067-.427 1.494-1.387 1.494H157.76c-.853.106-1.6-.427-1.707-1.28v-59.52c0-2.56 0-5.227-.106-8l-.064-2.08l-.086-4.16q-.024-1.04-.064-2.08c0-2.454-.213-4.8-.426-7.254c-.107-.533.213-1.066.746-1.173c0-.091.157-.104.269-.04z"/></svg>Premiere Pro</li>
+        </ul>
+      </section>
 
-    <section data-tab="pengalaman" hidden>
-      <h2>Pengalaman</h2>
-      <ol class="tl">
-        <li><div class="h"><b>Kepala Subbagian PDDikti</b><time>Apr 2026 – sekarang</time></div>
-          <p class="org">FISIP, Universitas Muhammadiyah Tangerang</p>
-          <p class="desc">Mengelola data dosen dan mahasiswa, validasi dan sinkronisasi ke PDDikti.</p></li>
-        <li><div class="h"><b>Academic Data &amp; System Officer</b><time>Sep 2023 – sekarang</time></div>
-          <p class="org">Universitas Muhammadiyah Tangerang</p>
-          <p class="desc">Database mahasiswa, laporan akademik semester, koordinasi dengan prodi.</p></li>
-        <li><div class="h"><b>Production Operator</b><time>Nov 2021 – Okt 2022</time></div><p class="org">ParagonCorp</p></li>
-        <li><div class="h"><b>Quality Control Analyst</b><time>Sep 2020 – Jan 2021</time></div><p class="org">Al Qolam, BSD City</p></li>
-        <li><div class="h"><b>Robotics Operator</b><time>Feb 2016 – Sep 2017</time></div><p class="org">PT Mayora Indah Tbk</p></li>
-      </ol>
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>Pendidikan</h3>
-      <ol class="tl">
-        <li><div class="h"><b>S1 Computer and Information Sciences</b><time>2015 – 2019</time></div>
-          <p class="org">Universitas Muhammadiyah Tangerang · IPK 3,53</p></li>
-      </ol>
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Sukarelawan</h3>
-      <ol class="tl">
-        <li><div class="h"><b>Research Analyst</b><time>Mar 2018 – Mei 2019</time></div><p class="org">Badan Siber dan Sandi Negara (BSSN)</p></li>
-        <li><div class="h"><b>Volunteer Staff</b></div><p class="org">Komisi Pemilihan Umum RI</p></li>
-      </ol>
-    </section>
+      <section class="pane" data-tab="pengalaman" aria-labelledby="h-pengalaman" hidden>
+        <h2 id="h-pengalaman">Pengalaman</h2>
+        <ol class="tl">
+          <li><span class="dot"></span><div><div class="row1"><b>Kepala Subbagian PDDikti</b><time>Apr 2026 – sekarang</time></div>
+            <p class="org">FISIP, Universitas Muhammadiyah Tangerang</p><p class="ds">Mengelola data dosen dan mahasiswa, validasi dan sinkronisasi ke PDDikti.</p></div></li>
+          <li><span class="dot"></span><div><div class="row1"><b>Academic Data &amp; System Officer</b><time>Sep 2023 – sekarang</time></div>
+            <p class="org">Universitas Muhammadiyah Tangerang</p><p class="ds">Database mahasiswa, laporan akademik semester, koordinasi dengan prodi.</p></div></li>
+          <li class="lama"><span class="dot"></span><div><div class="row1"><b>Production Operator</b><time>Nov 2021 – Okt 2022</time></div><p class="org">ParagonCorp</p></div></li>
+          <li class="lama"><span class="dot"></span><div><div class="row1"><b>Quality Control Analyst</b><time>Sep 2020 – Jan 2021</time></div><p class="org">Al Qolam, BSD City</p></div></li>
+          <li class="lama"><span class="dot"></span><div><div class="row1"><b>Robotics Operator</b><time>Feb 2016 – Sep 2017</time></div><p class="org">PT Mayora Indah Tbk</p></div></li>
+        </ol>
+        <div class="duo">
+          <section class="tint violet" aria-label="Pendidikan">
+            <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0zM22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g></svg>Pendidikan</h3>
+            <b>S1 Computer and Information Sciences</b>
+            <p>Universitas Muhammadiyah Tangerang</p>
+            <p class="meta"><span>2015 – 2019</span><span class="pill">IPK 3,53</span></p>
+          </section>
+          <section class="tint rose" aria-label="Sukarelawan">
+            <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676a.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052a2.12 2.12 0 0 0-.004-3a2.124 2.124 0 1 0 3-3a2.124 2.124 0 0 0 3.004 0a2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0a2 2 0 0 1 0-2.828l2.823-2.762"/></svg>Sukarelawan</h3>
+            <ul>
+              <li><b>Research Analyst</b><p>Badan Siber dan Sandi Negara (BSSN)</p><p class="meta">Mar 2018 – Mei 2019</p></li>
+              <li><b>Volunteer Staff</b><p>Komisi Pemilihan Umum RI</p></li>
+            </ul>
+          </section>
+        </div>
+      </section>
 
-    <section data-tab="proyek" hidden>
-      <h2>Proyek</h2>
-      <p class="muted">Website yang saya buat dan masih dipakai sampai sekarang.</p>
-      <div class="projects">
-        <article class="proj"><img src="assets/proyek-sipaling.webp" alt="Tampilan SiPaling FISIP" loading="lazy" width="1200" height="750">
-          <div class="b"><b>SiPaling FISIP</b><span>Layanan akademik FISIP: tugas akhir, transkrip, dan ujian online.</span>
-            <a href="https://sipalingfisip.web.id/" target="_blank" rel="noopener">sipalingfisip.web.id ↗</a></div></article>
-        <article class="proj"><img src="assets/proyek-aipptm.webp" alt="Tampilan situs AIPPTM" loading="lazy" width="1200" height="750">
-          <div class="b"><b>AIPPTM</b><span>Website asosiasi dan jurnal ilmiah (WordPress dan OJS).</span>
-            <a href="https://www.aipptm.org/" target="_blank" rel="noopener">aipptm.org ↗</a></div></article>
-        <article class="proj"><img src="assets/proyek-accb.webp" alt="Tampilan situs PT Lembaga ACCB Inst" loading="lazy" width="1200" height="750">
-          <div class="b"><b>PT Lembaga ACCB Inst</b><span>Website penerbit buku akademik.</span>
-            <a href="https://accbinstitute.web.id/" target="_blank" rel="noopener">accbinstitute.web.id ↗</a></div></article>
-        <article class="proj"><img src="assets/proyek-ralindo.webp" alt="Tampilan situs PT Ralindo Solusi Pratama" loading="lazy" width="1200" height="750">
-          <div class="b"><b>PT Ralindo Solusi Pratama</b><span>Website perusahaan alat industri.</span>
-            <a href="https://www.ralindosolutama.com/" target="_blank" rel="noopener">ralindosolutama.com ↗</a></div></article>
-      </div>
-    </section>
+      <section class="pane" data-tab="proyek" aria-labelledby="h-proyek" hidden>
+        <h2 id="h-proyek">Proyek</h2>
+        <p class="sub">Website yang saya buat dan masih dipakai. Geser kartu, atau pakai tombol di bawahnya.</p>
+        <div class="deck-wrap">
+          <div class="deck" id="deck" tabindex="0" role="group" aria-roledescription="tumpukan kartu" aria-label="Proyek" aria-describedby="deck-hint">
+            <article class="card" data-name="SiPaling FISIP"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
+              <img src="assets/proyek-sipaling.webp" alt="Tampilan SiPaling FISIP" width="1200" height="750" draggable="false">
+              <div class="card-b"><h3>SiPaling FISIP</h3><p>Layanan akademik FISIP: tugas akhir, transkrip, dan ujian online.</p>
+                <a href="https://sipalingfisip.web.id/" target="_blank" rel="noopener">sipalingfisip.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
+            <article class="card" data-name="AIPPTM"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
+              <img src="assets/proyek-aipptm.webp" alt="Tampilan situs AIPPTM" width="1200" height="750" draggable="false">
+              <div class="card-b"><h3>AIPPTM</h3><p>Website asosiasi dan jurnal ilmiah (WordPress dan OJS).</p>
+                <a href="https://www.aipptm.org/" target="_blank" rel="noopener">aipptm.org<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
+            <article class="card" data-name="PT Lembaga ACCB Inst"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
+              <img src="assets/proyek-accb.webp" alt="Tampilan situs PT Lembaga ACCB Inst" width="1200" height="750" draggable="false">
+              <div class="card-b"><h3>PT Lembaga ACCB Inst</h3><p>Website penerbit buku akademik.</p>
+                <a href="https://accbinstitute.web.id/" target="_blank" rel="noopener">accbinstitute.web.id<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
+            <article class="card" data-name="PT Ralindo Solusi Pratama"><span class="stamp l">Berikutnya</span><span class="stamp r">Berikutnya</span>
+              <img src="assets/proyek-ralindo.webp" alt="Tampilan situs PT Ralindo Solusi Pratama" width="1200" height="750" draggable="false">
+              <div class="card-b"><h3>PT Ralindo Solusi Pratama</h3><p>Website perusahaan alat industri.</p>
+                <a href="https://www.ralindosolutama.com/" target="_blank" rel="noopener">ralindosolutama.com<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></div></article>
+          </div>
+          <p class="sr-only" id="deck-hint">Geser kartu ke kiri atau kanan, atau tekan panah kiri dan kanan. Tekan Backspace untuk kartu sebelumnya.</p>
+          <div class="deck-ctl">
+            <button class="mbtn" id="deck-back" type="button" data-morph><span class="mb-stack">
+              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></g></svg>Kembali</span></span></button>
+            <span class="count" id="deck-count" aria-hidden="true">1 / 4</span>
+            <button class="mbtn primary" id="deck-next" type="button" data-morph><span class="mb-stack">
+              <span class="mb-l on" data-s="idle">Berikutnya<svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14m-7-7l7 7l-7 7"/></svg></span></span></button>
+          </div>
+          <div class="jumps" id="jumps"></div>
+          <p class="sr-only" aria-live="polite" id="deck-live"></p>
+        </div>
+      </section>
 
-    <section data-tab="alat" hidden>
-      <h2>Alat</h2>
-      <p class="muted">Kumpulan alat yang sedang saya siapkan.</p>
-      <div class="tools">
-        <div class="tool"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg></span>
-          <b>Video Generator</b><span>Video edukasi pendek dari naskah, otomatis.</span><em>Segera hadir</em></div>
-        <div class="tool"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13l3 3 3-3M12 10v6"/></svg></span>
-          <b>Kompres PDF</b><span>Perkecil ukuran file PDF.</span><em>Segera hadir</em></div>
-        <div class="tool"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></span>
-          <b>Resize Foto</b><span>Ubah ukuran dan kompres foto.</span><em>Segera hadir</em></div>
-        <div class="tool"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="m8 2 4 4 4-4"/></svg></span>
-          <b>Nonton Drama</b><span>Tonton drama favorit.</span><em>Segera hadir</em></div>
-        <div class="tool"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M10 15l2 2 4-4"/></svg></span>
-          <b>Auto Post Facebook</b><span>Gambar dan caption terjadwal untuk halaman Facebook.</span><em>Segera hadir</em></div>
-        <div class="tool more"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          <span>Alat lain menyusul</span></div>
-      </div>
-    </section>
+      <section class="pane" data-tab="alat" aria-labelledby="h-alat" hidden>
+        <h2 id="h-alat">Alat</h2>
+        <p class="sub">Kumpulan alat yang sedang saya siapkan.</p>
+        <div class="tools">
+          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="m12.296 3.464l3.02 3.956M20.2 6L3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3zM3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3.18-5.724l3.1 3.899"/></svg><span class="badge">Segera hadir</span></div>
+            <b>Video Generator</b><span class="d">Video edukasi pendek dari naskah, otomatis.</span></article>
+          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5m-8 10v-6m-3 3l3 3l3-3"/></g></svg><span class="badge">Segera hadir</span></div>
+            <b>Kompres PDF</b><span class="d">Perkecil ukuran file PDF.</span></article>
+          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></g></svg><span class="badge">Segera hadir</span></div>
+            <b>Resize Foto</b><span class="d">Ubah ukuran dan kompres foto.</span></article>
+          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m17 2l-5 5l-5-5"/><rect width="20" height="15" x="2" y="7" rx="2"/></g></svg><span class="badge">Segera hadir</span></div>
+            <b>Nonton Drama</b><span class="d">Tonton drama favorit.</span></article>
+          <article class="tool"><div class="tool-h"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M16 14v2.2l1.6 1M16 2v3m5 2.338V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2.338M3 9h5.859M8 2v3"/><circle cx="16" cy="16" r="6"/></g></svg><span class="badge">Segera hadir</span></div>
+            <b>Auto Post Facebook</b><span class="d">Gambar dan caption terjadwal untuk halaman Facebook.</span></article>
+          <article class="tool more"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h14m-7-7v14"/></svg><span class="d">Alat lain menyusul</span></article>
+        </div>
+      </section>
 
-    <section data-tab="kontak" hidden>
-      <h2>Kontak</h2>
-      <div class="contacts">
-        <div class="ct"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <div><small>Email</small><a href="mailto:naufalserfusion@gmail.com">naufalserfusion@gmail.com</a></div><button type="button" data-salin="naufalserfusion@gmail.com">Salin</button></div>
-        <div class="ct"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <div><small>Email kampus</small><a href="mailto:naufalserfusion@umt.ac.id">naufalserfusion@umt.ac.id</a></div><button type="button" data-salin="naufalserfusion@umt.ac.id">Salin</button></div>
-        <div class="ct"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5M12 13a2 2 0 0 1 4 0v3"/></svg></span>
-          <div><small>LinkedIn</small><a href="https://www.linkedin.com/in/naufal-aufa-afaf-364544198/" target="_blank" rel="noopener">naufal-aufa-afaf</a></div></div>
-        <div class="ct"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.4a3 3 0 0 0-.8-2.3c2.8-.3 5.8-1.4 5.8-6.2a4.8 4.8 0 0 0-1.3-3.3 4.5 4.5 0 0 0-.1-3.3s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 2.2 5.8 2.5 5.8 2.5a4.5 4.5 0 0 0-.1 3.3 4.8 4.8 0 0 0-1.3 3.3c0 4.8 3 5.9 5.8 6.2a3 3 0 0 0-.8 2.3V21"/></svg></span>
-          <div><small>GitHub</small><a href="https://github.com/serfusion" target="_blank" rel="noopener">serfusion</a></div></div>
-        <div class="ct"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-          <div><small>Lokasi</small><strong>Kota Tangerang, Banten</strong></div></div>
-      </div>
-    </section>
+      <section class="pane" data-tab="kontak" aria-labelledby="h-kontak" hidden>
+        <h2 id="h-kontak">Kontak</h2>
+        <p class="sub">Paling cepat lewat email atau LinkedIn.</p>
+        <div class="rows">
+          <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></g></svg><div><small>Email</small><a href="mailto:naufalserfusion@gmail.com">naufalserfusion@gmail.com</a></div>
+            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@gmail.com"><span class="mb-stack">
+              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>Salin</span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>Tersalin</span></span></button></div>
+          <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M14 21v-3a2 2 0 0 0-4 0v3m8-16.067V21M4 6l7.106-3.79a2 2 0 0 1 1.788 0L20 6"/><path d="m6 11l-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11M6 4.933V21"/><circle cx="12" cy="9" r="2"/></g></svg><div><small>Email kampus</small><a href="mailto:naufalserfusion@umt.ac.id">naufalserfusion@umt.ac.id</a></div>
+            <button class="mbtn" type="button" data-morph data-salin="naufalserfusion@umt.ac.id"><span class="mb-stack">
+              <span class="mb-l on" data-s="idle"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></svg>Salin</span><span class="mb-l" data-s="done"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20 6L9 17l-5-5"/></svg>Tersalin</span></span></button></div>
+          <div class="crow"><svg class="ic" viewBox="0 0 256 256" aria-hidden="true"><path fill="#0a66c2" d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4c-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.91 39.91 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186zM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009s9.851-22.014 22.008-22.016c12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97zM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"/></svg><div><small>LinkedIn</small><a href="https://www.linkedin.com/in/naufal-aufa-afaf-364544198/" target="_blank" rel="noopener">naufal-aufa-afaf</a></div><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></div>
+          <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></g></svg><div><small>GitHub</small><a href="https://github.com/serfusion" target="_blank" rel="noopener">serfusion</a></div><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></div>
+          <div class="crow"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></g></svg><div><small>Lokasi</small><strong>Tangerang - Indonesia</strong></div></div>
+        </div>
+        <div class="cta">
+          <a class="mbtn primary lg" href="mailto:naufalserfusion@gmail.com"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11zm7.318-19.539l-10.94 10.939"/></svg>Kirim email</a>
+          <a class="mbtn lg" href="cv-naufal-aufa-afaf.pdf" target="_blank" rel="noopener"><svg class="ic-sm" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"><path d="M12 15V3m9 12v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10l5 5l5-5"/></g></svg>Unduh CV</a>
+        </div>
+      </section>
+    </div>
   </main>
+  <p class="made made-m">Made with <span class="heart">♥</span> by Me</p>
 </div>
 
 <script>
 (() => {
-  const root = document.documentElement;
-  const TABS = ['tentang', 'pengalaman', 'proyek', 'alat', 'kontak'];
-  const show = () => {
-    const h = location.hash.slice(1), t = TABS.includes(h) ? h : 'tentang';
-    document.querySelectorAll('[data-tab]').forEach(s => { s.hidden = s.dataset.tab !== t; });
-    document.querySelectorAll('.menu a[href^="#"]').forEach(a => {
-      if (a.getAttribute('href') === '#' + t) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
-    });
+  const root = document.documentElement, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const TABS = { tentang: 'Tentang', pengalaman: 'Pengalaman', proyek: 'Proyek', alat: 'Alat', kontak: 'Kontak' };
+
+  /* ---------- tombol morph: lebar memegas mengikuti label aktif ---------- */
+  const morphs = new Map();
+  const setMorph = (btn, s) => {
+    const labels = $$('.mb-l', btn), next = labels.find(l => l.dataset.s === s);
+    if (!next) return;
+    labels.forEach(l => l.classList.toggle('on', l === next));
+    if (!btn.classList.contains('block') && btn.offsetParent) {
+      const cs = getComputedStyle(btn), pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) * 2;
+      btn.style.width = Math.ceil(next.getBoundingClientRect().width + pad) + 'px';
+    }
+    btn.classList.toggle('ok', s === 'done' && !btn.classList.contains('primary'));
   };
-  addEventListener('hashchange', () => {
-    show();
-    if (innerWidth <= 860) document.querySelector('.content').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  show();
-  document.getElementById('tema').addEventListener('click', () => {
-    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-    root.dataset.theme = dark ? 'light' : 'dark';
-    try { localStorage.setItem('tema', root.dataset.theme); } catch (e) {}
-  });
-  document.querySelectorAll('[data-salin]').forEach(b => b.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(b.dataset.salin); b.textContent = 'Tersalin'; }
-    catch (e) { const r = document.createRange(); r.selectNodeContents(b.previousElementSibling.querySelector('a')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Ctrl+C'; }
-    setTimeout(() => { b.textContent = 'Salin'; }, 1600);
+  const resetMorphs = () => $$('[data-morph]').forEach(b => setMorph(b, morphs.get(b) || 'idle'));
+  const flash = (btn, steps) => {
+    clearTimeout(btn._t);
+    const run = i => { if (i >= steps.length) return; const [s, ms] = steps[i]; morphs.set(btn, s); setMorph(btn, s); if (ms) btn._t = setTimeout(() => run(i + 1), ms); };
+    run(0);
+  };
+  $$('[data-salin]').forEach(b => b.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(b.dataset.salin); }
+    catch (e) { const r = document.createRange(), a = b.parentElement.querySelector('a'); if (a) { r.selectNodeContents(a); getSelection().removeAllRanges(); getSelection().addRange(r); } }
+    flash(b, [['done', 1700], ['idle', 0]]);
   }));
+  $('#cv').addEventListener('click', e => { const b = e.currentTarget; flash(b, [['busy', 650], ['done', 1900], ['idle', 0]]); });
+
+  /* ---------- Dynamic Island ---------- */
+  const isl = $('#island'), islBtn = $('#isl-btn'), islCard = $('#isl-card'), islIdle = $('.isl-idle', isl), islNote = $('.isl-note', isl);
+  let islState = 'idle', noteTimer = 0;
+  const islSize = s => {
+    const vw = innerWidth;
+    if (s === 'open') {
+      const w = Math.min(380, vw - 24);
+      isl.style.setProperty('--iw-open', w + 'px');
+      return [w, islCard.scrollHeight, 30];
+    }
+    const layer = s === 'note' ? islNote : islIdle;
+    const inner = [...layer.children].reduce((a, c) => a + c.getBoundingClientRect().width, 0) + 8 * (layer.children.length - 1);
+    return [Math.ceil(inner + 36), 38, 19];
+  };
+  const setIsland = s => {
+    islState = s; isl.dataset.state = s;
+    const [w, h, r] = islSize(s);
+    isl.style.setProperty('--iw', w + 'px'); isl.style.setProperty('--ih', h + 'px'); isl.style.setProperty('--ir', r + 'px');
+    const open = s === 'open';
+    islBtn.setAttribute('aria-expanded', open); islCard.inert = !open;
+  };
+  islBtn.addEventListener('click', () => { clearTimeout(noteTimer); setIsland('open'); setTimeout(() => $('#isl-close').focus({ preventScroll: true }), 120); });
+  $('#isl-close').addEventListener('click', () => { setIsland('idle'); islBtn.focus({ preventScroll: true }); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && islState === 'open') { setIsland('idle'); islBtn.focus({ preventScroll: true }); } });
+  addEventListener('pointerdown', e => { if (islState === 'open' && !isl.contains(e.target)) setIsland('idle'); });
+  const notify = (k) => {
+    if (islState === 'open') return;
+    $('#isl-ic').innerHTML = $(`.menu a[data-k="${k}"] svg`).outerHTML;
+    $('#isl-txt').textContent = TABS[k];
+    setIsland('note'); clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => { if (islState === 'note') setIsland('idle'); }, 1500);
+  };
+
+  /* ---------- menu: sorotan aktif & hover yang meluncur ---------- */
+  const menu = $('#menu'), hlAct = $('.hl-act', menu), hlHov = $('.hl-hov', menu), links = $$('a', menu);
+  const place = (hl, el) => {
+    hl.style.setProperty('--hx', el.offsetLeft + 'px'); hl.style.setProperty('--hy', el.offsetTop + 'px');
+    hl.style.setProperty('--hw', el.offsetWidth + 'px'); hl.style.setProperty('--hh', el.offsetHeight + 'px');
+  };
+  const activeLink = () => links.find(a => a.getAttribute('aria-current') === 'page') || links[0];
+  links.forEach(a => {
+    a.addEventListener('pointerenter', e => {
+      if (e.pointerType !== 'mouse') return;
+      if (!menu.classList.contains('hovering')) { menu.classList.add('instant'); place(hlHov, a); hlHov.offsetWidth; menu.classList.remove('instant'); }
+      menu.classList.add('hovering'); place(hlHov, a);
+    });
+  });
+  menu.addEventListener('pointerleave', () => menu.classList.remove('hovering'));
+  menu.addEventListener('keydown', e => {
+    const i = links.indexOf(document.activeElement); if (i < 0) return;
+    const horiz = getComputedStyle(menu).flexDirection === 'row';
+    const k = e.key, nx = (horiz ? k === 'ArrowRight' : k === 'ArrowDown'), pv = (horiz ? k === 'ArrowLeft' : k === 'ArrowUp');
+    if (nx || pv) { e.preventDefault(); links[(i + (nx ? 1 : links.length - 1)) % links.length].focus(); }
+  });
+
+  /* ---------- panel isi: ganti tab dengan crossfade + tinggi memegas ---------- */
+  const panes = $('#panes'), paneOf = k => $(`.pane[data-tab="${k}"]`, panes);
+  let current = 'tentang', busy = 0;
+  const show = (k, animate) => {
+    if (!TABS[k]) k = 'tentang';
+    links.forEach(a => a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+    place(hlAct, activeLink());
+    if (k === current) return;
+    const from = paneOf(current), to = paneOf(k); current = k;
+    if (!animate || reduce.matches) { from.hidden = true; to.hidden = false; afterShow(k); return; }
+    clearTimeout(busy);
+    panes.style.height = panes.offsetHeight + 'px'; panes.classList.add('sizing');
+    from.classList.add('leave');
+    busy = setTimeout(() => {
+      $$('.pane', panes).forEach(p => { p.hidden = p !== to; p.classList.remove('leave'); });
+      to.classList.add('enter');
+      afterShow(k);
+      panes.style.height = to.offsetHeight + 'px';
+      requestAnimationFrame(() => requestAnimationFrame(() => to.classList.remove('enter')));
+      busy = setTimeout(() => { panes.style.height = ''; panes.classList.remove('sizing'); }, 560);
+    }, 150);
+  };
+  const afterShow = k => { if (k === 'proyek') deckLayout(); resetMorphs(); };
+  addEventListener('hashchange', () => {
+    const k = location.hash.slice(1); show(k, true); notify(TABS[k] ? k : 'tentang');
+    if (innerWidth <= 860) $('#panel').scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+  });
+
+  /* ---------- tema: morph matahari/bulan + sapuan melingkar ---------- */
+  $('#tema').addEventListener('click', e => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const apply = () => { root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('tema', root.dataset.theme); } catch (er) {} };
+    if (!document.startViewTransition || reduce.matches) { apply(); return; }
+    const r = e.currentTarget.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(() => root.animate(
+      { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] },
+      { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
+  });
+
+  /* ---------- tumpukan kartu proyek: lempar, kembali, geser ---------- */
+  const deck = $('#deck'), cards = $$('.card', deck), N = cards.length, live = $('#deck-live'), count = $('#deck-count'), jumps = $('#jumps');
+  let order = cards.map((_, i) => i), hist = [];
+  cards.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = c.dataset.name; b.addEventListener('click', () => jumpTo(i)); jumps.appendChild(b); });
+  const deckLayout = () => {
+    order.forEach((ci, p) => {
+      const c = cards[ci];
+      c.dataset.p = p; c.style.setProperty('--p', p); c.style.setProperty('--op', p < 3 ? 1 - p * .12 : 0);
+      c.style.setProperty('--tx', '0px'); c.style.setProperty('--ty', '0px'); c.style.setProperty('--rot', '0deg');
+      c.setAttribute('aria-label', `${c.dataset.name}, ${ci + 1} dari ${N}`);
+      c.setAttribute('aria-hidden', p ? 'true' : 'false');
+      $$('a', c).forEach(a => a.tabIndex = p ? -1 : 0);
+      $$('.stamp', c).forEach(s => s.style.opacity = 0);
+    });
+    const top = cards[order[0]];
+    deck.style.setProperty('--deck-h', (top.offsetHeight + 2 * 18) + 'px');
+    count.textContent = `${order[0] + 1} / ${N}`;
+    $$('button', jumps).forEach((b, i) => b.setAttribute('aria-current', i === order[0]));
+  };
+  const say = () => { live.textContent = `${cards[order[0]].dataset.name}, ${order[0] + 1} dari ${N}`; };
+  const toss = (dir = 1) => {
+    const ci = order[0], c = cards[ci];
+    hist.push({ ci, dir }); if (hist.length > 20) hist.shift();
+    if (reduce.matches) { order.push(order.shift()); deckLayout(); say(); return; }
+    c.classList.remove('drag'); c.classList.add('toss');
+    c.style.setProperty('--tx', `${dir * 125}%`); c.style.setProperty('--rot', `${dir * 16}deg`); c.style.setProperty('--op', 0);
+    order.push(order.shift());
+    order.forEach((cj, p) => { if (cj !== ci) { const o = cards[cj]; o.dataset.p = p; o.style.setProperty('--p', p); o.style.setProperty('--op', p < 3 ? 1 - p * .12 : 0); } });
+    count.textContent = `${order[0] + 1} / ${N}`; $$('button', jumps).forEach((b, i) => b.setAttribute('aria-current', i === order[0]));
+    setTimeout(() => {
+      c.classList.remove('toss'); c.classList.add('jump');
+      c.style.setProperty('--tx', '0px'); c.style.setProperty('--rot', '0deg');
+      c.offsetWidth; c.classList.remove('jump'); deckLayout();
+    }, 380);
+    say();
+  };
+  const back = () => {
+    const h = hist.pop();
+    let ci, dir;
+    if (h) { ci = h.ci; dir = h.dir; } else { ci = order[N - 1]; dir = -1; }
+    const c = cards[ci];
+    order = [ci, ...order.filter(x => x !== ci)];
+    if (reduce.matches) { deckLayout(); say(); return; }
+    c.classList.add('jump');
+    c.style.setProperty('--tx', `${dir * 125}%`); c.style.setProperty('--rot', `${dir * 16}deg`); c.style.setProperty('--op', 0); c.style.setProperty('--p', 0); c.dataset.p = 0;
+    c.offsetWidth; c.classList.remove('jump');
+    deckLayout(); say();
+  };
+  const jumpTo = i => { if (order[0] === i) return; hist = []; order = [i, ...order.filter(x => x !== i)]; deckLayout(); say(); };
+  $('#deck-next').addEventListener('click', () => toss(1));
+  $('#deck-back').addEventListener('click', back);
+  deck.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); toss(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); toss(-1); }
+    else if (e.key === 'Backspace' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z')) { e.preventDefault(); back(); }
+  });
+  let drag = null;
+  deck.addEventListener('pointerdown', e => {
+    const c = e.target.closest('.card'); if (!c || c.dataset.p !== '0' || e.target.closest('a') || e.button > 0) return;
+    drag = { c, x0: e.clientX, y0: e.clientY, t0: performance.now(), id: e.pointerId, moved: false, lock: null };
+  });
+  deck.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+    if (!drag.lock) { if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return; drag.lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      if (drag.lock === 'y') { drag = null; return; } deck.setPointerCapture(e.pointerId); drag.c.classList.add('drag'); }
+    drag.moved = true; drag.dx = dx;
+    drag.c.style.setProperty('--tx', dx + 'px'); drag.c.style.setProperty('--ty', dy * .15 + 'px'); drag.c.style.setProperty('--rot', dx * .06 + 'deg');
+    const s = $(dx < 0 ? '.stamp.l' : '.stamp.r', drag.c); $$('.stamp', drag.c).forEach(x => x.style.opacity = x === s ? Math.min(1, Math.abs(dx) / 90) : 0);
+  });
+  const endDrag = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag; drag = null;
+    if (!d.moved) return;
+    const v = Math.abs(d.dx) / Math.max(1, performance.now() - d.t0);
+    d.c.classList.remove('drag');
+    if (Math.abs(d.dx) > 90 || v > .6) toss(Math.sign(d.dx) || 1); else deckLayout();
+  };
+  deck.addEventListener('pointerup', endDrag); deck.addEventListener('pointercancel', endDrag);
+
+  /* ---------- tinggi panel = tinggi kartu profil (desktop) ---------- */
+  const side = $('#side');
+  const sync = () => {
+    $('#panel').style.setProperty('--side-h', side.offsetHeight + 'px');
+    place(hlAct, activeLink());
+    if (current === 'proyek') deckLayout();
+    resetMorphs(); setIsland(islState);
+  };
+  new ResizeObserver(sync).observe(side);
+  addEventListener('resize', sync);
+
+  /* ---------- awal ---------- */
+  const start = () => {
+    menu.classList.add('instant');
+    const k = location.hash.slice(1);
+    show(TABS[k] ? k : 'tentang', false);
+    sync(); deckLayout();
+    menu.offsetWidth; menu.classList.remove('instant');
+  };
+  start();
+  document.fonts && document.fonts.ready.then(sync);
 })();
 </script>
 </body>

@@ -3,7 +3,12 @@
 Situs statis satu halaman: `index.html`, folder `assets/`, dan `cv-naufal-aufa-afaf.pdf`.
 Tidak butuh build, database, atau server aplikasi. Kartu profil + menu di kiri, isi per tab di kanan
 (Tentang, Pengalaman, Proyek, Alat, Kontak). Tiap tab punya alamat sendiri, mis. `superfal-dev.com/#alat`.
-Tema terang/gelap mengikuti perangkat dan bisa diganti lewat tombol bulan di kartu profil.
+
+Gaya: permukaan netral ala shadcn, gerak pegas ala Arc UI (smooth, snappy, morph), transisi blur halus.
+- **Dynamic Island** di atas: diam = "Open to Work", ganti tab = nama tab sesaat, diklik = kontak cepat.
+- **Tumpukan kartu** di tab Proyek: geser atau lempar kartu, tombol Kembali dan Berikutnya, panah kiri/kanan.
+- **Tombol morph**: Unduh CV dan Salin email berubah label dengan lebar memegas.
+- Tema terang/gelap lewat tombol matahari/bulan (sapuan melingkar di browser yang mendukung).
 
 ## Memasang di VPS (Nginx)
 
@@ -34,7 +39,8 @@ di `index.html` (tag `canonical` dan `og:`), `robots.txt`, dan `sitemap.xml`.
 | Bagian | Tempat |
 |---|---|
 | Teks tiap tab | `index.html`, cari `data-tab="tentang"`, `"pengalaman"`, `"proyek"`, `"alat"`, `"kontak"` |
-| Alat baru / alat yang sudah jadi | tab `alat`: salin satu kotak `<div class="tool">`; ganti label "Segera hadir" dengan tautan ke alatnya |
+| Proyek baru | tab `proyek`: salin satu `<article class="card">` (gambar 16:10 di `assets/`) |
+| Alat baru / alat yang sudah jadi | tab `alat`: salin satu `<article class="tool">`; ganti label "Segera hadir" dengan tautan |
 | Foto | `assets/foto.webp` (persegi) |
 | Gambar proyek | `assets/proyek-*.webp`, rasio 16:10 (mis. 1200 × 750) |
 | CV PDF | sumber `sumber/cv.html`: buka di Chrome, Cetak → Simpan sebagai PDF, kertas A4, lalu ganti `cv-naufal-aufa-afaf.pdf` |
