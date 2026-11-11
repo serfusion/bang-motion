@@ -111,3 +111,17 @@ pre.log{background:#16201A;color:#D7E3D3;padding:14px;border-radius:10px;overflo
 @media (max-width:700px){main{padding:12px}.sc-cols{grid-template-columns:1fr}.top{padding:10px 12px}.top nav a{padding:5px 7px}h1{font-size:22px}}
 .btns.save{margin:0 0 20px}
 .ed-side .bar{min-width:70px}
+.komersial{border-color:#BCD8B4}.komersial .check b{font-size:15px}.komersial p{margin:8px 0 0}
+.top .keluar{margin:0}.top .keluar button{background:transparent;border-color:rgba(255,255,255,.25);color:#D9E2D6;padding:5px 10px;font-size:13px}.top .keluar button:hover{border-color:#fff;color:#fff}
+.halaman-masuk main{min-height:100vh;display:grid;place-items:center;padding:20px}.masuk{width:100%;max-width:380px;margin:0}.masuk h1{margin:6px 0 2px}.masuk form{margin-top:14px}.brand-gelap{margin:0;font-weight:800;font-size:15px}.brand-gelap .logo{color:var(--accent)}.masuk .err{margin:12px 0 0}.masuk .kembali{margin:14px 0 0}
+.wmcek{margin:4px 0 12px;flex-wrap:wrap}.wmcek b{font-weight:700}
+.wm-hp{position:relative;width:270px;height:480px;margin:0 auto;border-radius:22px;overflow:hidden;background:#F2E8D3;
+  background-image:repeating-linear-gradient(0deg,rgba(30,42,34,.05) 0 1px,transparent 1px 19px);box-shadow:inset 0 0 0 1px var(--line),0 10px 26px rgba(30,42,34,.12)}
+.wm-hp .ui-atas{position:absolute;left:70px;right:70px;top:30px;height:14px;border-radius:7px;background:rgba(30,42,34,.13)}
+.wm-hp .ui-cari{position:absolute;right:12px;top:26px;width:22px;height:22px;border-radius:50%;background:rgba(30,42,34,.13)}
+.wm-hp .ui-rel{position:absolute;right:10px;top:220px;display:grid;gap:12px}.wm-hp .ui-rel i{width:28px;height:28px;border-radius:50%;background:rgba(30,42,34,.13)}
+.wm-pv{position:absolute;right:9px;top:28px;display:flex;align-items:center;gap:2.5px;padding:1.75px 5px 1.75px 1.75px;border-radius:99px;
+  background:rgba(27,40,31,.72);color:#FFF8EA;font:800 7.5px/1 system-ui,sans-serif;white-space:nowrap}
+.wm-pv.solo{padding:1.75px}.wm-pv i{width:15px;height:15px;border-radius:50%;background:#FFF8EA;display:grid;place-items:center;overflow:hidden}
+.wm-pv img{width:12px;height:12px;object-fit:contain}
+label>.muted.small,label .muted.small{display:block;font-weight:400;margin-top:4px}

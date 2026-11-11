@@ -8,6 +8,9 @@ function build(){
   $('#lens').innerHTML=`<svg width="1400" height="800" viewBox="-20 -400 1400 800" style="overflow:visible">${leafG(1340,480)}</svg>`;
   PROG=FMT==='fakta'?[]:SCN.filter(s=>['langkah','banding','twist'].includes(s.jenis));
   $('#prog').innerHTML=PROG.map((s,i)=>`<div class="sg${s.jenis==='twist'?' w':''}"><i id="pg${i}"></i></div>`).join('');
+  const WM=(TL.meta||{}).watermark,wm=$('#wm');      /* watermark: nama channel + maskot, kanan atas, sedikit pudar */
+  if(WM&&wm&&(WM.teks||WM.src)){wm.style.top=(WM.atas|0)+'px';wm.style.opacity=String(WM.opacity||.6);if(!WM.teks)wm.classList.add('solo');
+    wm.innerHTML=(WM.src?`<i${WM.foto?' class="foto"':''}><img src="${WM.src}" alt=""></i>`:'')+(WM.teks?`<b>${esc(WM.teks)}</b>`:'');}
   const subs=$('#subs');if(FMT==='fakta')subs.classList.add('fk');document.getElementById('stage').classList.add('fmt-'+FMT);
   PAGES=(TL.pages||[]).map(p=>{const ws=p.words;const el=document.createElement('div');el.className='sp';
     el.innerHTML=ws.map(w=>`<span class="sw">${esc(w.w)}</span>`).join(' ');subs.appendChild(el);return {p,ws,el,spans:$$('.sw',el)};});

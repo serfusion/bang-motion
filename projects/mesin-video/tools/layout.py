@@ -70,9 +70,12 @@ def main(eid, lang="id"):
     ref = np.percentile(rms[rms > 1e-4], 95) if np.any(rms > 1e-4) else 1
     mouth = [round(float(min(1, max(0, (20 * np.log10(v / ref + 1e-9) + 30) / 26))), 2) for v in rms]
     V = ep["suara_en"] if lang == "en" else ep["suara"]
+    # atribusi "Suara: ElevenLabs" wajib hanya untuk suara dari paket gratis (atau yang paketnya tidak diketahui)
+    paket = [load_json(lang_dir(eid, lang, "vo", s["key"] + ".align.json")).get("paket") for s in scenes]
     meta = {"id": eid, "judul": ep.get("judul_en") if lang == "en" and ep.get("judul_en") else ep["judul"],
             "sumber": [s.get("singkat") or s["judul"] for s in ep["sumber"]],
-            "elevenlabs": V["penyedia"] == "elevenlabs", "musik": f"{ep['musik']['judul']} — {ep['musik']['artis']} (Mixkit)"}
+            "elevenlabs": V["penyedia"] == "elevenlabs" and any(p != "berbayar" for p in paket), "musik": f"{ep['musik']['judul']} — {ep['musik']['artis']} (Mixkit)",
+            "watermark": ep.get("wm")}
     save_json(lang_dir(eid, lang, "timeline.json"), {"T": T, "duration": DURATION, "lang": lang, "format": ep.get("format", "tebakan"),
                                                     "scenes": scenes, "pages": pages, "mouth": mouth, "meta": meta}, indent=None)
     for s in scenes:

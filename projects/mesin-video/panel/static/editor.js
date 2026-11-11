@@ -143,8 +143,8 @@
     clearTimeout(timer);
     timer = setTimeout(async () => {
       const s = iq.value.trim(); if (!s) { ih.innerHTML = ''; return; }
-      const names = await (await fetch('/api/ikon?q=' + encodeURIComponent(s))).json();
-      ih.innerHTML = names.length ? names.map(n => `<button type="button" title="${esc(n)}" data-n="${esc(n)}"><img loading="lazy" src="/ikon/${encodeURIComponent(n)}.svg" alt=""><span>${esc(n)}</span></button>`).join('')
+      const names = await (await fetch((window.BASE || '') + '/api/ikon?q=' + encodeURIComponent(s))).json();
+      ih.innerHTML = names.length ? names.map(n => `<button type="button" title="${esc(n)}" data-n="${esc(n)}"><img loading="lazy" src="${window.BASE || ''}/ikon/${encodeURIComponent(n)}.svg" alt=""><span>${esc(n)}</span></button>`).join('')
         : '<p class="muted small">Tidak ada. Coba kata Inggris.</p>';
     }, 220);
   });

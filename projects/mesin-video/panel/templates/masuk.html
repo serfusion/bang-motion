@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Masukkan kunci · Content Creator</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='panel.css') }}">
+</head>
+<body class="halaman-masuk">
+<main>
+  <section class="card masuk">
+    <p class="brand-gelap"><span class="logo">▶</span> Content Creator</p>
+    <h1>Masukkan kunci</h1>
+    <p class="muted small">Panel ini terkunci. Enter the key to open the studio.</p>
+    {% if galat %}<p class="err" role="alert">{{ galat }}</p>{% endif %}
+    <form method="post" action="{{ url_for('masuk') }}" autocomplete="off">
+      <input type="hidden" name="ke" value="{{ ke }}">
+      <label>Kunci <input type="password" name="kunci" required autofocus autocomplete="current-password" maxlength="200"></label>
+      <button class="primary wide">Buka</button>
+    </form>
+    {% if request.script_root %}<p class="small kembali"><a href="/">← {{ request.host }}</a></p>{% endif %}
+  </section>
+</main>
+</body>
+</html>

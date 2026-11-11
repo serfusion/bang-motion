@@ -58,12 +58,15 @@ def plan(ep, lang="id"):
     """Per scene: (key, seed, tts text, words, hash, cached?). A scene is sent to the TTS service only when its text,
     voice or settings changed since the last run, so re-rendering an edited episode costs only the edited scenes."""
     V, out, rows = voice_for(ep, lang), lang_dir(ep["id"], lang, "vo"), []
+    km = elevenlabs.komersial()
     for k, sc in enumerate(ep["adegan"]):
         key, seed = f"s{k + 1}", 4200 + k
         text, words = parse_vo(script(sc, lang))
         h = hashlib.sha1(json.dumps([text, V["voice_id"], V["model"], V.get("pengaturan"), seed]).encode()).hexdigest()[:16]
         ap = os.path.join(out, key + ".align.json")
-        cached = os.path.exists(ap) and load_json(ap).get("hash") == h
+        old = load_json(ap) if os.path.exists(ap) else {}
+        # mode komersial: suara lama dari kunci gratis / tak diketahui dibuat ulang dengan kunci berbayar
+        cached = old.get("hash") == h and (not km or old.get("paket") == "berbayar")
         rows.append((key, seed, text, words, h, cached))
     return rows
 
@@ -80,7 +83,7 @@ def tts(ep, lang="id"):
                 f.write(base64.b64decode(d.pop("audio_base64")))
             d["hash"] = h
             save_json(ap, d)
-            print(f"{key}: TTS {len(text)} karakter")
+            print(f"{key}: TTS {len(text)} karakter (kunci {d.get('paket')})")
         aw = words_from_alignment(text, d["alignment"])
         assert len(aw) == len(words), (key, [w["w"] for w in aw], [w["w"] for w in words])
         lines.append({"key": key, "file": f"vo/{key}.mp3", "words": aw})

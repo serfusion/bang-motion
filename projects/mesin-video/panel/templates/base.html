@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{% block title %}Panel{% endblock %} · Mesin Video</title>
+<title>{% block title %}Panel{% endblock %} · Content Creator</title>
+<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="{{ url_for('static', filename='panel.css') }}">
+<script>window.BASE = {{ request.script_root|tojson }};</script>
 {% if refresh %}<meta http-equiv="refresh" content="3">{% endif %}
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="{{ url_for('dasbor') }}"><span class="logo">▶</span> Mesin Video</a>
+  <a class="brand" href="{{ url_for('dasbor') }}"><span class="logo">▶</span> Content Creator</a>
   <nav>
     <a href="{{ url_for('dasbor') }}" class="{{ 'on' if nav=='dasbor' }}">Dasbor</a>
     <a href="{{ url_for('episode_daftar') }}" class="{{ 'on' if nav=='episode' }}">Episode</a>
@@ -21,8 +23,11 @@
     <a href="{{ url_for('tabel_daftar', t='musik') }}" class="{{ 'on' if nav=='musik' }}">Musik</a>
     <a href="{{ url_for('tabel_daftar', t='suara') }}" class="{{ 'on' if nav=='suara' }}">Suara</a>
     <span class="sep"></span>
+    <a href="{{ url_for('watermark') }}" class="{{ 'on' if nav=='watermark' }}">Watermark</a>
     <a href="{{ url_for('kunci') }}" class="{{ 'on' if nav=='kunci' }}">Kunci API</a>
     <a href="{{ url_for('antrean') }}" class="{{ 'on' if nav=='antrean' }}">Antrean{% if antre_n %} <b class="badge">{{ antre_n }}</b>{% endif %}</a>
+    {% if berkunci %}<span class="sep"></span>
+    <form method="post" action="{{ url_for('keluar') }}" class="keluar"><input type="hidden" name="_csrf" value="{{ csrf }}"><button>Keluar</button></form>{% endif %}
   </nav>
 </header>
 <main>

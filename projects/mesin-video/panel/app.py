@@ -5,13 +5,18 @@
   python3 panel/app.py --port 8080
   PANEL_PASSWORD=rahasia python3 panel/app.py --host 0.0.0.0     # bila dibuka dari perangkat lain di jaringan
 
+Dengan PANEL_PASSWORD, panel terkunci: pengunjung melihat halaman "Masukkan kunci" (/masuk) dan setelah kunci benar
+mendapat sesi cookie 7 hari. Formulir kunci di portofolio (superfal-dev.com, tab Innovation) mengirim ke /studio/masuk.
+Kunci tidak pernah ditulis di repo: hanya di lingkungan server (/etc/superfal/panel.env).
+
 Data tersimpan di db/konten.db (tidak di-commit; dibuat dari db/data/*.json saat pertama kali dijalankan).
 "Simpan ke JSON" menulis isi database kembali ke db/data/*.json untuk git; kunci API tidak pernah ikut.
 Tombol render memasukkan tugas ke antrean; satu pekerja di latar belakang menjalankan tools/make_video.py.
 """
-import argparse, contextlib, hmac, io, json, os, re, secrets, signal, sqlite3, subprocess, sys, threading, time
-from datetime import datetime
+import argparse, contextlib, hashlib, hmac, io, json, os, re, secrets, signal, sqlite3, subprocess, sys, threading, time
+from datetime import datetime, timedelta
 from flask import Flask, Response, abort, flash, g, jsonify, redirect, render_template, request, send_file, session, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
@@ -35,6 +40,8 @@ POLICY_URL = "https://elevenlabs.io/docs/help-center/account/general/can-users-h
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 60 * 1024 * 1024
+# di balik Nginx (mis. superfal-dev.com/studio/): alamat & awalan diambil dari header X-Forwarded-*
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 
 def _secret():
@@ -47,6 +54,8 @@ def _secret():
 
 
 app.secret_key = os.environ.get("PANEL_SECRET") or _secret()
+app.config.update(SESSION_COOKIE_NAME="studio", SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax",
+                  SESSION_COOKIE_SECURE=bool(os.environ.get("PANEL_PUBLIK")), PERMANENT_SESSION_LIFETIME=timedelta(days=7))
 
 
 # ------------------------------------------------------------------ database
@@ -77,27 +86,119 @@ def episode_or_404(eid, full=True):
     return dbt.load_episode(con(), eid, full)
 
 
-# ------------------------------------------------------------------ keamanan: kata sandi opsional + token formulir
+# ------------------------------------------------------------------ keamanan: kunci (PANEL_PASSWORD) + token formulir
+TERBUKA = {"masuk", "static"}               # boleh dibuka tanpa kunci
+GAGAL, GAGAL_LOCK = {}, threading.Lock()    # ip -> waktu-waktu kunci salah (memori proses)
+GAGAL_BATAS, GAGAL_JENDELA = 8, 15 * 60     # 8 kali salah dalam 15 menit -> IP itu ditahan sampai jendela lewat
+
+
+def _kunci_cocok(k):
+    pw = os.environ.get("PANEL_PASSWORD") or ""
+    return bool(pw) and hmac.compare_digest((k or "").encode(), pw.encode())
+
+
+def _tanda():
+    """Penanda sesi yang terikat pada kunci saat ini: kunci diganti = semua sesi lama keluar."""
+    sk = app.secret_key if isinstance(app.secret_key, bytes) else str(app.secret_key).encode()
+    return hmac.new(sk, (os.environ.get("PANEL_PASSWORD") or "").encode(), hashlib.sha256).hexdigest()[:32]
+
+
+def _sudah_masuk():
+    return hmac.compare_digest(str(session.get("masuk", "")), _tanda())
+
+
+def _mau_json():
+    return "application/json" in request.headers.get("Accept", "")
+
+
+def _gagal(ip, catat=False):
+    now = time.time()
+    with GAGAL_LOCK:
+        if len(GAGAL) > 5000:
+            GAGAL.clear()
+        t = [x for x in GAGAL.get(ip, []) if now - x < GAGAL_JENDELA] + ([now] if catat else [])
+        GAGAL[ip] = t
+        return len(t)
+
+
+def _aman(ke):
+    """Tujuan setelah masuk: hanya path di dalam panel (tidak boleh melompat ke situs lain)."""
+    ke = (ke or "").strip()
+    return ke if ke.startswith("/") and not ke.startswith("//") and not re.search(r"[\\\s]", ke) else ""
+
+
 @app.before_request
 def _guard():
     pw = os.environ.get("PANEL_PASSWORD")
-    if pw:
-        a = request.authorization
-        if not a or not hmac.compare_digest((a.password or "").encode(), pw.encode()):
-            return Response("Panel ini butuh kata sandi.", 401, {"WWW-Authenticate": 'Basic realm="Mesin Video"'})
+    if not pw and request.headers.get("X-Forwarded-For"):
+        abort(403, description="Panel dibuka lewat internet tanpa PANEL_PASSWORD. Setel kunci dulu.")
+    if pw and request.endpoint not in TERBUKA and not _sudah_masuk():
+        a = request.authorization                 # Basic auth tetap diterima (skrip / curl -u)
+        if not (a and _kunci_cocok(a.password)):
+            if a:
+                time.sleep(1.2)
+            if _mau_json() or request.path.startswith("/api/"):
+                return jsonify(ok=False, pesan="Butuh kunci."), 401
+            ke = request.full_path.rstrip("?")
+            return redirect(url_for("masuk", ke=ke if ke not in ("/", "") else None))
     if "csrf" not in session:
         session["csrf"] = secrets.token_hex(16)
-    if request.method == "POST":
+    if request.method == "POST" and request.endpoint != "masuk":
         tok = request.form.get("_csrf") or request.headers.get("X-CSRF", "")
         if not hmac.compare_digest(tok.encode(), session["csrf"].encode()):
             abort(400, description="Formulir kedaluwarsa. Muat ulang halaman lalu coba lagi.")
+
+
+@app.after_request
+def _header(r):
+    r.headers.setdefault("X-Content-Type-Options", "nosniff")
+    r.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    r.headers.setdefault("Referrer-Policy", "same-origin")
+    r.headers.setdefault("X-Robots-Tag", "noindex, nofollow")
+    if request.endpoint == "ikon":               # SVG unggahan dibuka langsung: tanpa skrip
+        r.headers["Content-Security-Policy"] = "default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox"
+    return r
+
+
+@app.route("/masuk", methods=["GET", "POST"])
+def masuk():
+    ke = _aman(request.values.get("ke"))
+    tujuan = (request.script_root + ke) if ke else url_for("dasbor")
+    if not os.environ.get("PANEL_PASSWORD") or (request.method == "GET" and _sudah_masuk()):
+        return redirect(tujuan)
+    if request.method == "GET":
+        return render_template("masuk.html", galat=None, ke=ke)
+    ip = request.remote_addr or "?"
+    if _gagal(ip) >= GAGAL_BATAS:
+        msg = "Terlalu banyak percobaan. Coba lagi 15 menit lagi."
+        if _mau_json():
+            return jsonify(ok=False, kode="batas", pesan=msg), 429
+        return render_template("masuk.html", galat=msg, ke=ke), 429
+    if _kunci_cocok(request.form.get("kunci", "")):
+        with GAGAL_LOCK:
+            GAGAL.pop(ip, None)
+        session.clear()
+        session.permanent = True
+        session["masuk"], session["csrf"] = _tanda(), secrets.token_hex(16)
+        return jsonify(ok=True, ke=tujuan) if _mau_json() else redirect(tujuan)
+    _gagal(ip, catat=True)
+    time.sleep(1.2)                               # memperlambat tebak-tebakan
+    if _mau_json():
+        return jsonify(ok=False, kode="salah", pesan="Kunci salah."), 401
+    return render_template("masuk.html", galat="Kunci salah.", ke=ke), 401
+
+
+@app.route("/keluar", methods=["POST"])
+def keluar():
+    session.clear()
+    return redirect(url_for("masuk"))
 
 
 @app.context_processor
 def _ctx():
     n = q1("SELECT COUNT(*) n FROM tugas WHERE status IN ('antre','jalan')")["n"]
     return {"csrf": session.get("csrf", ""), "antre_n": n, "BAHASA": BAHASA, "FORMATS": templat.FORMATS,
-            "nav": g.get("nav", ""), "mask": mask}
+            "nav": g.get("nav", ""), "mask": mask, "berkunci": bool(os.environ.get("PANEL_PASSWORD"))}
 
 
 @app.template_filter("angka")
@@ -106,7 +207,9 @@ def _angka(n):
 
 
 @app.errorhandler(400)
+@app.errorhandler(403)
 @app.errorhandler(404)
+@app.errorhandler(413)
 def _err(e):
     return render_template("pesan.html", judul=f"{e.code}", pesan=e.description), e.code
 
@@ -270,7 +373,8 @@ def episode_edit(eid):
         kategori=q("SELECT id, nama FROM kategori ORDER BY nama"), suara=q("SELECT id, nama, model FROM suara ORDER BY id"),
         musik=q("SELECT id, judul, artis, bpm FROM musik ORDER BY id"), statuses=STATUS_EP, has_en=has_en(ep),
         data_adegan=kirim_json(ep["adegan"]), data_templat=kirim_json(templat.SCENES),
-        data_format=kirim_json({k: list(v) for k, v in FORMAT_SCENES.items()}), syntax=templat.SYNTAX)
+        data_format=kirim_json({k: list(v) for k, v in FORMAT_SCENES.items()}), syntax=templat.SYNTAX,
+        wm=dbt.pengaturan(con()))
 
 
 @app.route("/episode/<eid>/simpan", methods=["POST"])
@@ -309,7 +413,8 @@ def episode_simpan(eid):
           "format": F.get("format") if F.get("format") in templat.FORMATS else old["format"],
           "suara_id": F.get("suara_id") or None, "suara_en_id": F.get("suara_en_id") or None, "musik_id": F.get("musik_id") or None,
           "tempo": tempo, "status": F.get("status") if F.get("status") in STATUS_EP else old.get("status", "draf"),
-          "catatan": F.get("catatan", "").strip() or None, "adegan": adegan, "fakta": F.getlist("fakta")}
+          "catatan": F.get("catatan", "").strip() or None, "adegan": adegan, "fakta": F.getlist("fakta"),
+          "watermark": 1 if F.get("watermark") else 0}
     dbt.save_episode(con(), ep)
     con().commit()
     errs, warns = dbt.validate(dbt.load_episode(con(), eid))
@@ -583,6 +688,42 @@ def berkas(p):
                      download_name=os.path.basename(full))
 
 
+# ------------------------------------------------------------------ watermark (nama channel + maskot di video)
+@app.route("/watermark", methods=["GET", "POST"])
+def watermark():
+    g.nav = "watermark"
+    if request.method == "POST":
+        F = request.form
+        try:
+            atas = float(F.get("watermark_atas_cm", "0.75").replace(",", ".") or 0.75)
+            op = float(F.get("watermark_opacity", "60").replace(",", ".") or 60)
+            if not (0 <= atas <= 12 and 15 <= op <= 100):
+                raise ValueError
+        except ValueError:
+            flash("Belum disimpan: jarak 0–12 cm dan kepekatan 15–100%.", "galat")
+            return redirect(url_for("watermark"))
+        gambar = F.get("watermark_gambar", "")
+        if gambar not in ("", "tanpa") and not q1("SELECT 1 FROM aset WHERE id=?", gambar):
+            gambar = ""
+        nilai = {"watermark_nama": F.get("watermark_nama", "").strip()[:40], "watermark_gambar": gambar,
+                 "watermark_atas_cm": f"{atas:g}", "watermark_opacity": f"{op:g}",
+                 "watermark_bawaan": "1" if F.get("watermark_bawaan") else "0"}
+        for k, v in nilai.items():
+            con().execute("INSERT INTO pengaturan (kunci, nilai) VALUES (?,?) ON CONFLICT(kunci) DO UPDATE SET nilai=excluded.nilai", (k, v))
+        con().commit()
+        flash("Watermark disimpan. Berlaku untuk render berikutnya (video lama tidak berubah sampai dirender ulang).", "ok")
+        return redirect(url_for("watermark"))
+    s = dbt.pengaturan(con())
+    n = q1("SELECT SUM(watermark=1) ya, SUM(watermark=0) tidak, SUM(watermark IS NULL) ikut FROM episode")
+    return render_template("watermark.html", s=s, px_cm=dbt.WM_PX_CM, n=n,
+                           aset=q("SELECT id, jenis FROM aset ORDER BY id"))
+
+
+@app.route("/watermark/maskot.svg")
+def watermark_maskot():
+    return send_file(os.path.join(ENGINE, "icons", "maskot-si-katuk.svg"), mimetype="image/svg+xml", max_age=3600)
+
+
 # ------------------------------------------------------------------ kunci API
 @app.route("/kunci")
 def kunci():
@@ -590,8 +731,10 @@ def kunci():
     rows = q("SELECT * FROM kunci_api WHERE penyedia='elevenlabs' ORDER BY urutan, id")
     by = {r["urutan"]: r for r in rows if 1 <= r["urutan"] <= KEY_SLOTS}
     lain = [r for r in rows if r not in by.values()]
+    r = q1("SELECT nilai FROM pengaturan WHERE kunci='komersial'")
     return render_template("kunci.html", slots=[(i, by.get(i)) for i in range(1, KEY_SLOTS + 1)], lain=lain,
-                           env_key=bool(os.environ.get("XI_API_KEY")), policy=POLICY_URL)
+                           env_key=bool(os.environ.get("XI_API_KEY")), policy=POLICY_URL, komersial=bool(r and r["nilai"] == "1"),
+                           n_bayar=sum(1 for x in rows if x["aktif"] and x["paket"] == "berbayar"))
 
 
 @app.route("/kunci/simpan", methods=["POST"])
@@ -605,21 +748,26 @@ def _simpan_kunci(F):
     n = 0
     for i in range(1, KEY_SLOTS + 1):
         label, key, aktif = F.get(f"label{i}", "").strip(), F.get(f"kunci{i}", "").strip(), 1 if F.get(f"aktif{i}") else 0
+        paket = F.get(f"paket{i}", "") if F.get(f"paket{i}", "") in ("gratis", "berbayar") else None
         row = q1("SELECT id FROM kunci_api WHERE penyedia='elevenlabs' AND urutan=?", i)
         if key and not re.fullmatch(r"[A-Za-z0-9_\-]{16,200}", key):
             flash(f"Kunci {i}: format tidak dikenali (salin ulang dari ElevenLabs → Profile → API Keys).", "galat")
             continue
         if row:
             if key:
-                con().execute("UPDATE kunci_api SET label=?, aktif=?, kunci=?, status='belum dites', sisa=NULL, catatan=NULL "
-                              "WHERE id=?", (label or f"Kunci {i}", aktif, key, row["id"]))
+                con().execute("UPDATE kunci_api SET label=?, aktif=?, kunci=?, paket=?, status='belum dites', sisa=NULL, catatan=NULL "
+                              "WHERE id=?", (label or f"Kunci {i}", aktif, key, paket, row["id"]))
             else:
-                con().execute("UPDATE kunci_api SET label=?, aktif=? WHERE id=?", (label or f"Kunci {i}", aktif, row["id"]))
+                con().execute("UPDATE kunci_api SET label=?, aktif=?, paket=? WHERE id=?", (label or f"Kunci {i}", aktif, paket, row["id"]))
             n += 1
         elif key:
-            con().execute("INSERT INTO kunci_api (penyedia, label, kunci, urutan, aktif) VALUES ('elevenlabs',?,?,?,?)",
-                          (label or f"Kunci {i}", key, i, aktif))
+            con().execute("INSERT INTO kunci_api (penyedia, label, kunci, urutan, aktif, paket) VALUES ('elevenlabs',?,?,?,?,?)",
+                          (label or f"Kunci {i}", key, i, aktif, paket))
             n += 1
+    if "_ada_komersial" in F:
+        con().execute("INSERT INTO pengaturan (kunci, nilai) VALUES ('komersial', ?) ON CONFLICT(kunci) DO UPDATE SET nilai=excluded.nilai",
+                      ("1" if F.get("komersial") else "0",))
+        n += 1
     con().commit()
     return n
 
@@ -837,6 +985,8 @@ def main():
     ap.add_argument("--port", type=int, default=5000)
     ap.add_argument("--tanpa-pekerja", action="store_true", help="jangan jalankan render di proses ini")
     a = ap.parse_args()
+    if os.environ.get("PANEL_PUBLIK") and not os.environ.get("PANEL_PASSWORD"):
+        sys.exit("PANEL_PUBLIK=1 tetapi PANEL_PASSWORD kosong: panel tidak dijalankan.")
     if a.host not in ("127.0.0.1", "localhost") and not os.environ.get("PANEL_PASSWORD"):
         sys.exit("Panel berisi kunci API: set PANEL_PASSWORD bila dibuka di luar komputer ini (--host 0.0.0.0).")
     siapkan_db()

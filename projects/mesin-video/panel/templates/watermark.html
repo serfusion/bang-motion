@@ -1,0 +1,53 @@
+{% extends "base.html" %}{% block title %}Watermark{% endblock %}
+{% block body %}
+<div class="head"><div><h1>Watermark</h1>
+  <p class="muted">Nama channel / akun + maskot di pojok kanan atas, sedikit pudar, supaya video tidak mudah diakui orang lain saat diunggah ulang.
+    Ikut terekam di semua hasil render (Indonesia, English, dengan dan tanpa musik).</p></div></div>
+<div class="grid2">
+<form method="post" class="card" id="wm-form">
+  <input type="hidden" name="_csrf" value="{{ csrf }}">
+  <label>Nama channel / akun <input name="watermark_nama" id="f-nama" value="{{ s.watermark_nama }}" placeholder="@namachannel" maxlength="40"></label>
+  <label>Gambar
+    <select name="watermark_gambar" id="f-gambar">
+      <option value="" {% if not s.watermark_gambar %}selected{% endif %}>Maskot Si Katuk (bawaan)</option>
+      <option value="tanpa" {% if s.watermark_gambar == 'tanpa' %}selected{% endif %}>Tanpa gambar (teks saja)</option>
+      {% for a in aset %}<option value="{{ a.id }}" {% if s.watermark_gambar == a.id %}selected{% endif %}>Aset: {{ a.id }} ({{ a.jenis }})</option>{% endfor %}
+    </select>
+    <span class="muted small">Logo atau maskot lain: unggah dulu di <a href="{{ url_for('tabel_daftar', t='aset') }}">Aset</a> (PNG/SVG, persegi), lalu pilih di sini.</span></label>
+  <div class="row3">
+    <label>Jarak dari atas (cm) <input name="watermark_atas_cm" id="f-atas" type="number" min="0" max="12" step="0.25" value="{{ s.watermark_atas_cm }}">
+      <span class="muted small">Diukur di layar HP (1 cm ≈ {{ px_cm }} px video). Bawaan 0,75 cm: pojok yang kosong di semua adegan.
+        Angka besar (mis. 3–4 cm) bisa menimpa judul dan kartu adegan.</span></label>
+    <label>Kepekatan (%) <input name="watermark_opacity" id="f-op" type="number" min="15" max="100" step="5" value="{{ s.watermark_opacity }}">
+      <span class="muted small">Makin kecil makin pudar. 60% = terbaca tapi tidak mengganggu.</span></label>
+  </div>
+  <label class="check"><input type="checkbox" name="watermark_bawaan" {% if s.watermark_bawaan == '1' %}checked{% endif %}>
+    Pasang otomatis di episode yang belum diatur (episode baru). Tiap episode tetap bisa dicentang / tidak di editornya.</label>
+  <p class="muted small">Episode: {{ n.ya or 0 }} dengan watermark, {{ n.tidak or 0 }} tanpa, {{ n.ikut or 0 }} ikut bawaan.</p>
+  <button class="primary">Simpan</button>
+</form>
+<section class="card">
+  <h2>Pratinjau posisi</h2>
+  <div class="wm-hp" id="wm-hp">
+    <div class="ui-atas"></div><div class="ui-cari"></div><div class="ui-rel"><i></i><i></i><i></i><i></i></div>
+    <div class="wm-pv" id="wm-pv"><i><img id="pv-img" alt=""></i><b id="pv-nama"></b></div>
+  </div>
+  <p class="muted small">Bayangan abu-abu = perkiraan tombol TikTok / YouTube Shorts (bar atas, ikon cari, tombol kanan) yang tampil di atas video saat ditonton; tombol itu tidak ikut tersimpan di berkas video. Pratinjau 1/4 ukuran video.</p>
+</section>
+</div>
+{% endblock %}
+{% block script %}<script>
+(() => {
+  const $ = id => document.getElementById(id), S = 0.25, PX = {{ px_cm }};
+  const src = v => !v ? {{ url_for('watermark_maskot')|tojson }} : v === 'tanpa' ? '' : (window.BASE || '') + '/ikon/' + encodeURIComponent(v) + '.svg';
+  function upd() {
+    const pv = $('wm-pv'), nama = $('f-nama').value.trim(), g = src($('f-gambar').value);
+    pv.style.top = (parseFloat(($('f-atas').value || '0').replace(',', '.')) * PX * S) + 'px';
+    pv.style.opacity = Math.min(1, Math.max(.15, (parseFloat($('f-op').value) || 60) / 100));
+    $('pv-nama').textContent = nama; $('pv-nama').hidden = !nama;
+    $('pv-img').parentNode.hidden = !g; if (g) $('pv-img').src = g;
+    pv.classList.toggle('solo', !nama); pv.hidden = !nama && !g;
+  }
+  ['f-nama', 'f-gambar', 'f-atas', 'f-op'].forEach(id => $(id).addEventListener('input', upd)); upd();
+})();
+</script>{% endblock %}

@@ -22,11 +22,34 @@ def images(tl, ep):
     return out
 
 
+def watermark(tl, ep):
+    """meta.watermark.src: maskot Si Katuk (bawaan) atau gambar dari tabel aset, sebagai data URI."""
+    w = (tl.get("meta") or {}).get("watermark")
+    if not w:
+        return
+    g, assets = w.get("gambar") or "maskot", ep.get("aset", {})
+    if g == "tanpa":
+        w["src"] = None
+    elif g in assets and assets[g].get("jenis") == "foto":
+        path = os.path.join(ENGINE, "icons", assets[g]["berkas"])
+        w["src"], w["foto"] = f"data:{mimetypes.guess_type(path)[0] or 'image/png'};base64," + base64.b64encode(open(path, "rb").read()).decode(), True
+    else:
+        svg = icon_svg(g, assets) if g != "maskot" else None
+        if not svg:
+            if g != "maskot":
+                print(f"peringatan: gambar watermark '{g}' tidak ditemukan, memakai maskot Si Katuk")
+            svg = open(os.path.join(ENGINE, "icons", "maskot-si-katuk.svg"), encoding="utf-8").read()
+        if "xmlns=" not in svg[:200]:
+            svg = svg.replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"', 1)
+        w["src"] = "data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode()
+
+
 def main(eid, lang="id"):
     ep = load_json(ep_dir(eid, "episode.json"))
     tl = load_json(lang_dir(eid, lang, "timeline.json"))
     tl["icons"] = {n: icon_svg(n, ep.get("aset", {})) for n in icon_names(ep) + ENGINE_ICONS}
     tl["images"] = images(tl, ep)
+    watermark(tl, ep)
     miss = [n for n, v in tl["icons"].items() if not v]
     if miss:
         sys.exit(f"ikon tidak ditemukan: {miss}")
@@ -53,7 +76,7 @@ def main(eid, lang="id"):
 <div id="stage">
   <div id="cam"><div id="world"></div></div>
   <div id="hud"><div id="dim"></div><div id="teaser"></div><div id="lens"></div><div class="light" id="light"></div><div class="grain" id="grain"></div>
-    <div class="vig"></div><div id="flash"></div><div id="prog"></div><div id="mascot"></div><div id="subs"></div></div>
+    <div class="vig"></div><div id="flash"></div><div id="prog"></div><div id="mascot"></div><div id="subs"></div><div id="wm"></div></div>
 </div>
 <div id="dbg"><button id="dPlay">Pause</button><input id="dScrub" type="range" min="0" max="1000" value="0"><span id="dClock">0.00s</span></div>
 <audio id="vo" src="mix.m4a" preload="auto"></audio>

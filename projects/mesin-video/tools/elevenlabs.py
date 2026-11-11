@@ -5,6 +5,10 @@ When a key is refused because its quota is used up, it is invalid, or it is rate
 the refused key is marked in the database. With no key configured at all the request is sent without a key header
 (in this development environment a network proxy adds one).
 
+Commercial mode (pengaturan.komersial = 1 or env MESIN_KOMERSIAL=1): only keys marked paket='berbayar' are used,
+still in failover order, so videos meant for monetization never use a free-plan key (free plan = non-commercial,
+attribution required). Each TTS result records the plan of the key that made it (paket).
+
 Note: ElevenLabs allows one free account per person; several keys are meant for paid or team accounts and as a
 backup, not for stacking free accounts (their abuse system disables free usage on such accounts).
 """
@@ -24,27 +28,56 @@ def _db():
     return con
 
 
-def keys():
-    """[(id, label, key)] in failover order; (None, 'env'/'proxy', key|None) last."""
+def setting(name, default=None):
+    con = _db()
+    if not con:
+        return default
+    try:
+        r = con.execute("SELECT nilai FROM pengaturan WHERE kunci=?", (name,)).fetchone()
+        return r["nilai"] if r else default
+    except sqlite3.OperationalError:
+        return default
+
+
+def komersial():
+    """True when voices must come from paid-plan keys only (videos to be monetized)."""
+    env = os.environ.get("MESIN_KOMERSIAL")
+    return env == "1" if env is not None else setting("komersial", "0") == "1"
+
+
+def keys(commercial=None):
+    """[(id, label, key, paket)] in failover order; (None, 'XI_API_KEY'/'proxy', key|None, paket) last.
+    In commercial mode only keys with paket 'berbayar' are returned (possibly none)."""
+    km = komersial() if commercial is None else commercial
     out = []
     con = _db()
     if con:
         try:
-            out = [(r["id"], r["label"] or f"kunci {r['id']}", r["kunci"]) for r in
-                   con.execute("SELECT id, label, kunci FROM kunci_api WHERE aktif=1 AND penyedia='elevenlabs' ORDER BY urutan, id")]
+            out = [(r["id"], r["label"] or f"kunci {r['id']}", r["kunci"], r["paket"] or "") for r in
+                   con.execute("SELECT id, label, kunci, paket FROM kunci_api WHERE aktif=1 AND penyedia='elevenlabs' ORDER BY urutan, id")]
         except sqlite3.OperationalError:
-            out = []
+            try:
+                out = [(r["id"], r["label"] or f"kunci {r['id']}", r["kunci"], "") for r in
+                       con.execute("SELECT id, label, kunci FROM kunci_api WHERE aktif=1 AND penyedia='elevenlabs' ORDER BY urutan, id")]
+            except sqlite3.OperationalError:
+                out = []
     if os.environ.get("XI_API_KEY"):
-        out.append((None, "XI_API_KEY", os.environ["XI_API_KEY"]))
-    return out or [(None, "proxy", None)]
+        out.append((None, "XI_API_KEY", os.environ["XI_API_KEY"], os.environ.get("XI_API_PAKET", "")))
+    if km:
+        return [k for k in out if k[3] == "berbayar"]
+    return out or [(None, "proxy", None, "")]
 
 
-def mark(kid, status, note=None, left=None):
+def mark(kid, status, note=None, left=None, paket=None):
     con = _db()
     if not con or kid is None:
         return
-    con.execute("UPDATE kunci_api SET status=?, catatan=?, sisa=COALESCE(?, sisa), terakhir=datetime('now') WHERE id=?",
-                (status, (note or "")[:300], left, kid))
+    try:
+        con.execute("UPDATE kunci_api SET status=?, catatan=?, sisa=COALESCE(?, sisa), paket=COALESCE(?, paket), "
+                    "terakhir=datetime('now') WHERE id=?", (status, (note or "")[:300], left, paket, kid))
+    except sqlite3.OperationalError:          # database lama tanpa kolom paket
+        con.execute("UPDATE kunci_api SET status=?, catatan=?, sisa=COALESCE(?, sisa), terakhir=datetime('now') WHERE id=?",
+                    (status, (note or "")[:300], left, kid))
     con.commit()
 
 
@@ -74,14 +107,18 @@ def tts_with_timestamps(voice, text, seed):
     body = {"text": text, "model_id": voice["model"], "language_code": st.get("language_code", "id"), "seed": seed,
             "voice_settings": {k: st[k] for k in ("stability", "similarity_boost", "style") if k in st}}
     path = f"/v1/text-to-speech/{voice['voice_id']}/with-timestamps?output_format=mp3_44100_128"
-    tried = []
-    for kid, label, key in keys():
+    tried, ks = [], keys()
+    if not ks:
+        raise RuntimeError("Mode komersial aktif, tetapi belum ada kunci aktif berpaket berbayar. "
+                           "Tandai kunci berbayar di panel (Kunci API) atau matikan mode komersial.")
+    for kid, label, key, paket in ks:
         if (kid, key) in _SKIP:
             continue
         for attempt in range(3):
             try:
                 d = _request(path, key, body)
                 mark(kid, "ok")
+                d["paket"] = paket or "tidak diketahui"
                 return d
             except urllib.error.HTTPError as e:
                 code, msg = _reason(e)
@@ -102,7 +139,8 @@ def check(kid=None, key=None):
     try:
         s = _request("/v1/user/subscription", key)
         left = int(s.get("character_limit", 0)) - int(s.get("character_count", 0))
-        mark(kid, "ok", f"{s.get('tier', '')}: sisa {left} karakter", left)
+        tier = (s.get("tier") or "").lower()
+        mark(kid, "ok", f"{tier}: sisa {left} karakter", left, ("gratis" if tier == "free" else "berbayar") if tier else None)
         return "ok", left
     except urllib.error.HTTPError as e:
         code, msg = _reason(e)

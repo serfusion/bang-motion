@@ -16,6 +16,18 @@
 
 <form method="post" action="{{ url_for('kunci_simpan') }}" autocomplete="off">
   <input type="hidden" name="_csrf" value="{{ csrf }}">
+  <input type="hidden" name="_ada_komersial" value="1">
+  <section class="card komersial">
+    <label class="check"><input type="checkbox" name="komersial" {% if komersial %}checked{% endif %}>
+      <b>Mode komersial (video untuk dimonetisasi di TikTok, YouTube, Facebook)</b></label>
+    <p class="small">Saat aktif, suara hanya dibuat dengan kunci berpaket <b>Berbayar</b>, tetap bergiliran di antara kunci-kunci berbayar.
+      Adegan yang dulu dibuat dengan kunci gratis dibuat ulang otomatis saat render berikutnya, dan tulisan "Suara: ElevenLabs" di penutup
+      video hilang (paket berbayar tidak mewajibkan atribusi).
+      {% if komersial and not n_bayar %}<br><span class="err">Belum ada kunci aktif berpaket Berbayar: render akan berhenti sampai ada.</span>{% endif %}</p>
+    <p class="muted small">Paket berbayar ElevenLabs (Starter ke atas) memberi lisensi komersial. Paling aman pakai suara bawaan ElevenLabs atau
+      suara rancangan sendiri (Voice Design, atau kloning suara Anda sendiri) supaya tidak berurusan dengan hak suara orang lain dan channel
+      punya suara yang khas. Suara dari Voice Library ikut ketentuan pemiliknya.</p>
+  </section>
   <div class="keygrid">
   {% for i, r in slots %}
     <fieldset class="card key {{ 'empty' if not r }}">
@@ -23,6 +35,12 @@
       <label>Nama <input name="label{{ i }}" value="{{ r.label if r else '' }}" placeholder="{{ 'Akun utama' if i==1 else 'Cadangan ' ~ (i-1) }}"></label>
       <label>Kunci API
         <input type="password" name="kunci{{ i }}" placeholder="{{ mask(r.kunci) ~ ' tersimpan — isi untuk mengganti' if r else 'tempel xi-api-key (sk_…)' }}" autocomplete="new-password" spellcheck="false"></label>
+      <label>Paket
+        <select name="paket{{ i }}">
+          <option value="" {% if not r or not r.paket %}selected{% endif %}>Belum diketahui</option>
+          <option value="berbayar" {% if r and r.paket == 'berbayar' %}selected{% endif %}>Berbayar (boleh dimonetisasi)</option>
+          <option value="gratis" {% if r and r.paket == 'gratis' %}selected{% endif %}>Gratis (non-komersial, wajib atribusi)</option>
+        </select></label>
       <label class="check"><input type="checkbox" name="aktif{{ i }}" {% if not r or r.aktif %}checked{% endif %}> aktif (ikut dipakai bergiliran)</label>
       {% if r %}
       <dl class="kv">

@@ -40,6 +40,11 @@
       <label>Suara English <select name="suara_en_id"><option value="">–</option>{% for s in suara %}<option value="{{ s.id }}" {% if s.id==ep.suara_en_id %}selected{% endif %}>{{ s.nama or s.id }} ({{ s.id }})</option>{% endfor %}</select></label>
       <label>Tempo suara <input name="tempo" value="{{ ep.tempo if ep.tempo is not none else '' }}" placeholder="bawaan: tebakan 1,12 · fakta 1,0" inputmode="decimal"></label>
     </div>
+    {% set wm_on = ep.watermark if ep.watermark is defined else wm.watermark_bawaan == '1' %}
+    <label class="check wmcek"><input type="checkbox" name="watermark" {% if wm_on %}checked{% endif %}>
+      Tambah watermark: {% if wm.watermark_nama %}<b>{{ wm.watermark_nama }}</b>{% else %}<span class="err">nama channel belum diisi</span>{% endif %}
+      + {{ 'maskot' if not wm.watermark_gambar else ('tanpa gambar' if wm.watermark_gambar == 'tanpa' else wm.watermark_gambar) }}
+      di kanan atas · <a href="{{ url_for('watermark') }}">atur</a></label>
     <label>Catatan <textarea name="catatan" rows="2">{{ ep.catatan or '' }}</textarea></label>
     <p class="muted small" id="fmt-ket">{{ FORMATS[ep.format].ket }}</p>
   </section>

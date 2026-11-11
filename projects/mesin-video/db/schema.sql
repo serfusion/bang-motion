@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS episode (
   tempo       REAL,                      -- kosong = bawaan format (tebakan 1.12, fakta 1.0)
   status      TEXT DEFAULT 'draf' CHECK (status IN ('draf','siap','dirender','terbit')),
   catatan     TEXT,
+  watermark   INTEGER,                   -- 1 = pasang watermark (nama channel + maskot), 0 = tanpa, kosong = ikut bawaan panel
   dibuat      TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -124,7 +125,15 @@ CREATE TABLE IF NOT EXISTS kunci_api (
   status      TEXT DEFAULT 'belum dites',  -- ok / habis / ditolak / galat
   sisa        INTEGER,                     -- sisa karakter bila API mengizinkan cek langganan
   terakhir    TEXT,                        -- waktu terakhir dipakai
-  catatan     TEXT
+  catatan     TEXT,
+  paket       TEXT                         -- 'gratis' / 'berbayar' (lisensi komersial); kosong = belum diketahui
+);
+
+-- Pengaturan panel (kunci -> nilai), mis. komersial = '1': suara hanya dari kunci berpaket berbayar;
+-- watermark_nama / watermark_gambar / watermark_atas_cm / watermark_opacity / watermark_bawaan (lihat tools/db.py WM_BAWAAN).
+CREATE TABLE IF NOT EXISTS pengaturan (
+  kunci TEXT PRIMARY KEY,
+  nilai TEXT
 );
 
 -- Antrean render dari panel web.

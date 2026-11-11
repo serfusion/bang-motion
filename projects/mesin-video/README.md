@@ -33,6 +33,11 @@ Butuh juga: ffmpeg dengan filter `rubberband`, dan Chromium (puppeteer mengunduh
 `PUPPETEER_EXECUTABLE_PATH`). Panel hanya mendengarkan di komputer ini; untuk dibuka dari perangkat lain:
 `PANEL_PASSWORD=… python3 panel/app.py --host 0.0.0.0`.
 
+Dengan `PANEL_PASSWORD`, panel terkunci: pengunjung melihat halaman **Masukkan kunci**, dan setelah kunci benar
+mendapat sesi 7 hari (tombol **Keluar** di kanan atas). Salah 8 kali dalam 15 menit = IP itu ditahan 15 menit.
+Di superfal-dev.com panel ini terpasang sebagai **Content Creator** di `/studio/` (lihat `deploy/superfal/README.md`);
+formulir kunci di tab Innovation portofolio mengirim ke `/studio/masuk`. Kunci hanya disimpan di server, tidak di repo.
+
 ## Panel web (`panel/app.py`)
 
 | Halaman | Isi |
@@ -43,7 +48,8 @@ Butuh juga: ffmpeg dengan filter `rubberband`, dan Chromium (puppeteer mengunduh
 | Aset | unggah SVG (jadi ikon) atau foto PNG/JPG/WEBP (ilustrasi besar format fakta: `"ilustrasi": {"gambar": "<id>"}`) |
 | Musik | unggah lagu; BPM dan ketukan mulai dianalisis otomatis (librosa) |
 | Suara | voice ID ElevenLabs, model, pengaturan, bahasa |
-| Kunci API | 4 kotak kunci ElevenLabs + tombol Tes |
+| Watermark | nama channel/akun + maskot (atau logo dari Aset) di pojok kanan atas, jarak dari atas, kepekatan, pratinjau; tiap episode punya centang **Tambah watermark** |
+| Kunci API | 4 kotak kunci ElevenLabs (paket Berbayar / Gratis), **mode komersial**, tombol Tes |
 | Antrean | tugas render berjalan satu per satu di latar belakang, progres per langkah, log, batal / ulangi |
 
 Panel menulis ke SQLite. **Simpan ke JSON** menulis isi database ke `db/data/*.json` (untuk git / cadangan);
@@ -63,6 +69,28 @@ Aturan ElevenLabs yang perlu diingat:
   Kotak 2–4 untuk akun berbayar / tim atau cadangan yang sah.
 - Suara dari paket gratis: **non-komersial dan wajib atribusi** ("Suara: ElevenLabs" otomatis tampil di penutup).
   Untuk monetisasi, pakai paket berbayar lalu render ulang.
+
+### Mode komersial (video untuk dimonetisasi)
+
+Tiap kotak kunci punya pilihan **Paket**: Berbayar / Gratis / Belum diketahui (tombol **Tes** mengisinya otomatis bila
+kunci boleh membaca langganan). Centang **Mode komersial** di halaman Kunci API bila video akan dimonetisasi di
+TikTok, YouTube, atau Facebook:
+- suara hanya dibuat dengan kunci **Berbayar**, tetap bergiliran di antara kunci berbayar (kunci gratis dilewati);
+- adegan yang dulu dibuat dengan kunci gratis atau tak diketahui dibuat ulang saat render berikutnya;
+- tulisan "Suara: ElevenLabs" di penutup hilang bila semua adegan dibuat dengan kunci berbayar;
+- bila tidak ada kunci berbayar yang aktif, render berhenti dengan pesan yang jelas (tidak diam-diam memakai kunci gratis).
+
+Paket berbayar ElevenLabs (Starter ke atas) memberi lisensi komersial. Paling aman memakai suara bawaan ElevenLabs atau
+suara rancangan sendiri (Voice Design / kloning suara sendiri); suara dari Voice Library mengikuti ketentuan pemiliknya.
+Lewat baris perintah: `MESIN_KOMERSIAL=1`, dan `XI_API_PAKET=berbayar` untuk kunci `XI_API_KEY`.
+
+## Watermark
+
+Halaman **Watermark**: nama channel/akun (mis. `@namachannel`), gambar (maskot Si Katuk bawaan, logo dari Aset, atau
+teks saja), jarak dari atas dalam cm (bawaan 0,75 cm ≈ 113 px: pojok kanan atas yang kosong di semua adegan), dan
+kepekatan (bawaan 60%). Watermark masuk ke halaman animasi (`meta.watermark` di `timeline.json`, elemen `#wm` di HUD),
+jadi terekam di semua MP4 (ID, EN, dengan dan tanpa musik). Centang **Tambah watermark** di editor episode; episode yang
+belum diatur mengikuti pilihan "pasang otomatis". Perubahan berlaku pada render berikutnya.
 
 ## Dua format
 
@@ -141,10 +169,11 @@ Waktu proses di 4 CPU: suara ±30 dtk, render ±3–5 menit per bahasa, encode �
 | `aset` | SVG kustom dan foto unggahan |
 | `suara` | penyedia, model, voice_id, pengaturan (termasuk `language_code`), tempo |
 | `musik` | berkas, judul, artis, lisensi, `bpm`, `mulai` |
-| `episode` | `format` (tebakan / fakta), judul ID/EN, kategori, suara ID & EN, musik, tempo, status |
+| `episode` | `format` (tebakan / fakta), judul ID/EN, kategori, suara ID & EN, musik, tempo, status, `watermark` |
 | `adegan` | urutan, jenis, `vo`, `vo_en`, `param`, `param_en` |
 | `episode_fakta`, `render` | fakta per episode (sumbernya masuk kredit), berkas hasil |
-| `kunci_api`, `tugas` | kunci ElevenLabs (tidak pernah diekspor), antrean render panel |
+| `kunci_api`, `tugas` | kunci ElevenLabs + `paket` (tidak pernah diekspor), antrean render panel |
+| `pengaturan` | mode komersial, watermark (nama, gambar, jarak, kepekatan, bawaan) |
 
 ## Lisensi & kredit
 

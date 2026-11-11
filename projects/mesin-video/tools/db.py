@@ -23,7 +23,40 @@ JSON_COLS = {"pengaturan", "param", "param_en"}
 
 
 # columns added after the first release: (table, column, type) -> ALTER TABLE on older database files
-MIGRATE = [("tugas", "sampai", "TEXT")]
+MIGRATE = [("tugas", "sampai", "TEXT"), ("kunci_api", "paket", "TEXT"), ("episode", "watermark", "INTEGER")]
+# watermark: nama channel/akun + maskot di pojok kanan atas, sedikit pudar (pengaturan panel -> Watermark)
+WM_BAWAAN = {"watermark_nama": "", "watermark_gambar": "", "watermark_atas_cm": "0.75", "watermark_opacity": "60",
+             "watermark_bawaan": "1"}
+WM_PX_CM = 150             # video 1080 px selebar layar HP (±7 cm): 1 cm ≈ 150 px
+
+
+def pengaturan(con):
+    try:
+        d = {r[0]: r[1] for r in con.execute("SELECT kunci, nilai FROM pengaturan")}
+    except sqlite3.OperationalError:
+        d = {}
+    return {**WM_BAWAAN, **{k: v for k, v in d.items() if v is not None}}
+
+
+def watermark_cfg(con, ep):
+    """Watermark yang dipakai episode ini (None = tanpa). Kolom episode.watermark kosong = ikut bawaan panel."""
+    s = pengaturan(con)
+    on = ep.get("watermark")
+    if not (s["watermark_bawaan"] == "1" if on is None else bool(on)):
+        return None
+
+    def num(k, lo, hi):
+        try:
+            v = float(str(s[k]).replace(",", ".") or WM_BAWAAN[k])
+        except ValueError:
+            v = float(WM_BAWAAN[k])
+        return min(hi, max(lo, v))
+    gambar = s["watermark_gambar"] or "maskot"          # "maskot" = Si Katuk, "tanpa" = teks saja, selain itu id aset
+    teks = (s["watermark_nama"] or "").strip()[:40]
+    if not teks and gambar == "tanpa":
+        return None
+    return {"teks": teks, "gambar": gambar, "atas": round(num("watermark_atas_cm", 0, 12) * WM_PX_CM),
+            "opacity": round(num("watermark_opacity", 15, 100) / 100, 2)}
 
 
 def connect():
@@ -276,6 +309,9 @@ def cmd_export(eid, langs=LANGS):
     errs, warns = validate(ep, langs)
     if errs:
         sys.exit("validasi gagal:\n  " + "\n  ".join(errs))
+    ep["wm"] = watermark_cfg(con, ep)
+    if ep["wm"] and not ep["wm"]["teks"]:
+        print("peringatan: watermark aktif tetapi nama channel belum diisi (panel -> Watermark): hanya gambar yang tampil")
     out = ep_dir(eid, "episode.json")
     save_json(out, ep)
     print("exported", os.path.relpath(out, PROJ))
