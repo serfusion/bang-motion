@@ -1,0 +1,16 @@
+{
+  "name": "superfal-dev-portofolio",
+  "private": true,
+  "type": "module",
+  "description": "Bangun portofolio superfal-dev.com: templat -> ikon disisipkan -> skrip diacak + HTML/CSS diperkecil -> ../index.html",
+  "scripts": {
+    "build": "node bangun.mjs"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "1.2.19",
+    "@iconify-json/lucide": "1.2.153",
+    "@iconify-json/vscode-icons": "1.2.97",
+    "html-minifier-terser": "7.2.0",
+    "javascript-obfuscator": "4.1.1"
+  }
+}

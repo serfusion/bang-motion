@@ -38,6 +38,21 @@ STATUS_EP = ["draf", "siap", "dirender", "terbit"]
 KEY_SLOTS = 4
 POLICY_URL = "https://elevenlabs.io/docs/help-center/account/general/can-users-have-more-than-one-account"
 
+def _muat_kunci():
+    """Kunci dari berkas bila PANEL_PASSWORD tidak diset langsung: PANEL_PASSWORD_FILE, atau credential systemd
+    (LoadCredential=kunci:...) di $CREDENTIALS_DIRECTORY/kunci. Berkas tidak pernah ada di repo."""
+    if os.environ.get("PANEL_PASSWORD"):
+        return
+    cred = os.environ.get("CREDENTIALS_DIRECTORY")
+    for path in (os.environ.get("PANEL_PASSWORD_FILE"), os.path.join(cred, "kunci") if cred else None):
+        if path and os.path.isfile(path):
+            k = open(path, encoding="utf-8").read().strip("\r\n")
+            if k:
+                os.environ["PANEL_PASSWORD"] = k
+                return
+
+
+_muat_kunci()
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 60 * 1024 * 1024
 # di balik Nginx (mis. superfal-dev.com/studio/): alamat & awalan diambil dari header X-Forwarded-*

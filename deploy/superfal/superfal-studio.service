@@ -1,0 +1,21 @@
+# Content Creator (panel mesin video) untuk __DOMAIN__/studio/. Dibuat oleh deploy/superfal/pasang.sh.
+# Kunci dibaca dari credential systemd (/etc/superfal/kunci, hanya root) -> $CREDENTIALS_DIRECTORY/kunci.
+[Unit]
+Description=Content Creator (panel mesin video) di https://__DOMAIN__/studio/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__USER__
+WorkingDirectory=__REPO__/projects/mesin-video
+Environment=PYTHONUNBUFFERED=1
+Environment=PANEL_PUBLIK=1
+Environment=PATH=__PATH__
+LoadCredential=kunci:/etc/superfal/kunci
+ExecStart=/usr/bin/python3 panel/app.py --host 127.0.0.1 --port __PORT__
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
