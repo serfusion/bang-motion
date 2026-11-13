@@ -113,6 +113,9 @@ nilai akhirnya.
 | `setInterval` untuk teks berjalan/mengetik | tween `{i:0→n}` + `onUpdate` slice |
 | akumulasi `pos += v*dt` | posisi = fungsi(seed, state.flow) |
 | `Math.random()` saat SETUP boleh | seed dibuat sekali saat load, bukan per frame |
+| `repeat:-1` mengandalkan `onComplete` untuk loop | penjaga loop di ticker (`tl.time() >= DUR` → mulai ulang), atau `repeat` terhitung yang selesai di `DUR` |
+| dua tween beririsan pada properti yang sama | potong yang lama di titik yang baru mulai (`UI.go` di `assets/ui-kit.html`); saat scrub mundur GSAP merender dari belakang, jadi yang lebih awal menang |
+| `will-change` permanen pada rig kamera / elemen yang di-zoom | hanya untuk preview; dimatikan saat `?clean=1` (kelas `bm-export`) supaya raster mengikuti skala kamera |
 
 ## Dev server wajib no-cache
 

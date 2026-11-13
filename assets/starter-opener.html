@@ -25,6 +25,8 @@
   Permukaan latar (menu §7d)  : ____________________   (gradien/cahaya/tekstur, bukan flat)
   Transisi (menu §4c, ≥2 jenis, ≥1 3D) : ____________________   (tanpa balok/persegi datar menyapu)
   Momen istimewa              : ____________________
+  Komponen UI (opsional)      : island / stack / tombol morph · material solid|glass|glow
+                                (blok siap tempel di assets/ui-kit.html, aturan di references/ui-motion.md)
   ==========================================================================
 
   Semua warna di bawah sengaja ABU-ABU dan fontnya font sistem: kalau masih
@@ -128,6 +130,9 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;
   border-radius:9px;font:inherit;cursor:pointer}
 #scrub{width:340px;accent-color:var(--accent)}
 #clock{font-variant-numeric:tabular-nums;min-width:5.2ch;text-align:right} /* digit selebar sama: kartu tidak bergetar */
+/* render ekspor (?clean=1: snap.mjs, export-frames.mjs): will-change dimatikan — ia mengunci skala raster,
+   sehingga elemen yang di-zoom kamera tampak buram dan frame bergantung pada urutan seek. Preview real-time tetap memakainya. */
+.bm-export *{will-change:auto!important}
 </style>
 </head>
 <body>
@@ -296,6 +301,7 @@ function render(t){ // t = tl.time(); TIDAK ADA jam lain di file ini
 
 /* ============ TIMELINE — satu-satunya tempat waktu ditulis ============ */
 const Q=new URLSearchParams(location.search);
+if(Q.has('clean'))document.documentElement.classList.add('bm-export');   // render ekspor: tanpa will-change (lihat CSS)
 const DURATION=8.0;                       // GANTI: dari rundown konsep
 const tl=gsap.timeline({paused:true});
 const rig=$('#world'), leak=$('#leak');
@@ -410,6 +416,7 @@ addEventListener('keydown',e=>{ if(e.code==='Space'){e.preventDefault();toggle()
   if(/^[hH]$/.test(e.key))$('#ui').classList.toggle('on'); });
 if(Q.has('debug'))$('#ui').classList.add('on');            // default: TANPA player
 tl.eventCallback('onComplete',()=>{tl.play(0);});           // default: loop
+gsap.ticker.add(()=>{if(!tl.paused()&&tl.time()>=DURATION)tl.play(0);});   // loop pasti: tween repeat:-1 (ayunan aset) membuat durasi timeline tak berujung sehingga onComplete tak pernah terpanggil
 
 /* split diukur SETELAH font termuat — fallback memberi lebar salah */
 /* seek sinkron: paksa GSAP menulis gaya + gambar kanvas sekarang (rAF bisa dithrottle) */

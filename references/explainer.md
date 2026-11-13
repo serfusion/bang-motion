@@ -187,6 +187,19 @@ Helper di `assets/starter-explainer-katalog.html`: `slam` (stempel
 dihentak), `block` (blok tanggal disingkap dari kiri), `multiply` (grid
 beruntun); CSS `.doc`, `.stampblk`, `.pnote`, `.grid`, `.cut.card`.
 
+**Komponen UI (opsional)** dari `assets/ui-kit.html` (`ui-motion.md`), bila gaya dan
+topiknya cocok:
+- **Card Stack untuk akresi bukti**: tiap frasa VO menambah satu kartu sumber/kliping di atas
+  tumpukan; di akhir babak tumpukan dibentangkan sebagai rangkuman. Kartu ≤ 3 baris pendek
+  sehingga tetap dihitung objek.
+- **Dynamic Island sebagai penanda status**: bab yang sedang berjalan, sumber terverifikasi,
+  angka yang menghitung, atau kuis "Benar atau salah?". Lapisan layar, ≤ 3 kata, berubah
+  hanya saat statusnya berubah. Bukan pengganti subtitle.
+- **Morph Button untuk verdict**: "Cek fakta" ditekan → spinner → "Terverifikasi" / "Keliru".
+
+Gaya kolase berkertas (kartun, sketsa) jarang cocok dengan UI digital; jurnalisme visual,
+katalog putih, dan topik teknologi paling cocok.
+
 ## Resep teknis
 
 **Panggung 9:16**: `#stage` 1080×1920, `fit()` sama seperti 16:9. Judul

@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.20.0 — 2026-11-13
+
+**Komponen UI bergerak — supaya tidak kaku**
+- `assets/ui-kit.html`: perkakas siap tempel (blok CSS + JS) dengan tiga komponen —
+  **Dynamic Island** (pil status di lapisan layar yang berubah wujud), **Card Stack** (kartu
+  bertumpuk yang masuk, dikocok, dibentangkan, ditumpuk lagi), dan **Morph Button** (tombol →
+  spinner → sukses → panel) — plus peraga ±20 dtk (`?ui=light`, `?mat=solid|glass|glow`).
+- Tiga bahan, satu bahasa: struktur dan token dari shadcn/ui (material `solid`), gerak dari
+  beUI (angka pegas sumbernya, blur-crossfade ≤ 10 px, kaca 20 px — material `glass`), cahaya
+  dari Arc UI (rim gradien dua aksen, glow, kurva ease — material `glow`). Warna tetap dari
+  `--accent` style brief, font UI = font produk.
+- Mesin gerak deterministik: pegas teredam analitik (`UI.spring`, durasi lahir dari fisika),
+  kurva cubic-bezier tanpa plugin (`UI.EASE`), dan lintasan per properti (`UI.go`) yang
+  memotong tween lama di titik tween baru — frame identik dari jalur scrub mana pun.
+- `references/ui-motion.md`: diagnosis "kaku / kurang smooth", prinsip morph bukan ganti, tabel
+  pegas, aturan dan larangan tiap komponen, cara menempel ke starter. SKILL.md (Hukum #1,
+  style brief, alur kerja, checklist), `techniques.md` §2b, menu `opener-konsep.md`, dan
+  `explainer.md` merujuk ke sana.
+
+**Perbaikan starter**
+- Explainer (enam starter) kini benar-benar mengulang: tween `repeat:-1` membuat durasi
+  timeline tak berujung sehingga `onComplete` tak pernah terpanggil — loop dijaga di ticker.
+- Render ekspor (`?clean=1`) mematikan `will-change`: sebelumnya skala raster terkunci sehingga
+  close-up di MP4 lebih buram daripada di browser dan frame ekspor berbeda dari frame scrub.
+- Jebakan baru di `techniques.md` §10 dan `architecture.md` (tween beririsan saat scrub mundur,
+  `tl.fromTo()` mengembalikan timeline, `will-change`, `repeat:-1`).
+
 ## 1.19.0 — 2026-09-15
 
 **Ukuran shot — kamera ke elemen**
