@@ -83,3 +83,7 @@ dan berikan `starter-opener.html` sebagai titik awal kode.
   berikutnya: `assets/starter-explainer.html` (stage 9:16, helper
   say/unsay/photo/draw/cut/tint, syncAudio) supaya tidak menulis ulang.
 - Deliverable satu berkas tanpa server; `seek()` sinkron; angka tabular.
+- Komponen UI bergerak + pegas deterministik (`assets/ui-kit.html`, `references/ui-motion.md`):
+  Dynamic Island, Card Stack, Morph Button; lintasan per properti supaya tween beririsan tetap
+  identik saat scrub maju/mundur. Kandidat berikutnya: Tabs/segmented control yang indikatornya
+  meluncur, toast stack, command palette — dengan aturan yang sama (morph, bukan ganti).

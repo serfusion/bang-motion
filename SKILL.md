@@ -1,18 +1,18 @@
 ---
 name: bang-motion
-description: Membangun motion graphic sinematik di browser (promo video, opener, intro, bumper, kinetic typography, explainer/video penjelasan bergambar 16:9 atau 9:16) memakai HTML + CSS + GSAP (+ Three.js bila perlu), dengan hasil yang bergerak seperti video sungguhan — bukan slide presentasi. Gunakan skill ini setiap kali user meminta "video promo", "opener", "intro animasi", "motion graphic", "bumper", "kinetic typography", "animasi teks sinematik", "explainer", "video penjelasan" (jurnalisme visual, kartun edukasi, kolase), atau menunjukkan referensi video promosi/explainer dan ingin dibuatkan versi web-nya — bahkan bila mereka tidak menyebut kata "motion graphic" secara eksplisit. Juga gunakan bila user mengeluh hasil animasi web "seperti PPT/presentasi" dan ingin lebih sinematik, atau ingin merender animasi web menjadi file video MP4, atau ingin explainer kartun/animasi dibangun LANGSUNG di After Effects lewat bridge/MCP Higgsfield.
+description: Membangun motion graphic sinematik di browser (promo video, opener, intro, bumper, kinetic typography, explainer/video penjelasan bergambar 16:9 atau 9:16) memakai HTML + CSS + GSAP (+ Three.js bila perlu), dengan hasil yang bergerak seperti video sungguhan — bukan slide presentasi. Gunakan skill ini setiap kali user meminta "video promo", "opener", "intro animasi", "motion graphic", "bumper", "kinetic typography", "animasi teks sinematik", "explainer", "video penjelasan" (jurnalisme visual, kartun edukasi, kolase), atau menunjukkan referensi video promosi/explainer dan ingin dibuatkan versi web-nya — bahkan bila mereka tidak menyebut kata "motion graphic" secara eksplisit. Juga gunakan bila user mengeluh hasil animasi web "seperti PPT/presentasi" dan ingin lebih sinematik, atau ingin merender animasi web menjadi file video MP4, atau ingin explainer kartun/animasi dibangun LANGSUNG di After Effects lewat bridge/MCP Higgsfield. Juga gunakan bila user mengeluh animasinya "kaku" atau "kurang smooth", atau meminta komponen UI bergerak di dalam video (Dynamic Island, card stack, morph button, gaya shadcn/beUI/Arc UI).
 license: MIT
 metadata:
   author: Bang Tutorial
   author_url: https://youtube.com/bangtutorial
-  version: "1.19.0"
-  updated: "2026-09-14"
+  version: "1.20.0"
+  updated: "2026-11-13"
   homepage: https://github.com/bangtutorial/bang-motion
 ---
 
 # Bang Motion — motion graphic web yang bukan PPT
 
-**v1.19.0 · by [Bang Tutorial](https://youtube.com/bangtutorial) · MIT.** Riwayat perubahan di `CHANGELOG.md`;
+**v1.20.0 · by [Bang Tutorial](https://youtube.com/bangtutorial) · MIT.** Riwayat perubahan di `CHANGELOG.md`;
 cara pasang di `README.md`.
 
 Skill ini untuk AI coding agent apa pun (format Agent Skills terbuka).
@@ -168,6 +168,11 @@ Aturan kerasnya:
   user meminta zoom, kamera mendekat ke elemen yang sedang bercerita (medium close-up
   / close-up) lalu mundur ke wide mengikuti ketukan isi; napas beberapa persen hampir
   tak terlihat (`techniques.md` §3b).
+- **Morph, bukan ganti.** Bila keadaan berubah (status, langkah, hasil klik), satu wadah
+  yang sama berubah ukuran dan bentuk dengan pegas, isinya blur-crossfade ≤ 10 px, isi
+  lama keluar lebih cepat dari isi baru masuk. Elemen baru yang muncul di tempat elemen
+  lama yang baru hilang terasa kaku. Bila user mengeluh "kaku/kurang smooth", periksa tabel
+  diagnosis di `references/ui-motion.md` sebelum menambah efek.
 
 Baca `references/anti-ppt.md` SEBELUM mendesain adegan — berisi daftar
 pelanggaran nyata beserta perbaikannya.
@@ -180,6 +185,12 @@ partikel, getar kamera (sinus frekuensi tinggi, bukan `Math.random()`),
 posisi objek yang "mengalir" (tween JARAK, bukan akumulasi kecepatan per
 frame). Konsekuensinya: scrub akurat seperti timeline After Effects, dan
 render frame-by-frame ke MP4 menghasilkan gambar identik setiap kali.
+Tiga hal yang diam-diam mematahkannya: dua tween pada properti yang sama yang
+beririsan (yang menang tergantung arah scrub — pakai `UI.go` dari
+`assets/ui-kit.html`, yang memotong tween lama), `repeat:-1` (durasi timeline jadi tak
+berujung; loop dijaga di ticker, sudah ada di semua starter), dan `will-change` pada
+elemen yang di-zoom kamera (skala raster terkunci → buram di ekspor; starter
+mematikannya saat `?clean=1`).
 
 ## Hukum #3 — Gaya lahir dari tema, bukan dari starter, bukan dari referensi
 
@@ -220,7 +231,10 @@ gagal: opener adalah wajah produk, dan dua produk tidak boleh berwajah sama.
      opener");
    - transisi: tentukan batas mana yang memerlukan efek dan mana yang cukup cut;
      pilih dari menu §4c sesuai konteks, bukan wajib dua jenis atau wajib 3D;
-   - satu momen istimewa (di mana efek termahal dipakai, sekali).
+   - satu momen istimewa (di mana efek termahal dipakai, sekali);
+   - komponen UI (OPSIONAL, hanya bila konsep memakai UI yang bekerja): Dynamic Island /
+     Card Stack / Morph Button + satu material — `solid` (shadcn), `glass` (beUI), atau
+     `glow` (Arc) — dari `references/ui-motion.md`.
 2. **Starter adalah arsitektur, bukan gaya.** Warna abu-abu, font sistem,
    dan latar WebGL di `assets/starter-opener.html` adalah PLACEHOLDER. Kalau salah
    satunya masih terlihat di hasil, gaya belum diturunkan. Latar WebGL
@@ -358,7 +372,9 @@ bagian 1 dan 1b. Ringkasnya:
 4. **Bangun adegan satu per satu** dengan resep di
    `references/techniques.md` (split per huruf + motion blur berarah,
    pan 3D per kata, menu transisi, mockup UI). Resep adalah perkakas, bukan
-   daftar belanja: pakai hanya yang dituntut konsep.
+   daftar belanja: pakai hanya yang dituntut konsep. Komponen UI bergerak (Dynamic
+   Island, Card Stack, Morph Button) dan pegas fisik: tempel blok CSS/JS dari
+   `assets/ui-kit.html`, aturan pakainya di `references/ui-motion.md`.
 5. **Verifikasi VISUAL, bukan cuma "kode jalan".** Kamu tidak bisa menonton
    video; kamu hanya bisa melihat FRAME. Potret 6–20 detik kunci (awal
    tiap adegan, saat teks muncul, transisi) dengan `scripts/snap.mjs`
@@ -447,6 +463,11 @@ bagian 1 dan 1b. Ringkasnya:
       perubahan ukuran shot ke elemen (wide ↔ medium close-up ↔ close-up) atau push pelan;
       napas kamera saja tidak dihitung. Label layar di luar rig, tidak terpotong zoom
 - [ ] Motion blur berarah pada semua teks masuk/keluar
+- [ ] Tidak kaku (`references/ui-motion.md`): keadaan berganti lewat morph satu wadah,
+      isi keluar lebih cepat dari masuk, pegas/ease sesuai massa benda (bukan satu
+      `power4.out` untuk semua), pantul hanya pada benda fisik. Bila memakai komponen UI:
+      satu material, island di lapisan layar dengan status yang berubah, kartu ≤ 3 baris,
+      kamera mendekat sebelum tombol ditekan
 - [ ] Latar lahir dari tema (tidak otomatis gelap; terang bisa gradien,
       warna lembut, blok warna, kertas), punya kedalaman (bukan satu warna
       flat), TIDAK lebih ramai daripada subjek; pergantian latar diputuskan
@@ -509,7 +530,11 @@ selector CSS lebih spesifik mengalahkan state awal `opacity:0` → elemen
 muncul mendahului animasinya; module JS di-cache browser → edit "tidak
 ngefek" (pakai server `Cache-Control: no-store`); objek 3D pipih diputar
 penuh di sumbu Y → jadi sebatang garis (goyangkan, jangan putar penuh);
-kotak filter SVG default memotong ekor blur (lebarkan `x/y/width/height`).
+kotak filter SVG default memotong ekor blur (lebarkan `x/y/width/height`);
+`repeat:-1` → timeline tak berujung, video tidak mengulang (penjaga loop di ticker);
+`will-change` pada elemen yang di-zoom → buram di ekspor; dua tween beririsan pada
+properti yang sama → frame tergantung arah scrub; `tl.fromTo()` mengembalikan
+TIMELINE, bukan tween (`kill()` pada hasilnya mematikan seluruh timeline).
 
 ## After Effects — langsung lewat bridge Higgsfield
 
@@ -538,6 +563,8 @@ dan buat layer dari belakang ke depan. Build 10 panggung ≈ 1 jam, 0 kredit.
 | `references/explainer.md` | bila yang diminta explainer/video penjelasan (kartun+VO, jurnalisme visual foto, katalog putih, sketsa vintage, atau aksi kontinu; default 16:9, 9:16 hanya bila diminta) |
 | `references/architecture.md` | saat scaffold / butuh alasan di balik struktur |
 | `references/techniques.md` | saat membangun adegan & efek (termasuk ukuran shot §3b, grainy gradient §7d, menu gaya render objek §7e, dan video sebagai layer footage §9b) |
+| `references/ui-motion.md` | komponen UI bergerak (Dynamic Island, Card Stack, Morph Button), material shadcn/beUI/Arc, tabel pegas, diagnosis "kaku / kurang smooth", morph bukan ganti |
+| `assets/ui-kit.html` | PERKAKAS UI: blok CSS + JS yang ditempel ke `index.html` (pegas deterministik, lintasan per properti, island/stack/tombol morph) + peraga ±20 dtk (`?ui=light`, `?mat=solid\|glass\|glow`) |
 | `references/roadmap.md` | saat mengembangkan skill ini lebih lanjut |
 | `assets/starter-opener.html` | titik awal OPENER/promo — arsitektur + perkakas (8 pintu teks, transisi opsional); SENGAJA tanpa urutan adegan contoh, kerangka dari `opener-konsep.md` |
 | `assets/starter-explainer.html` | EXPLAINER gaya aksi kontinu (vektor): mode aliran (strip + hero + objek dunia) + view peta + whip + contoh mode kolase |

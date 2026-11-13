@@ -530,6 +530,13 @@ yang cocok dengan produk; palet, latar, dan gaya tetap diturunkan dari brand (Hu
 - **Fokus kedalaman**: satu kartu membesar tajam, kartu lain mengecil dan buram.
 - **Layar terbelah UI / klaim**: belahan terang berisi potongan UI, belahan warna berisi
   klaim; belahan menutup menjadi zoom ke detail berikutnya.
+- **Dynamic Island**: pil gelap di tepi atas layar berubah wujud mengikuti status produk
+  (unggah → proses dengan progres → selesai, notifikasi masuk, sedang merekam); isi
+  mengembang dari pusat, angka berganti dengan roll + bump (`ui-motion.md`).
+- **Kartu bertumpuk**: kartu hasil/fitur/testimoni masuk satu per satu di atas tumpukan,
+  dikocok ke belakang, dibentangkan menjadi daftar, lalu ditumpuk lagi (`ui-motion.md`).
+- **Tombol morph**: tombol yang diklik menyusut jadi bulat + spinner, mekar jadi sukses dengan
+  centang yang digambar, atau mekar menjadi panel langkah berikutnya (`ui-motion.md`).
 
 **Layout** (angka titik tolak, bukan target)
 - Contoh: latar satu bidang abu sangat terang hampir di semua babak dan kartu UI putih
@@ -670,7 +677,8 @@ Transisi tanpa cut yang dibawa objek; melengkapi menu `techniques.md` §4c.
 - **Satu fitur didemokan**, sisanya kilasan 0,4 dtk di akhir.
 - **Kata berganti** di kalimat yang sama: "Edit ___" → foto / video / suara.
 - **Objek bertransformasi**: ikon/benda fitur A morph menjadi fitur B.
-- **Kartu dikocok atau dilempar** satu per satu dari tangan/tumpukan.
+- **Kartu dikocok atau dilempar** satu per satu dari tangan/tumpukan (Card Stack siap pakai
+  di `assets/ui-kit.html`).
 - **Orbit**: ikon fitur mengelilingi produk lalu masuk ke dalamnya.
 - **Mockup yang dipakai**: discroll/diklik, fitur menyala di tempatnya.
 - **Checklist diegetik** yang dicentang oleh aksi di dunia.
@@ -753,7 +761,8 @@ pintu yang sama.
 - **Logo lahir dari objek terakhir** (morph atau bentuk yang menutup).
 - **Kamera mundur**: dunia ternyata bentuk logo.
 - **Kata kunci kalimat terakhir digantikan logo**.
-- **CTA diegetik**: tombol di UI/benda dunia ditekan, bukan teks CTA melayang.
+- **CTA diegetik**: tombol di UI/benda dunia ditekan, bukan teks CTA melayang (Morph Button:
+  ditekan → spinner → sukses, `ui-motion.md`).
 - **Loop mulus**: frame akhir menyambung ke frame pertama.
 - **Diam tegas**: semua gerak berhenti bersamaan, satu kalimat, potong.
 - **Penerimaan**: benda pahlawan sudah tiba, tangan/kaki penerima masuk frame; brand cukup

@@ -41,6 +41,9 @@ html,body{margin:0;height:100%;background:#0a0a0a;overflow:hidden}
 .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(70% 62% at 50% 50%,transparent 55%,rgba(60,40,20,.28) 100%)}
 #dbg{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:none;gap:12px;align-items:center;padding:10px 16px;border-radius:14px;background:rgba(14,16,22,.9);color:#cfd5e3;font:13px system-ui;z-index:50}
 #dbg input{width:360px}#dbg span{font-variant-numeric:tabular-nums;min-width:6ch}
+/* render ekspor (?clean=1: snap.mjs, export-frames.mjs): will-change dimatikan — ia mengunci skala raster,
+   sehingga elemen yang di-zoom kamera tampak buram dan frame bergantung pada urutan seek. Preview real-time tetap memakainya. */
+.bm-export *{will-change:auto!important}
 </style>
 </head>
 <body>
@@ -135,8 +138,10 @@ tl.to({},{duration:.01},DUR);
 
 /* ---------- kontrol: autoplay + loop tanpa player; ?debug=1 panel; ?clean=1 export ---------- */
 const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src');let audioOn=false;
+if(q.has('clean'))document.documentElement.classList.add('bm-export');   // render ekspor: tanpa will-change (lihat CSS)
 function start(){tl.play(0);if(hasVO){vo.currentTime=0;vo.play().then(()=>audioOn=true).catch(()=>{});}}
 tl.eventCallback('onComplete',()=>start());
+gsap.ticker.add(()=>{if(!tl.paused()&&tl.time()>=DUR)start();});   // loop pasti: tween repeat:-1 (ayunan aset) membuat durasi timeline tak berujung sehingga onComplete tak pernah terpanggil
 gsap.ticker.add(()=>{if(!audioOn||tl.paused())return;if(Math.abs(vo.currentTime-tl.time())>.12)vo.currentTime=tl.time();});
 window.OPENER={W,H,DURATION:DUR,tl,ready:false,seek(t){tl.pause(t,false);applyCam();if(gsap.ticker.tick)gsap.ticker.tick();}   /* pause(t,false): callback onUpdate ikut jalan saat scrub/snapshot */,play:start};
 /* ================= FOOTAGE — layer video yang terikat timeline (seperti footage di After Effects) =================

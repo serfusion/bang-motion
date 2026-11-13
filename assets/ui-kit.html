@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="id">
+<!-- Made with the Bang Motion skill v1.20.0 by Bang Tutorial (https://youtube.com/bangtutorial) - MIT - https://github.com/bangtutorial/bang-motion -->
+<head>
+<meta charset="utf-8">
+<title>Bang Motion — UI Kit (Dynamic Island · Card Stack · Morph Button)</title>
+<!--
+  UI KIT — komponen UI bergerak untuk motion graphic: DYNAMIC ISLAND, CARD STACK, MORPH BUTTON.
+  Bukan starter dan bukan gaya: ini PERKAKAS yang ditempel ke index.html hasil starter mana pun.
+  Panduan lengkap (kapan dipakai, aturan, contoh): references/ui-motion.md.
+
+  Tiga bahan yang digabung — masing-masing menyumbang satu lapisan, bukan kulit jadi:
+    shadcn/ui  → STRUKTUR: token semantik (--ui-card, --ui-fg, --ui-muted, --ui-border, --ui-ring,
+                 --ui-r), garis tipis, ring fokus, kartu/badge/tombol yang rapi.          material "solid"
+    beUI       → GERAK: pegas fisik (stiffness/damping/mass) yang sama dengan sumber beUI, isi
+                 berganti lewat blur-crossfade ≤ 10 px, keluar lebih cepat dari masuk, kaca 20 px.   "glass"
+    Arc UI     → CAHAYA: permukaan gelap berlapis, rim gradien dua aksen, glow aksen,
+                 kurva ease Arc (--ease-out/in/standard).                                      "glow"
+
+  CARA PAKAI (deliverable tetap SATU index.html):
+    1. Salin blok CSS di antara  "UI-KIT CSS — mulai"  dan  "UI-KIT CSS — selesai"  ke <style>.
+    2. Salin blok JS  di antara  "UI-KIT JS — mulai"   dan  "UI-KIT JS — selesai"   ke <script>,
+       SETELAH baris `const tl = gsap.timeline({paused:true})`.
+    3. const UI = uiKit(tl);   lalu pakai UI.island / UI.stack / UI.morphButton (contoh di bawah).
+    4. Warna: komponen membaca --accent (→ --ui-primary) dan --accent-2 / --accent-lit (→ rim kedua)
+       dari style brief. Permukaan netral (shadcn) boleh diganti warna UI produk user.
+       Font UI: --ui-font = font UI PRODUK user (bukan font display).
+
+  PERAGA: file ini memutar katalog ±20 dtk. ?debug=1 = panel scrub · ?clean=1 = tanpa autoplay (export)
+          ?ui=light = tema terang · ?mat=solid|glass|glow = satu material untuk semua komponen.
+  Isi peraga (teks tentang shadcn/beUI/Arc) adalah KATALOG PERKAKAS, bukan adegan — jangan disalin
+  sebagai kerangka, palet, atau kalimat video.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ====================== UI-KIT CSS — mulai (salin sampai "UI-KIT CSS — selesai") ====================== */
+/* Token semantik ala shadcn, angka diskalakan untuk panggung 1080 (1 px shadcn ≈ 2–2,6 px di sini).
+   Brand masuk lewat --accent / --accent-2 (style brief); permukaan netral boleh diganti warna UI produk. */
+:root{
+  --ui-font:inherit;                                   /* GANTI: font UI produk user */
+  --ui-r:28px;                                         /* shadcn --radius .625rem × skala panggung */
+  --ui-r-sm:calc(var(--ui-r)*.6); --ui-r-md:calc(var(--ui-r)*.8); --ui-r-xl:calc(var(--ui-r)*1.4);
+  --ui-primary:var(--accent,#4d7ef7);                  /* brand: warna aksi, ring, glow */
+  --ui-accent-2:var(--accent-2,var(--accent-lit,#9567ff));   /* Arc: aksen kedua untuk rim gradien */
+  --ui-primary-fg:#fff;
+  --ui-ok:#34d399; --ui-err:#f04545;                   /* status (Arc) — hanya untuk makna status */
+  /* tema gelap (default): lapisan permukaan Arc + garis shadcn */
+  --ui-base:#0b0b10; --ui-card:#14141b; --ui-elev:#1b1b24;
+  --ui-fg:#ededf0; --ui-muted:#9698a2;
+  --ui-border:rgb(255 255 255 / .1);
+  --ui-ring:color-mix(in oklab,var(--ui-primary) 55%,transparent);
+  --ui-shade:var(--ui-base);                           /* penggelap kartu di belakang tumpukan */
+  --ui-shadow:0 2px 6px rgb(0 0 0 / .22),0 34px 80px -24px rgb(0 0 0 / .62);
+  --ui-glass:rgb(28 28 34 / .55); --ui-glass-rim:rgb(255 255 255 / .14);   /* beUI glass (gelap) */
+  --ui-island:#030305; --ui-island-fg:#fff; --ui-island-muted:rgb(255 255 255 / .6);
+}
+[data-ui="light"]{
+  --ui-base:#f4f4f5; --ui-card:#ffffff; --ui-elev:#ffffff;
+  --ui-fg:#18181b; --ui-muted:#71717a;
+  --ui-border:#e4e4e7;
+  --ui-shade:#ffffff;
+  /* Arc: di tema terang bayangan di-tint aksen, bukan hitam */
+  --ui-shadow:0 2px 6px rgb(0 0 0 / .06),0 34px 80px -30px color-mix(in oklab,var(--ui-primary) 45%,rgb(0 0 0 / .4));
+  --ui-glass:rgb(255 255 255 / .55); --ui-glass-rim:rgb(255 255 255 / .75);  /* beUI glass (terang) */
+}
+.bm-island,.bm-card,.bm-mbtn{font-family:var(--ui-font);font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;box-sizing:border-box}
+.bm-island *,.bm-card *,.bm-mbtn *{box-sizing:border-box}
+
+/* ---- MATERIAL: satu keluarga per video (techniques.md §7e), kecuali pergantiannya dijadikan momen ---- */
+[data-mat="solid"]{background:var(--ui-card);color:var(--ui-fg);border:2px solid var(--ui-border);box-shadow:var(--ui-shadow)}
+[data-mat="glass"]{background:var(--ui-glass);color:var(--ui-fg);border:2px solid var(--ui-glass-rim);
+  -webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
+  box-shadow:inset 0 2px 0 rgb(255 255 255 / .12),var(--ui-shadow)}
+[data-mat="glow"]{color:var(--ui-fg);border:2px solid transparent;
+  background:linear-gradient(var(--ui-card),var(--ui-card)) padding-box,
+    linear-gradient(135deg,color-mix(in oklab,var(--ui-primary) 92%,transparent),
+      color-mix(in oklab,var(--ui-fg) 12%,transparent) 34%,color-mix(in oklab,var(--ui-fg) 7%,transparent) 66%,
+      color-mix(in oklab,var(--ui-accent-2) 92%,transparent)) border-box;
+  box-shadow:0 0 72px -14px color-mix(in oklab,var(--ui-primary) 55%,transparent),var(--ui-shadow)}
+[data-mat="ink"]{background:var(--ui-island);color:var(--ui-island-fg);box-shadow:0 18px 44px -14px rgb(0 0 0 / .55)}
+
+/* ---- DYNAMIC ISLAND — lapisan LAYAR (anak langsung #stage, di luar rig kamera) ---- */
+.bm-island{position:absolute;left:50%;top:var(--island-top,40px);z-index:30;width:74px;height:74px;border-radius:37px;
+  overflow:hidden;opacity:0;display:grid;place-items:center;place-content:center;pointer-events:none}
+.bm-island>[data-view]{grid-area:1/1;opacity:0;color:inherit}
+.bm-island [data-part]{opacity:0}
+.bm-t{font-size:36px;font-weight:600;letter-spacing:-.012em;line-height:1.1;white-space:nowrap}
+.bm-s{font-size:30px;font-weight:500;line-height:1.15;white-space:nowrap;color:var(--ui-island-muted)}
+
+/* ---- CARD STACK — objek DUNIA (di dalam rig kamera); ukuran kartu tetap supaya spread terukur ---- */
+.bm-stack{position:relative;width:var(--card-w,600px);height:var(--card-h,250px)}
+.bm-card{position:absolute;inset:0;border-radius:var(--ui-r-xl);opacity:0}   /* TANPA will-change: ia mengunci skala raster → teks buram saat kamera zoom di ekspor */
+.bm-card::after{content:"";position:absolute;inset:-2px;border-radius:inherit;background:var(--ui-shade);
+  opacity:var(--dim,0);pointer-events:none}
+
+/* ---- MORPH BUTTON — wadah yang berubah ukuran; isi per keadaan [data-view], warna per [data-fill] ---- */
+.bm-anchor{position:absolute;width:0;height:0;display:grid;place-items:center;place-content:center}  /* titik pusat: wadah tumbuh simetris */
+.bm-mbtn{position:relative;flex:none;border-radius:58px;color:var(--ui-primary-fg)}
+.bm-mbtn>.bm-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;place-content:center}
+.bm-fill{position:absolute;inset:0;border-radius:inherit;opacity:0}
+.bm-fill[data-fill="primary"]{background:linear-gradient(180deg,color-mix(in oklab,var(--ui-primary) 82%,#fff),var(--ui-primary) 70%)}
+.bm-fill[data-fill="ok"]{background:linear-gradient(180deg,color-mix(in oklab,var(--ui-ok) 80%,#fff),var(--ui-ok) 70%)}
+.bm-fill[data-fill="err"]{background:var(--ui-err)}
+.bm-fill[data-fill="card"]{background:var(--ui-card)}
+.bm-mbtn [data-view]{grid-area:1/1;position:relative;z-index:100;display:flex;align-items:center;justify-content:center;
+  gap:18px;opacity:0;white-space:nowrap}   /* z-index: isi selalu di atas lapisan warna yang di-crossfade */
+.bm-mbtn [data-part]{opacity:0}
+.bm-ring{position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 8px var(--ui-ring);opacity:0;pointer-events:none}
+.bm-label{font-size:40px;font-weight:600;letter-spacing:-.012em}
+
+/* ---- bagian kecil yang dipakai ketiganya ---- */
+.bm-swap{display:inline-grid;justify-items:var(--swap-align,start)}
+.bm-swap>.bm-sw{grid-area:1/1;display:inline-block;white-space:nowrap}
+.bm-swap>.bm-sw.is-next{opacity:0}
+.bm-cc{display:inline-block;opacity:0}
+.bm-bar{display:block;height:12px;border-radius:6px;background:rgb(255 255 255 / .16);overflow:hidden;--p:0}
+.bm-bar>i{display:block;width:100%;height:100%;border-radius:inherit;transform-origin:0 50%;transform:scaleX(var(--p));
+  background:linear-gradient(90deg,var(--ui-primary),var(--ui-accent-2))}
+.bm-wave{display:flex;align-items:center;gap:7px;height:44px}
+.bm-wave>i{display:block;width:8px;height:100%;border-radius:4px;background:currentColor;transform:scaleY(.3)}
+.bm-spin{width:56px;height:56px;overflow:visible}
+.bm-spin circle{fill:none;stroke:currentColor;stroke-width:5.5;stroke-linecap:round}
+.bm-spin .trk{opacity:.25}.bm-spin .arc{stroke-dasharray:62 200}
+.bm-check{width:48px;height:48px;overflow:visible}
+.bm-check path{fill:none;stroke:currentColor;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+/* ====================== UI-KIT CSS — selesai ====================== */
+
+/* ---------------- PERAGA saja (bukan bagian kit) ---------------- */
+:root{--accent:#4d7ef7;--accent-2:#9567ff}   /* PLACEHOLDER peraga (aksen Arc). Proyek: dari style brief. */
+html,body{margin:0;height:100%;background:#050507;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;background:var(--ui-base);
+  font-family:"Geist",system-ui,sans-serif;color:var(--ui-fg);--ui-font:"Geist",system-ui,sans-serif}
+#world{position:absolute;inset:0;transform-origin:0 0}
+.bg{position:absolute;inset:0;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(40px)}
+.bg .b1{width:980px;height:980px;left:-160px;top:-260px;background:radial-gradient(circle,color-mix(in oklab,var(--ui-primary) 46%,transparent),transparent 66%)}
+.bg .b2{width:900px;height:900px;left:1080px;top:380px;background:radial-gradient(circle,color-mix(in oklab,var(--ui-accent-2) 42%,transparent),transparent 66%)}
+.bg .b3{width:720px;height:720px;left:560px;top:520px;background:radial-gradient(circle,color-mix(in oklab,var(--ui-primary) 24%,transparent),transparent 66%)}
+.bg .grid{position:absolute;inset:-40px;background-image:linear-gradient(var(--ui-border) 2px,transparent 2px),linear-gradient(90deg,var(--ui-border) 2px,transparent 2px);
+  background-size:96px 96px;opacity:.35;-webkit-mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent 80%);mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent 80%)}
+[data-ui="light"] .bg .grid{opacity:.7}
+.grain{position:absolute;inset:-60px;pointer-events:none;z-index:40;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig{position:absolute;inset:0;pointer-events:none;z-index:20;background:radial-gradient(80% 75% at 50% 50%,transparent 55%,rgb(0 0 0 / .35))}
+[data-ui="light"] .vig{background:radial-gradient(80% 75% at 50% 50%,transparent 60%,rgb(0 0 0 / .08))}
+/* isi kartu peraga (struktur kartu shadcn: baris badge + judul, ≤ 3 baris pendek = dibaca sebagai objek) */
+.card-in{position:absolute;inset:0;padding:38px 44px;display:flex;flex-direction:column;justify-content:space-between}
+.row{display:flex;align-items:center;justify-content:space-between}
+.chip{display:inline-flex;align-items:center;gap:12px;font-size:30px;font-weight:600;padding:8px 20px;border-radius:var(--ui-r-sm);
+  border:2px solid var(--ui-border);background:color-mix(in oklab,var(--ui-fg) 6%,transparent)}
+.chip i{width:16px;height:16px;border-radius:50%;background:var(--ui-primary);box-shadow:0 0 16px var(--ui-primary)}
+.meta{font-size:30px;font-weight:500;color:var(--ui-muted)}
+.ttl{font-size:46px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+/* isi island peraga */
+.isl-row{display:flex;align-items:center;gap:18px;padding:0 26px 0 12px}
+.isl-row .end{margin-left:auto}
+.ico{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;flex:none;
+  background:linear-gradient(140deg,var(--ui-primary),var(--ui-accent-2));color:#fff}
+.ico svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ico.ok{background:var(--ui-ok)}.ico.ok .bm-check{width:30px;height:30px}
+.ico.rec{background:none;width:30px;height:30px}.ico.rec::before{content:"";width:24px;height:24px;border-radius:50%;background:var(--ui-err);box-shadow:0 0 18px var(--ui-err)}
+.isl-big{display:grid;grid-template-columns:104px 1fr auto;grid-template-rows:1fr auto;column-gap:26px;row-gap:22px;align-items:center;padding:30px 40px 30px 28px}
+.isl-big .ico{width:104px;height:104px}.isl-big .ico svg{width:52px;height:52px}
+.isl-txt{display:flex;flex-direction:column;gap:6px}
+.isl-big .bm-bar{grid-column:1/4}
+/* isi tombol peraga */
+.arrow{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.panel{flex-direction:column;align-items:stretch!important;justify-content:flex-start!important;gap:22px!important;padding:44px 48px;color:var(--ui-fg);white-space:normal!important}
+.p-h{font-size:46px;font-weight:600;letter-spacing:-.02em;padding-bottom:10px;border-bottom:2px solid var(--ui-border)}
+.p-r{display:flex;align-items:center;gap:20px;font-size:36px;font-weight:500;padding:14px 0}
+.p-r i{width:20px;height:20px;border-radius:6px;flex:none}
+.p-r b{margin-left:auto;font-weight:500;font-size:32px;color:var(--ui-muted)}
+#dbg{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:none;gap:12px;align-items:center;padding:10px 16px;border-radius:14px;
+  background:rgba(14,16,22,.9);color:#cfd5e3;font:13px system-ui;z-index:50}
+#dbg input{width:360px}#dbg span{font-variant-numeric:tabular-nums;min-width:6ch}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="world">
+    <div class="bg"><i class="b1"></i><i class="b2"></i><i class="b3"></i><div class="grid"></div></div>
+
+    <!-- CARD STACK: kartu [0] = paling atas setelah semua di-push (push memasukkan dari urutan DOM) -->
+    <div class="bm-anchor" style="left:600px;top:600px">
+      <div class="bm-stack" id="stk">
+        <article class="bm-card" data-mat="glow"><div class="card-in">
+          <div class="row"><span class="chip"><i></i>Arc UI</span><span class="meta">glow</span></div>
+          <div class="ttl">Rim dua aksen, cahaya</div></div></article>
+        <article class="bm-card" data-mat="glass"><div class="card-in">
+          <div class="row"><span class="chip"><i></i>beUI</span><span class="meta">glass</span></div>
+          <div class="ttl">Pegas, blur &le; 10 px</div></div></article>
+        <article class="bm-card" data-mat="solid"><div class="card-in">
+          <div class="row"><span class="chip"><i></i>shadcn/ui</span><span class="meta">solid</span></div>
+          <div class="ttl">Token, garis, ring</div></div></article>
+      </div>
+    </div>
+
+    <!-- MORPH BUTTON: satu wadah, empat keadaan (idle → busy → done → panel) -->
+    <div class="bm-anchor" style="left:1330px;top:600px">
+      <div class="bm-mbtn" id="btn" data-mat="glow">
+        <i class="bm-ring"></i>
+        <div class="bm-clip">
+          <i class="bm-fill" data-fill="primary"></i><i class="bm-fill" data-fill="ok"></i><i class="bm-fill" data-fill="card"></i>
+          <span data-view="idle"><span data-part="main" class="bm-label">Gabungkan</span>
+            <svg data-part="trail" class="arrow" viewBox="0 0 40 40"><path d="M8 20h24M22 10l10 10-10 10"/></svg></span>
+          <span data-view="busy"><svg data-part="main" class="bm-spin" id="btnSpin" viewBox="0 0 48 48"><circle class="trk" cx="24" cy="24" r="19"/><circle class="arc" cx="24" cy="24" r="19"/></svg></span>
+          <span data-view="done"><svg data-part="lead" class="bm-check" id="btnCheck" viewBox="0 0 48 48"><path d="M11 25.5l8.5 8.5L37 15"/></svg>
+            <span data-part="main" class="bm-label">Tergabung</span></span>
+          <div data-view="panel" class="panel">
+            <div data-part="main" class="p-h">Satu bahasa gerak</div>
+            <div data-part="main" class="p-r"><i style="background:var(--ui-fg)"></i>Struktur<b>shadcn/ui</b></div>
+            <div data-part="main" class="p-r"><i style="background:var(--ui-primary)"></i>Gerak<b>beUI</b></div>
+            <div data-part="main" class="p-r"><i style="background:var(--ui-accent-2)"></i>Cahaya<b>Arc UI</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DYNAMIC ISLAND: lapisan layar (di luar #world) — tidak ikut zoom kamera -->
+  <div class="bm-island" id="isl" data-mat="ink">
+    <div data-view="count" class="isl-row">
+      <span data-part="lead" class="ico"><svg viewBox="0 0 28 28"><path d="M5 10l9-5 9 5-9 5z"/><path d="M5 15l9 5 9-5"/><path d="M5 20l9 5 9-5"/></svg></span>
+      <span data-part="main" class="bm-t">Bahan</span>
+      <span data-part="trail" class="bm-t end" id="islCount">1</span>
+    </div>
+    <div data-view="progress" class="isl-big">
+      <span data-part="lead" class="ico"><svg viewBox="0 0 28 28"><path d="M14 3v6M14 19v6M3 14h6M19 14h6M6.5 6.5l4 4M17.5 17.5l4 4M21.5 6.5l-4 4M10.5 17.5l-4 4"/></svg></span>
+      <span data-part="main" class="isl-txt"><span class="bm-t">Meracik material</span><span class="bm-s">struktur · gerak · cahaya</span></span>
+      <span data-part="trail" class="bm-t" id="islPct" style="min-width:3.4ch;text-align:right">0%</span>
+      <span data-part="main" class="bm-bar" id="islBar"><i></i></span>
+    </div>
+    <div data-view="done" class="isl-row">
+      <span data-part="lead" class="ico ok"><svg class="bm-check" id="islCheck" viewBox="0 0 48 48"><path d="M11 25.5l8.5 8.5L37 15"/></svg></span>
+      <span data-part="trail" class="bm-t end">Siap</span>
+    </div>
+    <div data-view="vo" class="isl-row">
+      <span data-part="lead" class="ico rec"></span>
+      <span data-part="main" class="bm-t">Rekam narasi</span>
+      <span data-part="trail" class="bm-wave end" id="islWave"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    </div>
+  </div>
+  <div class="vig"></div>
+  <div class="grain" id="grain"></div>
+  <div id="dbg"><button id="dPlay">Pause</button><input id="dScrub" type="range" min="0" max="1000" value="0"><span id="dClock">0.00s</span></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const W=1920,H=1080,DUR=20;
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const q=new URLSearchParams(location.search);
+if(q.get('ui')==='light')$('#stage').dataset.ui='light';
+if(/^(solid|glass|glow)$/.test(q.get('mat')||''))$$('.bm-card,.bm-mbtn').forEach(e=>e.dataset.mat=q.get('mat'));
+function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);fit();
+const tl=gsap.timeline({paused:true});
+
+/* ====================== UI-KIT JS — mulai (salin sampai "UI-KIT JS — selesai") ======================
+   Tempel SETELAH `const tl = gsap.timeline({paused:true})`, lalu:  const UI = uiKit(tl);
+   Semua gerak ditulis ke `tl` — tidak ada jam lain, tidak ada repeat:-1, tidak ada Math.random:
+   scrub, snap.mjs, dan export-frames.mjs tetap presisi (SKILL.md Hukum #2).
+   Panggil operasi tiap komponen URUT WAKTU (kit melacak keadaannya saat timeline dibangun). */
+function uiKit(tl,{tempo=1}={}){
+  const $=(s,r=document)=>typeof s==='string'?r.querySelector(s):s, $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const lin=p=>p;
+
+  /* ---- 1. PEGAS deterministik — fisika beUI/Framer (stiffness · damping · mass), solusi analitik ----
+     Durasi tidak ditebak: lahir dari pegasnya (waktu sampai sisa < 0,05 %). Ease dipakai GSAP biasa. */
+  const memo=new Map();
+  function curve(k,c,m){const key=k+'/'+c+'/'+m;if(memo.has(key))return memo.get(key);
+    const w0=Math.sqrt(k/m),z=c/(2*Math.sqrt(k*m));let x;
+    if(z<1-1e-6){const wd=w0*Math.sqrt(1-z*z);x=t=>1-Math.exp(-z*w0*t)*(Math.cos(wd*t)+(z*w0/wd)*Math.sin(wd*t));}
+    else if(z>1+1e-6){const s=w0*Math.sqrt(z*z-1),r1=-z*w0+s,r2=-z*w0-s;x=t=>1+(r2*Math.exp(r1*t)-r1*Math.exp(r2*t))/(r1-r2);}
+    else x=t=>1-Math.exp(-w0*t)*(1+w0*t);
+    let T=0;for(let t=0;t<10;t+=.001)if(Math.abs(x(t)-1)>5e-4)T=t;T=Math.max(T+.001,.05);
+    const rest=1-x(T);                                     // sisa kecil dilebur: tanpa loncatan di akhir
+    const o={ease:p=>p<=0?0:p>=1?1:x(p*T)+rest*p,settle:T,zeta:z};memo.set(key,o);return o;}
+  const SPRING={
+    press :{k:500,c:30,m:.6},    // beUI SPRING_PRESS  — tombol ditekan
+    swap  :{k:460,c:30,m:.55},   // beUI SPRING_SWAP   — label/ikon berganti
+    panel :{k:420,c:40,m:.5},    // beUI SPRING_PANEL  — panel/kartu masuk
+    layout:{k:360,c:32,m:.6},    // beUI SPRING_LAYOUT — wadah berubah ukuran (morph)
+    stack :{k:420,c:34,m:.75},   // beUI STACK_SPRING  — tumpukan menata ulang
+    island:{dur:.5,bounce:.28},  // ala Dynamic Island iOS — kenyal tipis
+    pop   :{dur:.55,bounce:.42}, // lencana/stiker meletup
+    expand:{dur:.62,bounce:.18}, // wadah berubah ukuran BESAR (tombol → panel): lebih tenang, kenyal tipis
+    calm  :{dur:.9,bounce:0}};   // benda besar / kamera — tanpa pantul
+  /* spring('layout') → {ease,duration} untuk di-spread ke tween: tl.to(el,{x:200,...UI.spring('layout')},t)
+     Bentuk lain: spring({k,c,m}) · spring({dur,bounce}) (pemetaan SwiftUI). tp = pengali tempo video. */
+  function spring(spec='layout',tp=tempo){const s=typeof spec==='string'?SPRING[spec]:spec;
+    if(!s)throw new Error('[ui-kit] pegas tidak dikenal: '+spec);
+    let k=s.k,c=s.c,m=s.m||1;
+    if(s.dur!=null){const b=s.bounce||0;m=1;k=(2*Math.PI/s.dur)**2;c=b>=0?4*Math.PI*(1-b)/s.dur:4*Math.PI/(s.dur*(1+b));}
+    const cv=curve(k,c,m);return {ease:cv.ease,duration:Math.round(cv.settle*tp*1000)/1000};}
+
+  /* ---- 2. KURVA cubic-bezier (tanpa plugin) — kurva Arc UI & beUI ---- */
+  function bez(x1,y1,x2,y2){const cx=3*x1,bx=3*(x2-x1)-cx,ax=1-cx-bx,cy=3*y1,by=3*(y2-y1)-cy,ay=1-cy-by;
+    const X=t=>((ax*t+bx)*t+cx)*t,Y=t=>((ay*t+by)*t+cy)*t,dX=t=>(3*ax*t+2*bx)*t+cx;
+    return p=>{if(p<=0)return 0;if(p>=1)return 1;let t=p;
+      for(let i=0;i<8;i++){const e=X(t)-p;if(Math.abs(e)<1e-7)return Y(t);const d=dX(t);if(Math.abs(d)<1e-6)break;t-=e/d;}
+      let lo=0,hi=1;t=p;for(let i=0;i<40;i++){const v=X(t);if(Math.abs(v-p)<1e-7)break;if(v<p)lo=t;else hi=t;t=(lo+hi)/2;}return Y(t);};}
+  const EASE={out:bez(.16,1,.3,1),      // Arc --ease-out (= beUI EASE_OUT): masuk, mekar
+              in:bez(.7,0,.84,0),       // Arc --ease-in: keluar — keluar selalu lebih cepat dari masuk
+              std:bez(.4,0,.2,1),       // Arc --ease-standard: ganti keadaan di tempat (warna, redup)
+              inOut:bez(.77,0,.175,1),  // beUI EASE_IN_OUT
+              drawer:bez(.32,.72,0,1),  // beUI EASE_DRAWER: laci/sheet
+              flick:bez(.25,.85,.3,1)}; // lemparan: kencang lalu melambat, tanpa loncatan di frame pertama
+
+  /* ---- 3. LINTASAN per properti — inti determinisme kit.
+     Tiap (elemen, properti) punya satu lintasan segmen. Segmen baru mulai dari nilai TERHITUNG lintasan
+     di detik itu (bukan nilai DOM), dan segmen lama yang masih berjalan DIPOTONG di titik itu. Maka tidak
+     ada dua tween yang menulis properti sama bersamaan: frame identik dari jalur scrub mana pun.
+     Kunci 'blur' = filter blur(px). Nilai awal didaftarkan lewat reg() sebelum dipakai. ---- */
+  const TR=new WeakMap();
+  /* lazy:false → render pertama langsung ditulis berurutan (bukan ditunda ke akhir tick);
+     force3D:false → tidak ada translate3d yang mempromosikan layer (raster beda / teks buram saat zoom) */
+  const FX={immediateRender:false,lazy:false};
+  /* blur memakai variabel numerik --bm-blur (GSAP tidak menginterpolasi string filter dengan andal) */
+  const P=k=>k==='blur'?'--bm-blur':k, F=(k,v)=>v, DOM=el=>el instanceof Element;
+  function reg(el,init){el=$(el);let m=TR.get(el);if(!m)TR.set(el,m={});const css=DOM(el)?{force3D:false}:{};
+    if('blur' in init&&DOM(el))el.style.filter='blur(calc(max(0,var(--bm-blur,0))*1px))';
+    for(const k in init){if(!(k in m))m[k]={t0:-1e9,d:0,a:init[k],b:init[k],e:lin,tw:null};css[P(k)]=F(k,m[k].b);}
+    gsap.set(el,css);return m;}
+  function val(el,k,t){const s=(TR.get(el)||{})[k];if(!s)return undefined;
+    if(t>=s.t0+s.d)return s.b;if(t<=s.t0)return s.a;return s.a+(s.b-s.a)*s.e((t-s.t0)/s.d);}
+  /* tween dibuat dengan gsap.fromTo + tl.add supaya rujukannya TWEEN (tl.fromTo mengembalikan timeline) */
+  const add=(el,from,to,at)=>{const tw=gsap.fromTo(el,from,{...to,...FX,...(DOM(el)?{force3D:false}:{})});tl.add(tw,at);return tw;};
+  function go(el,at,to,{ease=lin,duration=0}={}){el=$(el);const m=TR.get(el)||reg(el,{});
+    for(const k in to){const s=m[k];let a=val(el,k,at);if(a===undefined)a=to[k];
+      if(s&&s.tw&&s.d>0){
+        if(at<s.t0-1e-9)console.warn('[ui-kit] urutan waktu mundur pada properti '+k+' ('+at+' < '+s.t0+')');
+        else if(at<=s.t0+1e-9)tl.remove(s.tw);                                     // mulai bersamaan: diganti penuh
+        else if(at<s.t0+s.d-1e-9){tl.remove(s.tw);const f=(at-s.t0)/s.d,E=s.e,Ef=E(f);  // masih berjalan: potong di `at`
+          if(Math.abs(Ef)>1e-9)add(el,{[P(k)]:F(k,s.a)},{[P(k)]:F(k,s.a+(s.b-s.a)*Ef),duration:at-s.t0,ease:p=>E(p*f)/Ef},s.t0);}}
+      const tw=add(el,{[P(k)]:F(k,a)},{[P(k)]:F(k,to[k]),duration,ease},at);
+      m[k]={t0:at,d:duration,a,b:to[k],e:ease,tw};}
+    return at+duration;}
+  const put=(el,at,v)=>go(el,at,v,{duration:0});                                // lompat (set) yang tercatat di lintasan
+
+  /* morph(el, at, {w,h,r,x,y,scale}, 'layout') — wadah berubah ukuran dengan pegas */
+  function morph(el,at,s,spr='layout'){el=$(el);const v={};
+    if(s.w!=null)v.width=s.w;if(s.h!=null)v.height=s.h;if(s.r!=null)v.borderRadius=s.r;
+    if(s.x!=null)v.x=s.x;if(s.y!=null)v.y=s.y;if(s.scale!=null)v.scale=s.scale;
+    return go(el,at,v,spring(spr));}
+
+  /* ---- 4. ISI BERGANTI (beUI Action Swap): keluar cepat + blur ≤ 10 px, masuk dengan pegas.
+     [data-part="lead"|"trail"] mengembang dari / tersedot ke pusat wadah; "main" naik pelan. ---- */
+  const side=p=>p.dataset.part==='lead'?1:p.dataset.part==='trail'?-1:0;
+  const partsOf=face=>{const ps=$$('[data-part]',face);return ps.length?ps:[face];};
+  function regFace(face,on){const ps=$$('[data-part]',face);
+    if(ps.length){reg(face,{opacity:on?1:0});ps.forEach(p=>reg(p,{x:0,y:0,scale:1,opacity:on?1:0,blur:0}));}
+    else reg(face,{x:0,y:0,scale:1,opacity:on?1:0,blur:0});}
+  function faceIn(face,at,{stagger=.045,spr='swap',blur=8,travel=26}={}){
+    const ps=$$('[data-part]',face),list=partsOf(face),S=spring(spr),O={ease:EASE.out,duration:.32};
+    if(ps.length)put(face,at,{opacity:1});
+    list.forEach((p,i)=>{const s=side(p),t0=at+i*stagger;
+      put(p,t0,{x:s*travel,y:s?0:10,scale:.86,opacity:0,blur});
+      go(p,t0,{x:0,y:0,scale:1},S);go(p,t0,{opacity:1,blur:0},O);});
+    return at+(list.length-1)*stagger+S.duration;}
+  function faceOut(face,at,{dur=.16,blur=6,travel=18}={}){
+    const ps=$$('[data-part]',face);
+    partsOf(face).forEach(p=>{const s=side(p);go(p,at,{x:s*travel,y:s?0:-8,scale:.86,opacity:0,blur},{ease:EASE.in,duration:dur});});
+    if(ps.length)put(face,at+dur,{opacity:0});return at+dur;}
+  /* swapText(el, at, 'teks baru', {mode:'roll'|'blur'|'cascade', dir:1}) — angka/label berganti di tempat.
+     Semua lapisan teks dibuat saat build (deterministik); wadah selebar teks terpanjang → tidak bergeser. */
+  function swapText(el,at,text,{mode='roll',dir=1}={}){el=$(el);
+    if(!el._sw){const f=document.createElement('span');f.className='bm-sw';while(el.firstChild)f.appendChild(el.firstChild);
+      el.appendChild(f);el.classList.add('bm-swap');el._sw=[f];reg(f,{yPercent:0,scale:1,opacity:1,blur:0});}
+    const prev=el._sw[el._sw.length-1],next=document.createElement('span');next.className='bm-sw is-next';el.appendChild(next);el._sw.push(next);
+    const S=spring('swap'),O={ease:EASE.out,duration:.3},yo=mode==='blur'?0:70*dir;
+    go(prev,at,{yPercent:-yo,opacity:0,blur:5},{ease:EASE.in,duration:.18});
+    if(mode==='cascade'){reg(next,{opacity:0});put(next,at+.06,{opacity:1});
+      [...text].forEach((ch,i)=>{const c=document.createElement('span');c.className='bm-cc';c.textContent=ch===' '?' ':ch;next.appendChild(c);
+        reg(c,{yPercent:80*dir,opacity:0,blur:5});const t=at+.06+i*.028;go(c,t,{yPercent:0},S);go(c,t,{opacity:1,blur:0},O);});}
+    else{next.textContent=text;reg(next,{yPercent:yo,scale:mode==='blur'?.94:1,opacity:0,blur:7});
+      go(next,at+.06,{yPercent:0,scale:1},S);go(next,at+.06,{opacity:1,blur:0},O);}}
+
+  /* ---- 5. ISI HIDUP deterministik (fungsi waktu timeline) ---- */
+  function count(el,at,dur,{from=0,to=100,fmt=v=>Math.round(v),ease=EASE.std}={}){el=$(el);const o={v:from};
+    tl.fromTo(o,{v:from},{v:to,duration:dur,ease,...FX,onUpdate(){el.textContent=fmt(o.v);}},at);}
+  function fill(el,at,dur,{from=0,to=1,ease=EASE.std}={}){reg(el,{'--p':from});put(el,at,{'--p':from});go(el,at,{'--p':to},{ease,duration:dur});}
+  function spin(el,at,dur,{turns=dur*1.3}={}){reg(el,{rotation:0});put(el,at,{rotation:0});go(el,at,{rotation:360*turns},{ease:lin,duration:dur});}
+  function wave(el,at,dur){const bs=$$('i',$(el)),o={t:0};
+    tl.fromTo(o,{t:0},{t:dur,duration:dur,ease:'none',...FX,onUpdate(){const t=o.t;
+      bs.forEach((b,i)=>{const v=.26+.74*Math.abs(Math.sin(t*(4.3+i*1.7)+i*1.31)*Math.sin(t*(1.9+i*.83)+i));b.style.transform=`scaleY(${v.toFixed(3)})`;});}},at);}
+  function draw(path,at,dur=.45){path=$(path);const L=path.getTotalLength();gsap.set(path,{strokeDasharray:L});
+    reg(path,{strokeDashoffset:L});go(path,at,{strokeDashoffset:0},{ease:EASE.out,duration:dur});}
+  /* drift: napas halus yang SELESAI di `to` (bukan repeat:-1 — itu membuat timeline tak berujung).
+     Pasang di PEMBUNGKUS, bukan di elemen yang juga digerakkan kit. */
+  function drift(el,from,to,{y=-10,period=3.2}={}){const n=Math.max(1,Math.round((to-from)/period)),d=(to-from)/(2*n);
+    tl.fromTo($(el),{y:0},{y,duration:d,ease:'sine.inOut',yoyo:true,repeat:2*n-1,...FX},from);}
+  const order=(o,at,name)=>{if(at<o.last-1e-6)console.warn(`[ui-kit] ${name}: panggil urut waktu (${at} < ${o.last})`);o.last=at;};
+
+  /* ---- 6. DYNAMIC ISLAND — satu pil yang berubah wujud; isi tiap keadaan di [data-view] ----
+     island('#isl', {views:{nama:{w,h,r?}}})  →  .show(at, view) · .to(at, view) · .bump(at) · .hide(at)
+     Tampilan "pill" (252×74, tanpa isi) selalu ada. r bawaan = min(h/2, 64). */
+  function island(sel,{views={},spr='island'}={}){const el=$(sel);
+    const V={pill:{w:252,h:74},...views},R=v=>v.r!=null?v.r:Math.min(v.h/2,64),st={last:-1e9},faces={};
+    $$(':scope>[data-view]',el).forEach(f=>{faces[f.dataset.view]=f;const v=V[f.dataset.view];
+      if(v){f.style.width=v.w+'px';f.style.height=v.h+'px';}regFace(f,false);});
+    gsap.set(el,{xPercent:-50});
+    const p0=V.pill;reg(el,{width:p0.h,height:p0.h,borderRadius:p0.h/2,y:-140,scale:.6,opacity:0});let cur=null;
+    const api={el,get view(){return cur;},
+      show(at,view='pill'){order(st,at,'island.show');const v=V[view];
+        go(el,at,{opacity:1},{ease:EASE.out,duration:.2});go(el,at,{y:0,scale:1},spring('pop'));
+        go(el,at+.16,{width:v.w,height:v.h,borderRadius:R(v)},spring(spr));
+        if(faces[view])faceIn(faces[view],at+.26);cur=view;return api;},
+      to(at,view,{spring:s=spr}={}){order(st,at,'island.to');const v=V[view];
+        if(!v)throw new Error('[ui-kit] island: tampilan tak dikenal '+view);if(view===cur)return api;
+        if(cur&&faces[cur])faceOut(faces[cur],at);
+        go(el,at+.04,{width:v.w,height:v.h,borderRadius:R(v)},spring(s));
+        if(faces[view])faceIn(faces[view],at+.13);cur=view;return api;},
+      bump(at,amt=1.05){order(st,at,'island.bump');go(el,at,{scale:amt},{ease:EASE.out,duration:.1});go(el,at+.1,{scale:1},spring('press'));return api;},
+      hide(at){order(st,at,'island.hide');if(cur&&faces[cur])faceOut(faces[cur],at);
+        const d=V.pill.h;go(el,at+.08,{width:d,height:d,borderRadius:d/2},spring(spr));
+        go(el,at+.42,{y:-140,scale:.6},{ease:EASE.in,duration:.32});go(el,at+.62,{opacity:0},{ease:EASE.in,duration:.12});cur=null;return api;}};
+    return api;}
+
+  /* ---- 7. CARD STACK — tumpukan dengan kedalaman; menata ulang dengan pegas tumpukan beUI ----
+     stack('#stk', {gap, step, depth, peek:'up'|'down', dim})  →  .push(at) · .next(at,{dir,cycle}) ·
+     .spread(at,{gap}) · .collapse(at). Kartu masuk dari urutan DOM; yang terakhir di-push = paling atas. */
+  function stack(sel,{gap=30,step=.06,depth=3,peek='up',dim=.3,spr='stack'}={}){
+    const root=$(sel),pool=$$(':scope>.bm-card',root),ord=[],sg=peek==='up'?-1:1,st={last:-1e9};
+    pool.forEach(c=>reg(c,{x:0,y:0,scale:1,rotation:0,opacity:0,'--dim':0,zIndex:0,blur:0}));
+    const slot=k=>({y:sg*k*gap,scale:1-k*step,opacity:k<depth?1:0,dim:Math.min(k,depth)*dim});
+    const FADE={ease:EASE.std,duration:.32};
+    function settle(at,{skip,stagger=.035,s=spr}={}){ord.forEach((c,k)=>{if(c===skip)return;const S=slot(k),t=at+k*stagger;
+      put(c,at,{zIndex:60-k});go(c,t,{x:0,y:S.y,scale:S.scale,rotation:0},spring(s));go(c,t,{opacity:S.opacity,'--dim':S.dim},FADE);});}
+    const api={root,get order(){return ord.slice();},
+      push(at,card){order(st,at,'stack.push');const c=card?$(card):pool.shift();if(card){const i=pool.indexOf(c);if(i>=0)pool.splice(i,1);}
+        if(!c)throw new Error('[ui-kit] stack.push: tidak ada kartu tersisa');ord.unshift(c);
+        put(c,at,{zIndex:61,x:0,y:-sg*150,scale:1.05,rotation:0,'--dim':0,blur:8});
+        go(c,at,{y:0,scale:1},spring('panel'));go(c,at,{opacity:1,blur:0},{ease:EASE.out,duration:.34});
+        settle(at+.05,{skip:c});return api;},
+      next(at,{dir=1,cycle=true}={}){order(st,at,'stack.next');const c=ord.shift();if(!c)return api;
+        go(c,at,{x:dir*620,y:sg*-30,rotation:dir*13,scale:1},{ease:EASE.flick,duration:.5});  // dilempar: cepat lalu melambat
+        go(c,at,{blur:4},{ease:EASE.out,duration:.08});go(c,at+.08,{blur:0},{ease:EASE.out,duration:.32});   // kabur sesaat di kecepatan puncak
+        if(cycle){ord.push(c);const S=slot(ord.length-1);put(c,at+.3,{zIndex:60-ord.length});
+          go(c,at+.4,{x:0,y:S.y,rotation:0,scale:S.scale},spring(spr));go(c,at+.4,{opacity:S.opacity,'--dim':S.dim},FADE);}
+        else go(c,at+.1,{opacity:0},{ease:EASE.in,duration:.3});
+        settle(at+.1,{skip:c});return api;},
+      spread(at,{gap:g=24,stagger=.05}={}){order(st,at,'stack.spread');const hs=ord.map(c=>c.offsetHeight);
+        const tot=hs.reduce((a,b)=>a+b,0)+g*(ord.length-1);let y=-tot/2+hs[0]/2;
+        ord.forEach((c,k)=>{const t=at+k*stagger;put(c,at,{zIndex:60-k});
+          go(c,t,{x:0,y,scale:1,rotation:0},spring('layout'));go(c,t,{opacity:1,'--dim':0},FADE);
+          y+=hs[k]/2+g+(hs[k+1]||0)/2;});return api;},
+      collapse(at){order(st,at,'stack.collapse');settle(at,{stagger:.03});return api;}};
+    return api;}
+
+  /* ---- 8. MORPH BUTTON — tombol yang berubah wujud: label → bulat + spinner → sukses → panel ----
+     morphButton('#btn', {states:{nama:{w,h,r?,fill?}}})  →  .press(at) · .to(at, nama) · .el
+     Keadaan pertama = keadaan awal. Isi per keadaan [data-view="nama"]; warna per keadaan
+     .bm-fill[data-fill] (crossfade lapisan — bukan tween warna, jadi gradien/color-mix aman). */
+  function morphButton(sel,{states,spr='layout'}={}){const el=$(sel),st={last:-1e9},faces={},fills={};
+    const names=Object.keys(states);let cur=names[0],curFill=states[cur].fill,z=1;const R=s=>s.r!=null?s.r:s.h/2,s0=states[cur];
+    $$('[data-view]',el).forEach(f=>{faces[f.dataset.view]=f;const s=states[f.dataset.view];
+      if(s){f.style.width=s.w+'px';f.style.height=s.h+'px';}regFace(f,f.dataset.view===cur);});
+    $$('.bm-fill',el).forEach(f=>{fills[f.dataset.fill]=f;reg(f,{opacity:f.dataset.fill===curFill?1:0,zIndex:0});});
+    reg(el,{width:s0.w,height:s0.h,borderRadius:R(s0),scale:1});
+    const ring=$('.bm-ring',el);if(ring)reg(ring,{opacity:0,scale:1});
+    const api={el,get state(){return cur;},
+      press(at,{depth=.94}={}){order(st,at,'button.press');go(el,at,{scale:depth},{ease:EASE.in,duration:.09});go(el,at+.09,{scale:1},spring('press'));
+        if(ring){put(ring,at+.04,{opacity:.95,scale:1});go(ring,at+.04,{opacity:0,scale:1.14},{ease:EASE.out,duration:.6});}return api;},
+      to(at,name,{spring:s}={}){order(st,at,'button.to');const S=states[name],C=states[cur];
+        if(!S)throw new Error('[ui-kit] morphButton: keadaan tak dikenal '+name);if(name===cur)return api;
+        if(faces[cur])faceOut(faces[cur],at);
+        const big=Math.max(S.w/C.w,C.w/S.w,S.h/C.h,C.h/S.h)>2.2;           // perubahan besar (tombol ↔ panel) → pegas expand
+        go(el,at+.03,{width:S.w,height:S.h,borderRadius:R(S)},spring(s||(big?'expand':spr)));
+        if(S.fill&&S.fill!==curFill&&fills[S.fill]){const nf=fills[S.fill],of=fills[curFill];
+          put(nf,at,{zIndex:++z,opacity:0});go(nf,at,{opacity:1},{ease:EASE.std,duration:.34});
+          if(of)put(of,at+.34,{opacity:0});curFill=S.fill;}
+        if(faces[name])faceIn(faces[name],at+.1);cur=name;return api;}};
+    return api;}
+
+  return {spring,SPRING,bez,EASE,lin,morph,go,put,reg,val,faceIn,faceOut,swapText,count,fill,spin,wave,draw,drift,island,stack,morphButton};
+}
+/* ====================== UI-KIT JS — selesai ====================== */
+
+/* ===================== PERAGA — katalog perkakas, BUKAN urutan adegan ===================== */
+const UI=uiKit(tl);
+/* kamera dunia: ukuran shot (techniques.md §3b); island di lapisan layar tidak ikut */
+const world=$('#world'),CAM={s:1,fx:W/2,fy:H/2};UI.reg(CAM,{s:1,fx:W/2,fy:H/2});
+const shot=(at,dur,s,fx,fy,ease=UI.EASE.inOut)=>UI.go(CAM,at,{s,fx,fy},{ease,duration:dur});
+
+const isl=UI.island('#isl',{views:{count:{w:440,h:74},progress:{w:800,h:208},done:{w:330,h:74},vo:{w:640,h:74}}});
+const stk=UI.stack('#stk',{gap:34,step:.065,depth:3});
+const tombol=UI.morphButton('#btn',{states:{
+  idle :{w:430,h:116,fill:'primary'},
+  busy :{w:116,h:116,fill:'primary'},
+  done :{w:410,h:116,fill:'ok'},
+  panel:{w:640,h:500,r:46,fill:'card'}}});
+
+isl.show(.4);
+stk.push(1.0);                isl.to(1.0,'count');
+stk.push(1.65);               UI.swapText('#islCount',1.7,'2');isl.bump(1.7);
+stk.push(2.3);                UI.swapText('#islCount',2.35,'3');isl.bump(2.35);
+stk.next(3.4,{dir:1});
+stk.next(4.3,{dir:-1});
+shot(5.0,.9,1.1,600,527);                                     // daftar terbentang tidak masuk ke bawah island
+stk.spread(5.3);
+stk.collapse(7.4);            shot(7.4,.9,1,W/2,H/2);
+shot(8.5,.85,1.55,1330,600);                                   // kamera mendekat SEBELUM klik (techniques.md §8)
+tombol.press(9.4);
+tombol.to(9.55,'busy');          UI.spin('#btnSpin',9.6,2.1);
+isl.to(9.7,'progress');       UI.fill('#islBar',10,1.6);UI.count('#islPct',10,1.6,{fmt:v=>Math.round(v)+'%'});
+tombol.to(11.7,'done');          UI.draw('#btnCheck path',11.85);
+isl.to(11.8,'done');          UI.draw('#islCheck path',11.95);
+shot(12.6,1.0,1.12,1180,580);                                  // mundur: hasilnya terlihat bersama konteks
+tombol.press(13.2);
+tombol.to(13.35,'panel');
+isl.to(13.5,'pill');
+isl.to(15.2,'vo');            UI.wave('#islWave',15.25,2.4);
+tombol.to(16.9,'idle');
+shot(17.4,1.0,1,W/2,H/2);
+isl.to(17.8,'pill');
+stk.next(18.2,{dir:1,cycle:false});stk.next(18.45,{dir:-1,cycle:false});stk.next(18.7,{dir:1,cycle:false});
+isl.hide(18.9);
+tl.to({},{duration:.01},DUR);
+
+/* latar & kamera: fungsi murni dari tl.time(); periode membagi DUR → loop mulus */
+const blobs=$$('.bg i'),grain=$('#grain'),TAU=Math.PI*2;
+function render(){const t=tl.time(),w=TAU/DUR;
+  blobs.forEach((b,i)=>{b.style.transform=`translate(${(Math.sin(t*w*(i+1)+i*2.1)*90).toFixed(1)}px,${(Math.cos(t*w*(i+2)+i)*60).toFixed(1)}px)`;});
+  const k=Math.floor(t*12);grain.style.transform=`translate(${k*37%60-30}px,${k*61%60-30}px)`;
+  const s=CAM.s*(1+.006*Math.sin(t*w*3));let tx=W/2-CAM.fx*s,ty=H/2-CAM.fy*s;
+  tx=Math.min(0,Math.max(W-W*s,tx));ty=Math.min(0,Math.max(H-H*s,ty));
+  world.style.transform=`translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) scale(${s.toFixed(4)})`;}
+gsap.ticker.add(render);
+
+/* ---------- kontrol: autoplay + loop tanpa player; ?debug=1 panel; ?clean=1 export ---------- */
+function start(){tl.play(0);}
+tl.eventCallback('onComplete',start);
+gsap.ticker.add(()=>{if(!tl.paused()&&tl.time()>=DUR)start();});   // jaga loop walau ada tween berulang
+window.OPENER={W,H,DURATION:DUR,tl,ready:false,UI,seek(t){tl.pause(t,false);render();},play:start};
+addEventListener('keydown',e=>{if(/^[rR]$/.test(e.key))start();if(e.code==='Space'){e.preventDefault();tl.paused()?tl.play():tl.pause();}});
+if(q.has('debug')){const dbg=$('#dbg');dbg.style.display='flex';const sc=$('#dScrub'),ck=$('#dClock');let drag=false;
+  gsap.ticker.add(()=>{if(!drag)sc.value=String(tl.time()/DUR*1000);ck.textContent=tl.time().toFixed(2)+'s';$('#dPlay').textContent=tl.paused()?'Play':'Pause';});
+  sc.addEventListener('pointerdown',()=>{drag=true;tl.pause();});addEventListener('pointerup',()=>drag=false);
+  sc.addEventListener('input',()=>{tl.pause();tl.time(sc.value/1000*DUR);});$('#dPlay').onclick=()=>tl.paused()?tl.play():tl.pause();}
+document.fonts.ready.then(()=>{render();window.OPENER.ready=true;if(!q.has('clean'))start();});
+</script>
+</body>
+</html>

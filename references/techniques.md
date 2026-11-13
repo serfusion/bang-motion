@@ -7,6 +7,7 @@ bukan hukum. Font, warna, dan konten selalu milik brand user.
 
 1. Tipografi hidup (split per huruf, penekanan & sorotan opsional, arah bergantian) + 1b. Kontras latar
 2. Motion blur berarah (pembeda utama dari "web animation")
+2b. Pegas & morph — supaya tidak kaku
 3. Kamera: push-through (opsional, termotivasi)
 3b. Ukuran shot: kamera ke elemen (wide ↔ medium close-up ↔ close-up)
 4. Kamera: pan 3D menyusur kalimat per kata
@@ -162,6 +163,34 @@ blur.setAttribute('stdDeviation', `${v} ${v*0.08}`);   // gerak horizontal
 
 Pasang filter saat tween mulai, LEPAS saat selesai (`filter:'none'`) —
 elemen yang terus memakai filter SVG dirasterisasi ulang tiap frame, mahal.
+
+## 2b. Pegas & morph — supaya tidak kaku
+
+Animasi yang "kaku" biasanya bukan kekurangan efek, melainkan cara benda mulai, berhenti,
+dan berganti: semua gerak memakai `power4.out` dengan durasi sama, elemen baru muncul di
+tempat elemen lama yang baru hilang, masuk dan keluar sama cepat, semua benda memantul.
+Tabel diagnosis lengkap ada di `ui-motion.md`. Ringkasnya:
+
+- **Durasi dari massa, bukan dari kebiasaan.** Pegas teredam (`UI.spring` di
+  `assets/ui-kit.html`) memberi durasi yang lahir dari fisikanya: tombol ditekan selesai
+  ±0,3 dtk, panel mendarat ±0,6 dtk, benda besar ±1,4 dtk. Ease biasa tetap sah untuk
+  gerak yang memang bukan benda (sapuan cahaya, garis menggambar).
+- **Morph, bukan ganti.** Satu wadah berubah ukuran/bentuk/warna; isi lama keluar 0,16 dtk
+  (ease-in, blur 6 px), isi baru mengembang dari pusat wadah dengan pegas, blur ≤ 10 px.
+- **Irisan, bukan antrean.** Gerak berikut mulai saat yang lama di 60–80 %; anak menyusul
+  induk 40–100 ms (cascade), sehingga tidak ada momen "semua berhenti".
+- **Pantul untuk benda fisik saja** (pil, lencana, stiker, island) 0–30 %; teks, isi kartu,
+  dan kamera tanpa pantul.
+
+```js
+const UI = uiKit(tl);                                   // blok JS dari assets/ui-kit.html
+tl.fromTo('#stiker', {scale:0}, {scale:1, ...UI.spring('pop'), immediateRender:false}, 4.2);
+UI.go('#kartu', 5.0, {y:0, rotation:0}, UI.spring('panel'));   // lewat lintasan: aman beririsan
+```
+`UI.go` memotong tween lama pada properti yang sama di titik tween baru mulai, jadi frame
+tetap identik dari jalur scrub mana pun (Hukum #2). Tween manual yang beririsan pada
+properti yang sama tidak punya jaminan itu: saat di-scrub mundur, yang menang tween yang
+lebih awal.
 
 ## 3. Kamera: push-through (opsional, termotivasi)
 
@@ -572,6 +601,11 @@ hidup, dan transisi yang dibawa UI (panel mekar, lencana menyusut, karusel jende
 panduan layout-warna-ritme dan menu gerak di `opener-konsep.md` bagian "Animasi UI
 untuk app & SaaS".
 
+**Komponen UI bergerak** — Dynamic Island (status di tepi atas layar), Card Stack (kartu
+bertumpuk yang dikocok, dibentangkan, ditumpuk lagi), dan Morph Button (tombol → spinner →
+sukses → panel) siap tempel di `assets/ui-kit.html`, dengan material `solid` (shadcn),
+`glass` (beUI), atau `glow` (Arc). Aturan pakai dan larangannya di `ui-motion.md`.
+
 **Kamera mengikuti interaksi UI** — supaya demo tidak statis dan jelas apa yang diklik.
 UI penuh di frame dengan hanya kursor yang bergerak terasa seperti rekaman layar diam, dan
 klik yang kecil tidak terbaca. Bila sebuah klik penting untuk cerita, kamera ikut:
@@ -688,3 +722,7 @@ tl.fromTo('#box1', {scale:.8}, {scale:1, duration:1, ease:'power3.out', immediat
 | Huruf/pill "flash" sesaat sebelum animasi masuknya | `tl.set(el,{autoAlpha:1})` lalu `fromTo(...immediateRender:false)` mulai beberapa frame kemudian — di antaranya elemen tampil penuh | state awal `.ch`, `.hl-t`, tanda baca = `opacity:0` DI CSS, bukan hanya pembungkusnya |
 | Kartu kontrol/teks bergetar lebarnya saat angka berjalan | digit proporsional (1 lebih sempit dari 8) | `font-variant-numeric:tabular-nums` + `min-width` pada elemen angka |
 | Screenshot scrub tertinggal satu langkah / tidak sinkron | GSAP menulis gaya secara lazy di tick berikutnya dan kanvas menunggu rAF (yang dithrottle di tab tersembunyi) | sediakan `OPENER.seek(t)` = `tl.pause(); tl.time(t); gsap.ticker.tick(); render(t)` dan pakai itu dari puppeteer/konsol |
+| Video tidak pernah mengulang; setelah detik terakhir hanya aset yang bergoyang | tween `repeat:-1` (ayunan, kedip) membuat durasi timeline ±10¹⁰ dtk, `onComplete` tak pernah terpanggil | penjaga loop di ticker: `if(!tl.paused()&&tl.time()>=DUR)start()` (sudah di semua starter); atau `repeat` terhitung yang selesai di `DUR` (`UI.drift`) |
+| Close-up tajam di browser tetapi buram di MP4; frame ekspor ≠ frame scrub | `will-change:transform` mengunci skala raster di skala saat layer dibuat; ekspor memutar berurutan sehingga zoom kamera memperbesar raster lama | jangan pasang `will-change` pada elemen yang di-zoom kamera; starter mematikannya saat `?clean=1` (kelas `bm-export`) |
+| Frame berbeda bila di-scrub mundur dibanding diputar maju | dua tween pada properti yang sama beririsan: saat mundur, GSAP merender anak dari belakang sehingga tween yang lebih awal menang | jangan biarkan beririsan, atau pakai `UI.go` yang memotong tween lama; `lazy:false` + `force3D:false` untuk tween yang harus presisi |
+| `kill()` mematikan seluruh animasi | `tl.to/fromTo()` mengembalikan TIMELINE untuk chaining, bukan tween | buat tween dengan `gsap.fromTo()` lalu `tl.add(tw, at)`; hapus dengan `tl.remove(tw)` |
